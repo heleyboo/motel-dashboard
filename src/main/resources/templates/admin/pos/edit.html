@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" layout:decorate="~{layouts/admin}">
+<head>
+<title>Thông tin chi tiết máy POS</title>
+<th:block layout:fragment="styles">
+	<link rel="stylesheet"
+		th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/plugins/select2/css/select2.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+</th:block>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>Thông tin chi tiết máy POS</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active">Thông tin chi tiết máy POS</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- left column -->
+					<div class="col-md-12">
+						<!-- jquery validation -->
+						<form autocomplete="off" action="#"
+							th:action="@{'/administrator/pos/update/' + ${pos.code}}" th:object="${pos}"
+							method="post" class="form-horizontal" role="form">
+							<div class="card card-default">
+								<div class="card-header">
+									<h3 class="card-title">Thông tin chi tiết máy POS</h3>
+									<div class="btn-group float-right">
+										<button type="submit" class="btn btn-info">
+											<i class="fas fa-save"></i> Cập nhật
+										</button>
+										<a th:href="@{/administrator/pos/list}"
+											class="btn btn-success"><i class="fas fa-angle-left"></i>
+											Quay lại</a>
+									</div>
+								</div>
+								<!-- /.card-header -->
+								<!-- form start -->
+
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+
+											<div class="form-group">
+												<label for="bank">Ngân hàng</label> <select
+													th:field="*{bank}" class="form-control">
+													<option value="">Ngân hàng</option>
+													<th:block th:each="bank: ${banks}">
+														<option th:value="${bank.id}" th:text="${bank.name}"></option>
+													</th:block>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="store">Cửa hàng</label> <select
+													th:field="*{store}" class="form-control">
+													<option value="">Cửa hàng</option>
+													<th:block th:each="store: ${stores}">
+														<option th:value="${store.id}" th:text="${store.name}"></option>
+													</th:block>
+												</select>
+											</div>
+
+											<div class="form-group">
+												<label for="code">Mã máy POS</label> <input type="text"
+													th:field="*{code}" class="form-control"
+													disabled="disabled" /> <span
+													th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+												<label for="name">Tên máy</label> <input type="text"
+													th:field="*{name}" placeholder="Tên máy"
+													class="form-control" /> <span
+													th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+												<label for="limit">Hạn mức giao dịch</label> <input
+													type="text" th:field="*{limit}" placeholder="Hạn mức"
+													class="form-control" /> <span
+													th:if="${#fields.hasErrors('limit')}" th:errors="*{limit}"
+													id="code-error" class="error error-field"></span>
+											</div>
+
+											<div class="form-group">
+												<label for="startDate">Ngày bắt đầu vận hành</label> <input
+													type="date" th:field="*{startDate}" class="form-control" />
+												<span th:if="${#fields.hasErrors('startDate')}"
+													th:errors="*{startDate}" id="code-error"
+													class="error error-field"></span>
+											</div>
+											<div class="form-group">
+												<label for="bank">Ngày kết thúc vận hành</label> <input
+													type="date" th:field="*{endDate}" class="form-control" />
+												<span th:if="${#fields.hasErrors('endDate')}"
+													th:errors="*{endDate}" id="code-error"
+													class="error error-field"></span>
+											</div>
+
+											<div class="form-group">
+												<label for="note">Ghi chú</label>
+												<textarea rows="5" th:field="*{note}" class="form-control"></textarea>
+											</div>
+											
+											<div class="form-group">
+												<input type="checkbox" id="active" class="form-check-input" th:field="*{active}" th:checked="${pos.active}" data-bootstrap-switch />
+												<label for="active" class="form-check-label" th:text="#{global.active}"></label>
+											</div>
+											
+										</div>
+									</div>
+
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer">
+									<div class="btn-group float-right">
+										<button type="submit" class="btn btn-info">
+											<i class="fas fa-save"></i> Cập nhật
+										</button>
+										<a th:href="@{/administrator/pos/list}"
+											class="btn btn-success"><i class="fas fa-angle-left"></i>
+											Quay lại</a>
+									</div>
+								</div>
+
+							</div>
+							<!-- /.card -->
+						</form>
+					</div>
+					<!--/.col (left) -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+</body>
+<th:block layout:fragment="scripts">
+	<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+	<script
+		th:src="@{/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</th:block>
+</html>

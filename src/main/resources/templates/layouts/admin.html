@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECommerce</title>
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome Icons -->
+<th:block layout:fragment="styles"></th:block>
+<link rel="stylesheet"
+	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="layout-navbar-fixed control-sidebar-slide-open sidebar-mini layout-footer-fixed layout-fixed">
+	<div class="wrapper">
+		<!-- Navbar -->
+		<div th:replace="fragments/navbar :: navbar"></div>
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div layout:fragment="content"></div>
+
+		<!-- Main Footer -->
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+	<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

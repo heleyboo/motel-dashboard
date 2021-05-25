@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" layout:decorate="~{layouts/admin}">
+<head>
+<title th:text="#{user.list}"></title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 th:text="#{user.list}"></h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+							<li class="breadcrumb-item active" th:text="#{user.list}"></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">User List</h3>
+								<div class="btn-group float-right">
+									<a th:href="@{/administrator/user/create}" class="btn btn-success"><i
+										class="fas fa-plus"></i> 
+										<span th:text="#{global.add}"></span>
+										</a>
+								</div>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th th:text="#{user.list.id}"></th>
+											<th th:text="#{user.list.first_name}"></th>
+											<th th:text="#{user.list.last_name}"></th>
+											<th th:text="#{user.list.email}"></th>
+											<th th:text="#{user.list.user_name}"></th>
+											<th th:text="#{user.list.phone}"></th>
+											<th th:text="#{global.action}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<div class="row">
+											<div class="col-md-12 filter">
+												<form th:action="@{/administrator/user/list}"
+													th:object="${userFilter}">
+													<div class="input-group">
+														<input type="search" th:value="*{search}"
+															th:field="*{search}" class="form-control form-control-lg"
+															placeholder="Tìm kiếm theo tên, tên đăng nhập, email, SĐT">
+														<div class="input-group-append">
+															<button type="submit" class="btn btn-lg btn-default">
+																<i class="fa fa-search"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+										<tr th:each="user: ${userPage.content}">
+											<td th:text="${user.id}"></td>
+											<td th:text="${user.firstName}"></td>
+											<td th:text="${user.lastName}"></td>
+											<td th:text="${user.email}"></td>
+											<td th:text="${user.userName}"></td>
+											<td th:text="${user.phoneNumber}"></td>
+											<td>
+												<a class="btn btn-primary" th:href="@{'/administrator/user/details/' + ${user.userName}}">
+													<i class="far fa-edit"></i>
+													<span th:text="#{global.edit}"></span>
+												</a>
+												<a class="btn btn-danger"><i class="fas fa-trash"></i>
+													<span th:text="#{global.delete}"></span>
+												</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.card-body -->
+							<div class="card-footer clearfix">
+								<ul th:if="${userPage.totalPages > 1}"
+									class="pagination m-0 float-right">
+									<li th:each="pageNumber : ${pageNumbers}"
+										th:class="${pageNumber==userPage.number + 1} ? 'page-item active' : 'page-item'">
+										<a
+										th:href="@{/administrator/user/list(pageSize=${userPage.size}, pageNum=${pageNumber})}"
+										th:text=${pageNumber} th:class="page-link"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+</body>
+</html>

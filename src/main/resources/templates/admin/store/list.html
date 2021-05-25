@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" layout:decorate="~{layouts/admin}">
+<head>
+<title th:text="#{store.list.title}"></title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 th:text="#{store.list.title}"></h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+							<li class="breadcrumb-item active" th:text="#{store.list.title}"></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row" th:if="${message != null}">
+					<div class="col-md-12">
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">×</button>
+							<h5>
+								<i class="icon fas fa-check"></i> <span th:text="#{global.success_delete}"></span>
+							</h5>
+							<span th:text="${message}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title" th:text="#{store.list.title}"></h3>
+								<div class="btn-group float-right">
+									<a th:href="@{/administrator/store/create}"
+										class="btn btn-info"><i class="fas fa-plus"></i> <span
+										th:text="#{global.add}"></span> </a>
+								</div>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="row" th:if="${storePage.content.size > 0}">
+									<div class="col-md-12 filter">
+										<form th:action="@{/administrator/store/list}"
+											th:object="${storeFilter}">
+											<div class="input-group">
+												<input type="search" th:value="*{search}"
+													th:field="*{search}" class="form-control form-control-lg"
+													placeholder="Tìm kiếm theo mã cửa hàng, tên cửa hàng, ...">
+												<div class="input-group-append">
+													<button type="submit" class="btn btn-lg btn-default">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<table class="table table-bordered" th:if="${storePage.content.size > 0}">
+									<thead>
+										<tr>
+											<th th:text="#{store.id}"></th>
+											<th th:text="#{store.code}"></th>
+											<th th:text="#{store.name}"></th>
+											<th th:text="#{store.email}"></th>
+											<th th:text="#{store.phone}"></th>
+											<th th:text="#{store.active}"></th>
+											<th th:text="#{global.action}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="store: ${storePage.content}">
+											<td th:text="${store.id}"></td>
+											<td th:text="${store.code}"></td>
+											<td th:text="${store.name}"></td>
+											<td th:text="${store.email}"></td>
+											<td th:text="${store.phoneNumber}"></td>
+											<td th:if="${store.active}">
+												<span th:text="#{global.activated}" class="badge bg-success"></span>
+											</td>
+											<td th:if="${!store.active}">
+												<span class="badge bg-danger" th:text="#{global.locked}"></span>
+											</td>
+											<td>
+												<a
+												th:href="@{'/administrator/store/details/' + ${store.code}}"
+												class="btn btn-primary"><i class="far fa-edit"></i> <span
+													th:text="#{global.edit}"></span>
+												</a>
+												<a
+												onclick="return confirm('Xác nhận xóa?');"
+												th:href="@{'/administrator/store/delete/' + ${store.code}}"
+												class="btn btn-danger">
+													<i class="fas fa-trash"></i>
+												<span th:text="#{global.delete}"></span>
+												</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="row" th:if="${storePage.content.size <= 0}">
+									<div class="col-md-12 blank-list center">
+										<img alt="No store" th:src="@{/images/store.png}" /> <br/>
+										<div>Chưa có cửa hàng nào</div><br/>
+										<a class="btn btn-primary" th:href="@{/administrator/store/create}">
+											<span th:text="#{store.add}"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- /.card-body -->
+							<div class="card-footer clearfix">
+								<ul th:if="${storePage.totalPages > 1}"
+									class="pagination m-0 float-right">
+									<li th:each="pageNumber : ${pageNumbers}"
+										th:class="${pageNumber==storePage.number + 1} ? 'page-item active' : 'page-item'">
+										<a
+										th:href="@{/administrator/store/list(pageSize=${storePage.size}, pageNum=${pageNumber})}"
+										th:text=${pageNumber} th:class="page-link"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/admin}">
+<head>
+<title th:text="#{bank.list}"></title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 th:text="#{bank.list}"></h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+							<li class="breadcrumb-item active" th:text="#{bank.list}"></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row" th:if="${message != null}">
+					<div class="col-md-12">
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">×</button>
+							<h5>
+								<i class="icon fas fa-check"></i> <span
+									th:text="#{global.success_delete}"></span>
+							</h5>
+							<span th:text="${message}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title" th:text="#{bank.list}"></h3>
+								<div class="btn-group float-right">
+									<a th:href="@{/administrator/pos/create}" class="btn btn-info"><i
+										class="fas fa-plus"></i> <span th:text="#{bank.add}"></span> </a>
+								</div>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body table-responsive">
+								<div class="row" th:if="${bankPage.content.size <= 0}">
+									<div class="col-md-12">
+										<!-- small card -->
+										<div class="small-box bg-success">
+											<div class="inner">
+												<h1>Không có dữ liệu</h1>
+												<p>Thêm mới để hiển thị</p>
+											</div>
+											<div class="icon">
+												<i class="fas fa-university"></i>
+											</div>
+											<a th:href="@{/administrator/bank/create}" class="small-box-footer"> Thêm mới <i
+												class="fas fa-arrow-circle-right"></i>
+											</a>
+											<a th:href="@{/administrator/bank/list}" class="small-box-footer">
+												<span th:text="#{bank.list}"></span>
+												<i class="fas fa-arrow-circle-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="row" th:if="${bankPage.content.size > 0}">
+									<div class="col-md-12 filter">
+										<form th:action="@{/administrator/bank/list}"
+											th:object="${bankFilter}" method="get">
+											<div class="input-group">
+												<input type="search" th:value="*{search}"
+													th:field="*{search}" class="form-control form-control-lg"
+													placeholder="Tìm kiếm theo mã, tên ...">
+												<div class="input-group-append">
+													<button type="submit" class="btn btn-lg btn-default">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<table class="table table-head-fixed text-nowrap"
+									th:if="${bankPage.content.size > 0}">
+									<thead>
+										<tr>
+											<th th:text="#{bank.code}"></th>
+											<th th:text="#{bank.name}"></th>
+											<th th:text="#{bank.en_name}"></th>
+											<th th:text="#{bank.short_name}"></th>
+											<th th:text="#{global.action}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="bank: ${bankPage.content}">
+											<td th:text="${bank.code}"></td>
+											<td th:text="${bank.name}"></td>
+											<td th:text="${bank.englishName}"></td>
+											<td th:text="${bank.shortName}"></td>
+											<td><a
+												th:href="@{/administrator/bank/edit/{code}(code=${bank.code})}"
+												class="btn btn-primary"> <i class="far fa-edit"></i> <span
+													th:text="#{global.edit}"></span>
+											</a> <a onclick="return confirm('Xác nhận xóa?');"
+												th:href="@{'/administrator/bank/delete/' + ${bank.code}}"
+												class="btn btn-danger"> <i class="fas fa-trash"></i> <span
+													th:text="#{global.delete}"></span>
+											</a>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.card-body -->
+							<div class="card-footer clearfix">
+								<ul th:if="${bankPage.totalPages > 1}"
+									class="pagination m-0 float-right">
+									<li th:each="pageNumber : ${pageNumbers}"
+										th:class="${pageNumber==bankPage.number + 1} ? 'page-item active' : 'page-item'">
+										<a
+										th:href="@{/administrator/bank/list(pageSize=${bankPage.size}, pageNum=${pageNumber})}"
+										th:text=${pageNumber} th:class="page-link"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+</body>
+</html>

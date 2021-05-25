@@ -1,0 +1,13 @@
+<footer class="main-footer" th:fragment="footer">
+	<!-- To the right -->
+	<div class="float-right d-none d-sm-inline">
+          <span>
+          	<i class="fas fa-power-off mr-2"></i>
+          	<a th:href="@{/logout}">Đăng xuất</a>
+          </span>
+          
+	</div>
+	<!-- Default to the left -->
+	<strong th:text="#{footer.copyright}">
+	</strong>
+</footer>
