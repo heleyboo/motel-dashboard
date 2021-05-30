@@ -13,38 +13,40 @@
 					<form th:action="@{/dang-tin}" method="post"
 						th:object="${motelRoomDto}">
 						<div class="card-header">
-							<h3 class="card-title">Ä�Äƒng tin</h3>
+							<h3 class="card-title">Thông tin</h3>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="province">Chá»�n tá»‰nh thÃ nh phá»‘</label> <select
+								<label for="province">Chọn tỉnh/thành </label> <select
 									class="form-control" id="province">
 									<option th:each="province: ${provinces}"
 										th:value="${province.code}" th:text="${province.nameWithType}"></option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="district">Chá»�n quáº­n/huyá»‡n</label> <select
+								<label for="district">Chọn quận/huyện</label> <select
 									class="form-control" id="district">
-									<option value="">Chá»�n quáº­n huyá»‡n</option>
+									<option value="">Chọn quận huyện</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="ward">Chá»�n phÆ°á»�ng/xÃ£</label> <select
+								<label for="ward">Chọn phường/xã</label> 
+								<select
 									class="form-control" th:field="*{ward}">
-									<option value="">Chá»�n phÆ°á»�ng xÃ£</option>
+									<option value="">Chọn phường/xã</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="address">Ä�á»‹a chá»‰</label> <input
+								<label for="address">Địa chỉ</label> 
+								<input
 									class="form-control" type="text" th:field="*{address}"
-									placeholder="Nháº­p Ä‘á»‹a chá»‰" />
+									placeholder="Nhập địa chỉ" />
 									<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
 									id="address-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="price">Giá (VND)/1 tháng</label> <input
-									class="form-control" type="text" th:field="*{price}"
+									class="form-control" type="number" th:field="*{price}"
 									placeholder="Nhập giá" />
 									<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
 									id="price-error" class="error error-field"></span>
@@ -58,61 +60,64 @@
 							</div>
 							<div class="form-group">
 								<label for="area">Diện tích(m<sup>2</sup>)</label> <input
-									class="form-control" type="text" th:field="area"
+									class="form-control" type="text" th:field="*{area}"
 									placeholder="Nhập số m2" />
 									<span th:if="${#fields.hasErrors('area')}" th:errors="*{area}"
 									id="area-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="numOfBedrooms">Số Phòng Ngủ</label> <input
-									class="form-control" type="text" th:field="numOfBedrooms"
+									class="form-control" type="text" th:field="*{numOfBedrooms}"
 									placeholder="Nhập số Phòng" />
 									<span th:if="${#fields.hasErrors('numOfBedrooms')}" th:errors="*{numOfBedrooms}"
 									id="numOfBedrooms-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="numOfToilets">Số Toilets</label> <input
-									class="form-control" type="text" th:field="numOfToilets"
+									class="form-control" type="text" th:field="*{numOfToilets}"
 									placeholder="Nhập số Phòng" />
 									<span th:if="${#fields.hasErrors('numOfToilets')}" th:errors="*{numOfToilets}"
 									id="numOfToilets-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
-								<label for="doorDirection">Chọn hướng cửa chính</label> <select
+								<label for="doorDirection">Chọn hướng cửa chính</label> 
+								<select
 									class="form-control" th:field="*{doorDirection}">
 									<option value="">Chọn hướng cửa chính</option>
+									<option th:each="direction: ${directions}" th:value="${direction.getCode()}" th:text="${direction.getName()}"></option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="balconyDirection">Hướng ban công</label> <select
 									class="form-control" th:field="*{balconyDirection}">
 									<option value="">Chọn hướng ban công</option>
+									<option th:each="direction: ${directions}" th:value="${direction.getCode()}" th:text="${direction.getName()}"></option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="utilities">Tiện ích</label> <input
-									class="form-control" type="text" th:field="utilities"
+									class="form-control" type="text" th:field="*{utilities}"
 									placeholder="Nhập tiện ích" />
 									<span th:if="${#fields.hasErrors('utilities')}" th:errors="*{utilities}"
 									id="utilities-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="phoneNumber">Tiện ích</label> <input
-									class="form-control" type="text" th:field="phoneNumber"
+									class="form-control" type="text" th:field="*{phoneNumber}"
 									placeholder="Nhập tiện ích" />
 									<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
 									id="phoneNumber-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
-								<label for="title">Tiện ích</label> <input
-									class="form-control" type="text" th:field="title"
+								<label for="title">Tiêu đề</label> <input
+									class="form-control" type="text" th:field="*{title}"
 									placeholder="Nhập tiện ích" />
 									<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
 									id="title-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="description">Tiện ích</label> <input
-									class="form-control" type="text" th:field="description"
+									class="form-control" type="text" th:field="*{description}"
 									placeholder="Nhập tiện ích" />
 									<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
 									id="title-error" class="error error-field"></span>
