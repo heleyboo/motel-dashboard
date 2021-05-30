@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.binh.motel.dto.CategoryDto;
-import com.binh.motel.dto.MotelRoomDTO;
+import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.service.CategoryService;

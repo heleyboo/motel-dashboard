@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.binh.core.entity.District;
-import com.binh.core.entity.Province;
-import com.binh.core.repository.ProvinceRepository;
-import com.binh.core.service.ProvinceService;
+import com.binh.motel.entity.District;
+import com.binh.motel.entity.Province;
+import com.binh.motel.repository.ProvinceRepository;
+import com.binh.motel.service.ProvinceService;
 
 import javassist.NotFoundException;
 

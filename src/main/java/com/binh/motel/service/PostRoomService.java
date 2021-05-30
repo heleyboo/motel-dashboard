@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.binh.motel.dto.MotelRoomDTO;
+import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.RoomImage;
 

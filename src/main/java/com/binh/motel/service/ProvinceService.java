@@ -2,8 +2,8 @@ package com.binh.motel.service;
 
 import java.util.List;
 
-import com.binh.core.entity.District;
-import com.binh.core.entity.Province;
+import com.binh.motel.entity.District;
+import com.binh.motel.entity.Province;
 
 import javassist.NotFoundException;
 

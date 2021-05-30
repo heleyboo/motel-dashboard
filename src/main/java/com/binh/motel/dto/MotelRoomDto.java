@@ -19,7 +19,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MotelRoomDTO {
+public class MotelRoomDto {
 	
 //	@NotEmpty
 //	private RoomType roomType;
@@ -53,6 +53,8 @@ public class MotelRoomDTO {
 	private String address;
 
 	private String latlng;
+	
+	private String googleMapUrl;
 
 	@NotEmpty(message = "Danh mục bắt buộc nhập")
 	private String category;

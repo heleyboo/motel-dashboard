@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import com.binh.motel.dto.MotelRoomDTO;
+import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.repository.PostRoomRepository;
