@@ -13,6 +13,7 @@
 	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 <!-- Theme style -->
 <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+<th:block layout:fragment="styles"></th:block>
 </head>
 <body class="hold-transition layout-top-nav">
 	<div class="wrapper">
@@ -77,8 +78,6 @@
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<!-- AdminLTE App -->
 	<script th:src="@{/dist/js/adminlte.min.js}"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script th:src="@{/dist/js/demo.js}"></script>
-	<th:block layout:fragment="script"></th:block>
+	<th:block layout:fragment="scripts"></th:block>
 </body>
 </html>

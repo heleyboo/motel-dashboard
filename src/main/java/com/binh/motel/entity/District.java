@@ -2,7 +2,6 @@ package com.binh.motel.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,6 +52,7 @@ public class District {
     @JoinColumn(name = "province_id", referencedColumnName = "code", nullable = true)
     private Province province;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "district")
 	private List<Ward> wards;
 	

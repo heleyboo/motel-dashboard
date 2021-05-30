@@ -2,6 +2,15 @@
 <html lang="en" layout:decorate="~{layouts/frontend}">
 <head>
 <title>Dang tin</title>
+<th:block layout:fragment="styles">
+	<link rel="stylesheet"
+		th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/plugins/select2/css/select2.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</th:block>
 </head>
 <body>
 	<div class="container" layout:fragment="content">
@@ -17,8 +26,9 @@
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="province">Chọn tỉnh/thành </label> <select
-									class="form-control" id="province">
+								<label for="province">Chọn tỉnh/thành </label> 
+								<select
+									class="form-control select2" id="province">
 									<option th:each="province: ${provinces}"
 										th:value="${province.code}" th:text="${province.nameWithType}"></option>
 								</select>
@@ -82,14 +92,14 @@
 							<div class="form-group">
 								<label for="doorDirection">Chọn hướng cửa chính</label> 
 								<select
-									class="form-control" th:field="*{doorDirection}">
+									class="form-control select2" th:field="*{doorDirection}">
 									<option value="">Chọn hướng cửa chính</option>
 									<option th:each="direction: ${directions}" th:value="${direction.getCode()}" th:text="${direction.getName()}"></option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="balconyDirection">Hướng ban công</label> <select
-									class="form-control" th:field="*{balconyDirection}">
+									class="form-control select2" th:field="*{balconyDirection}">
 									<option value="">Chọn hướng ban công</option>
 									<option th:each="direction: ${directions}" th:value="${direction.getCode()}" th:text="${direction.getName()}"></option>
 								</select>
@@ -130,8 +140,11 @@
 			</div>
 		</div>
 	</div>
-	<th:block layout:fragment="script">
-		<script th:src="@{/js/room/main.js}"></script>
-	</th:block>
 </body>
+<th:block layout:fragment="scripts">
+	<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+	<script
+		th:src="@{/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</th:block>
 </html>

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +39,7 @@ public class Province {
 	@Column(name = "name_with_type")
 	private String nameWithType;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
 	private List<District> districts;
 
