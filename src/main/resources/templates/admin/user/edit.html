@@ -14,17 +14,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="content">
-		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1 th:text="#{user.manage}"></h1>
+						<h1>Sửa Thông Tin người Dùng</h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a th:href="@{/administrator/user/list}" th:text="#{user.list}"></a></li>
-							<li class="breadcrumb-item active" th:text="#{user.add.title}"></li>
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active">Thông tin người dùng</li>
 						</ol>
 					</div>
 				</div>
@@ -39,18 +38,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<!-- left column -->
 					<div class="col-md-12">
 						<!-- jquery validation -->
-						<form autocomplete="off" th:action="@{'/administrator/user/update/' + ${userEditRequest.userName}}" th:object="${userEditRequest}"
-							method="post" class="form-horizontal" role="form">
+						<form autocomplete="off" action="#"
+							th:action="@{/administrator/user/save/{id}(id=${user.id})}"
+							th:object="${user}" method="post"
+							class="form-horizontal" role="form">
 							<div class="card card-default">
 								<div class="card-header">
-									<h3 class="card-title" th:text="#{user.add.title}"></h3>
+									<h3 class="card-title">Sửa Người Dùng</h3>
 									<div class="btn-group float-right">
 										<button type="submit" class="btn btn-info">
-											<i class="fas fa-save"></i>
-											<span th:text="#{common.save}"></span>
+											<i class="fas fa-save"></i> Save
 										</button>
 										<a th:href="@{/administrator/user/list}" class="btn btn-success"><i
-											class="fas fa-angle-left"></i> <span th:text="#{user.list}"></span></a>
+											class="fas fa-angle-left"></i> Back</a>
 									</div>
 								</div>
 								<!-- /.card-header -->
@@ -60,104 +60,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label for="bank" th:text="#{user.add.role}"></label>
-												<div class="select2-purple">
-													<select multiple="multiple"
-														th:field="*{roles}" class="select2"
-														data-placeholder="Chọn vai trò"
-														style="width: 100%;"
-														>
-														<th:block th:each="role: ${roles}">
-															<option th:value="${role.id}" th:text="${role.roleName}"></option>
-														</th:block>
-													</select>
-												</div>
-												<span
-													th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											
-											<div class="form-group">
-												<label for="store" th:text="#{user.store}"></label> 
-												<select th:field="*{store}" class="form-control select2" style="width: 100%;">
-													<option value="" th:text="#{user.store}"></option>
-													<th:block th:each="store: ${stores}">
-														<option th:value="${store.id}" th:text="${store.name}"></option>
-													</th:block>
-												</select>
-											</div>
-											
-											<div class="form-group">
-												<label for="firstName" th:text="#{user.add.first_name}"></label>
-												<input type="text" th:field="*{firstName}" th:attr="placeholder=#{user.add.first_name}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<label for="lastName" th:text="#{user.add.last_name}"></label>
-												<input type="text" th:field="*{lastName}" th:attr="placeholder=#{user.add.last_name}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<label for="email" th:text="#{user.add.email}"></label>
-												<input type="text" th:field="*{email}" th:attr="placeholder=#{user.add.email}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<label for="userName" th:text="#{user.add.username}"></label>
-												<input type="text" th:field="*{userName}" disabled="disabled" th:attr="placeholder=#{user.add.username}"
+											<span style="color: blue">UserName:</span>
+												<input type="text" th:field="*{userName}" placeholder="userName"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-												<label for="password" th:text="#{user.add.password}"></label>
-												<input type="password" th:field="*{password}" th:attr="placeholder=#{user.add.password}"
+											<span style="color: blue">FirstName:</span>
+												<input type="text" th:field="*{firstName}" placeholder="firstName"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+											<span style="color: blue">LastName: </span>
+												<input type="text" th:field="*{lastName}" placeholder="lastName"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+											<span style="color: blue">PassWord: </span>
+												<input type="text" th:field="*{password}" placeholder="password"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
 													id="code-error" class="error error-field"></span>
 											</div>
+											
+											
+											
 											<div class="form-group">
-												<label for="passwordRepeat" th:text="#{user.add.password_repeat}"></label>
-												<input type="password" th:field="*{passwordRepeat}" th:attr="placeholder=#{user.add.password_repeat}"
+											<span style="color: blue">Email:  </span>
+												<input type="text" th:field="*{email}" placeholder="Email"
 													class="form-control" /> 
 													<span
-													th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}"
+													th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-												<label for="phoneNumber" th:text="#{user.add.phone}"></label>
-												<input type="text" th:field="*{phoneNumber}" th:attr="placeholder=#{user.add.phone}"
+											<span style="color: blue">Phone:  </span>
+												<input type="text" th:field="*{phoneNumber}" placeholder="Số điện thoại"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
 													id="code-error" class="error error-field"></span>
 											</div>
-											<div class="form-group">
-												<label for="gender" th:text="#{gender}"></label>
-												<select th:field="*{gender}" class="form-control">
-													<option value="" th:text="#{gender}">
-													</option>
-													<th:block th:each="gender: ${genders}">
-														<option th:value="${gender.id}" th:text="${gender.name}"></option>
-													</th:block>
-												</select>
-											</div>
-											<div class="form-group">
-												<input type="checkbox" id="active" class="form-check-input" th:field="*{active}" th:checked="${userEditRequest.active}" data-bootstrap-switch />
-												<label for="active" class="form-check-label" th:text="#{global.active}"></label>
-											</div>
-											
 										</div>
 									</div>
 
@@ -166,11 +118,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-footer">
 									<div class="btn-group float-right">
 										<button type="submit" class="btn btn-info">
-											<i class="fas fa-save"></i>
-											<span th:text="#{common.save}"></span>
+											<i class="fas fa-save"></i> Lưu
 										</button>
-										<a th:href="@{/administrator/user/list}" class="btn btn-success"><i
-											class="fas fa-angle-left"></i> <span th:text="#{user.list}"></span></a>
+										<a th:href="@{/administrator/user/list}"
+											class="btn btn-success"><i class="fas fa-angle-left"></i>
+											Quay lại</a>
 									</div>
 								</div>
 
@@ -185,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.container-fluid -->
 		</section>
 		<!-- /.content -->
-	</div>
+		</div>
 	<!-- /.content-wrapper -->
 </body>
 <th:block layout:fragment="scripts">

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.binh.motel.dto.CategoryDto;
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.User;
 
 import javassist.NotFoundException;
 
@@ -34,4 +35,9 @@ public interface CategoryService {
 	public List<Category> getAll();
 	
 	public Set<Category> findChildrenByCode(String code);
+
+	public Category get(String code);
+
+	public void deleteCategory(String code) throws NotFoundException;
+
 }

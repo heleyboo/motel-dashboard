@@ -1,9 +1,9 @@
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a th:href="@{/administrator/dashboard}" class="brand-link">
       <img th:src="@{/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light" th:text="#{sidebar.app_name}"></span>
+      <span class="brand-text font-weight-light">MotelRoom</span>
     </a>
 
     <!-- Sidebar -->
@@ -27,22 +27,67 @@
             th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-link active' : 'nav-link'}">
               <i class="nav-icon fas fa-store"></i>
               <p th:inline="text">
-              	<span th:text="#{store.manage}" th:remove="tag"></span>
+              	<span> Quản lý Danh Mục</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a th:href="@{/administrator/store/create}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store/create') ? 'nav-link active' : 'nav-link'}">
+                <a th:href="@{/administrator/category/create}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/category/create') ? 'nav-link active' : 'nav-link'}">
                   <i class="far fa-plus-square nav-icon"></i>
-                  <span th:text="#{store.add}" th:remove="tag"></span>
+                  <span>Thêm Danh mục</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a th:href="@{/administrator/store/list}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store/list') ? 'nav-link active' : 'nav-link'}">
+                <a th:href="@{/administrator/category/list}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/category/list') ? 'nav-link active' : 'nav-link'}">
                   <i class="nav-icon fas fa-table" style="color: #FFFFFF;"></i>
                   <p>
-                  	<span th:text="#{store.list}" th:remove="tag"></span>
+                  	<span>Danh sách Danh Mục</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li sec:authorize="hasRole('ROLE_ADMIN')" 
+          	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-item menu-open' : 'nav-item'}">
+            <a href="#" 
+            th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-link active' : 'nav-link'}">
+              <i class="nav-icon fas fa-store"></i>
+              <p th:inline="text">
+              	<span> Quản lý Người dùng</span>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/administrator/user/list}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/user/list') ? 'nav-link active' : 'nav-link'}">
+                  <i class="nav-icon fas fa-table" style="color: #FFFFFF;"></i>
+                  <p>
+                  	<span>Danh sách người dùng</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            
+              
+              <li sec:authorize="hasRole('ROLE_ADMIN')" 
+          	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-item menu-open' : 'nav-item'}">
+            <a href="#" 
+            th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-link active' : 'nav-link'}">
+              <i class="nav-icon fas fa-store"></i>
+              <p th:inline="text">
+              	<span> Quản lý Phòng Trọ</span>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/administrator/room/list}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/room/list') ? 'nav-link active' : 'nav-link'}">
+                  <i class="nav-icon fas fa-table" style="color: #FFFFFF;"></i>
+                  <p>
+                  	<span>Danh sách Phòng Trọ</span>
                   </p>
                 </a>
               </li>

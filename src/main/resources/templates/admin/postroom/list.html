@@ -5,7 +5,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en" layout:decorate="~{layouts/admin}">
 <head>
-<title>Categories</title>
+<title>Danh sách bài viết</title>
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="content">
@@ -14,12 +14,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1>Category List</h1>
+						<h1>Danh sách Phòng trọ</h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-							<li class="breadcrumb-item active">Categories</li>
+							<li class="breadcrumb-item"><a th:href="@{/administrator/dashboard}">Home</a></li>
+							<li class="breadcrumb-item active"><a th:href="@{/administrator/room/list}">Danh sách Phòng Trọ</a></li>
 						</ol>
 					</div>
 				</div>
@@ -34,36 +34,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">Category List</h3>
-								<div class="btn-group float-right">
-									<a th:href="@{/administrator/category/create}" class="btn btn-info"><i class="fas fa-plus"></i> Add</a>
-								</div>
+								<h3 class="card-title">Danh sách Phòng Trọ</h3>
+								
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
 								<table class="table table-bordered">
 									<thead>
 										<tr>
-											<th>Code</th>
-											<th>Name</th>
-											<th>Position</th>
-											<th style="width: 300px">Action</th>
+											<th>id</th>
+											<th>Tiêu đề</th>
+											<th>Giá phòng</th>
+											<th>Danh mục</th>
+											<th style="width: 100px">Trạng thái Approve</th>
+											
+											
+											<th style="width: 280px">Action</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="category: ${categories}">
-											<td th:text="${category.code}">
+										<tr th:each="motelRoom: ${motelRooms}">
+											<td th:text="${motelRoom.id}">
 											</th>
-											<td th:text="${category.name}">
+											<td th:text="${motelRoom.title}">
 											</th>
-											<td th:text="${category.position}">
+											<td th:text="${motelRoom.price}">
 											</th>
-											<td><a class="btn btn-primary" th:href="@{/administrator/category/edit/{code}(code=${category.code})}"><i
-													class="far fa-edit"></i> Edit</a>
-												<a  class="btn btn-danger"
-												th:href="@{/administrator/category/delete/{code}(code=${category.code})}"><i class="fas fa-trash"></i> Delete</a>
+											<td th:text="${motelRoom.category.name}">
+											</th>
+											<td th:text="${motelRoom.approve}">
+											</th>
+											
+											<td>
+												<a class="btn btn-success" th:href="@{/administrator/room/approve/{roomId}(roomId=${motelRoom.id})}">Approve</a>
+												<a class="btn btn-danger" th:href="@{/administrator/room/delete/{id}(id=${motelRoom.id})}"><i class="fas fa-trash"></i> Delete</a>
 											</td>
-													
 										</tr>
 									</tbody>
 								</table>

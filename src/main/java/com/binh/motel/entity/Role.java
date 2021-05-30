@@ -29,6 +29,9 @@ public class Role {
     @Column(name = "role_name", nullable = false)
     private String roleName;
 
+    
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "roles")
+//	private Set<Users> users = new HashSet<Users>();
 	public Role(String role, String roleName) {
 		super();
 		this.role = role;

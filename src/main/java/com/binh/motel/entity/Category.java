@@ -1,5 +1,6 @@
 package com.binh.motel.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -83,4 +84,8 @@ public class Category {
 	@JsonIgnore
 	@Column(name = "meta_tag_keyword")
 	private String metaTagKeywords;
+	
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<MotelRoom> rooms;
+	
 }

@@ -1,6 +1,7 @@
 package com.binh.motel.repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.binh.motel.entity.Role;
 import com.binh.motel.entity.User;
 
 import javassist.NotFoundException;

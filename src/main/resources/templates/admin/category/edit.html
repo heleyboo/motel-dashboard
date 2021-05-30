@@ -5,22 +5,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en" layout:decorate="~{layouts/admin}">
 <head>
-<title th:text="#{customer.edit}"></title>
+<title th:text="#{user.add}"></title>
+<th:block layout:fragment="styles">
+	<link rel="stylesheet" th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/select2/css/select2.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+</th:block>
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="content">
-		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1 th:text="#{customer.edit}"></h1>
+						<h1>Edit Danh Mục</h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active"
-							th:text="#{customer.edit}"></li>
+							<li class="breadcrumb-item active">Danh mục</li>
 						</ol>
 					</div>
 				</div>
@@ -36,18 +39,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-md-12">
 						<!-- jquery validation -->
 						<form autocomplete="off" action="#"
-							th:action="@{/administrator/customer/edit/{id}(id=${customerEditRequest.id})}"
-							th:object="${customerEditRequest}" method="post"
+							th:action="@{/administrator/category/save/{code}(code=${category.code})}"
+							th:object="${category}" method="post"
 							class="form-horizontal" role="form">
 							<div class="card card-default">
 								<div class="card-header">
-									<h3 class="card-title"
-									th:text="#{customer.edit}"></h3>
+									<h3 class="card-title">Sửa danh mục</h3>
 									<div class="btn-group float-right">
 										<button type="submit" class="btn btn-info">
 											<i class="fas fa-save"></i> Save
 										</button>
-										<a th:href="@{/administrator/customer/list}" class="btn btn-success"><i
+										<a th:href="@{/administrator/category}" class="btn btn-success"><i
 											class="fas fa-angle-left"></i> Back</a>
 									</div>
 								</div>
@@ -58,59 +60,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="text" th:field="*{name}" th:placeholder="#{customer.name}"
+											<span style="color: blue">Description:</span>
+												<input type="text" th:field="*{description}" placeholder="Description"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+											<span style="color: blue">TagTittle:</span>
+												<input type="text" th:field="*{metaTagTitle}" placeholder="metaTagTitle"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('metaTagTitle')}" th:errors="*{metaTagTitle}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+											<span style="color: blue">Slug: </span>
+												<input type="text" th:field="*{slug}" placeholder="slug"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											
+											
+											
+											<div class="form-group">
+											<span style="color: blue">Name:  </span>
+												<input type="text" th:field="*{name}" placeholder="name"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-													<input type="date" th:field="*{dob}"
+											<span style="color: blue">Code:  </span>
+												<input type="text" th:field="*{code}" placeholder="code"
 													class="form-control" /> 
 													<span
-													th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<input type="text" th:field="*{idCard}" th:placeholder="#{customer.id_card}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<input type="text" th:field="*{address}" th:placeholder="#{customer.address}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<input type="text" th:field="*{email}" th:placeholder="#{customer.email}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<input type="text" th:field="*{phoneNumber}" th:placeholder="#{customer.phone_number}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-												<input type="text" th:field="*{facebookLink}" th:placeholder="#{customer.link_facebook}"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('facebookLink')}" th:errors="*{facebookLink}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-													<textarea class="form-control" th:field="*{description}" th:placeholder="#{customer.description}"></textarea>
-														
-													<span
-													th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+													th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
 													id="code-error" class="error error-field"></span>
 											</div>
 										</div>
@@ -121,10 +110,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-footer">
 									<div class="btn-group float-right">
 										<button type="submit" class="btn btn-info">
-											<i class="fas fa-save"></i> Save
+											<i class="fas fa-save"></i> LÆ°u
 										</button>
-										<a th:href="@{/administrator/customer/list}" class="btn btn-success"><i
-											class="fas fa-angle-left"></i> Back</a>
+										<a th:href="@{/administrator/category}"
+											class="btn btn-success"><i class="fas fa-angle-left"></i>
+											Quay láº¡i</a>
 									</div>
 								</div>
 
@@ -139,7 +129,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.container-fluid -->
 		</section>
 		<!-- /.content -->
-	</div>
+		</div>
 	<!-- /.content-wrapper -->
 </body>
+<th:block layout:fragment="scripts">
+	<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</th:block>
 </html>

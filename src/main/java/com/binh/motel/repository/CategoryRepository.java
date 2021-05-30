@@ -6,4 +6,6 @@ import com.binh.motel.entity.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, String> {
 
+	Category getCategoryByCode(String category);
+
 }

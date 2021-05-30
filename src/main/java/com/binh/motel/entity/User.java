@@ -5,11 +5,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -45,12 +47,13 @@ public class User {
 	private String password;
 	
 	@Column(name = "active")
-	private Boolean active;
+	private Boolean active = false;
 	
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 }

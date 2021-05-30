@@ -14,13 +14,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1 class="m-0 text-dark">Starter Page</h1>
+						<h1 class="m-0 text-dark">Trang chủ</h1>
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">Starter Page</li>
+							<li class="breadcrumb-item"><a th:href="@{/administrator/dashboard}">Trang chủ</a></li>
 						</ol>
 					</div>
 					<!-- /.col -->
@@ -34,7 +33,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Main content -->
 		<div class="content">
 			<div class="container-fluid">
-				Dashboard
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Trang quản lý</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- small box -->
+										<div class="small-box bg-info">
+											<div class="inner">
+												<!--<input type="text" th:field="*{id}" placeholder="id" -->
+												<!-- class="form-control" /> -->
+												<h3>53</h3>
+												<p>Người dùng</p>
+											</div>
+											<div class="icon">
+												<i class="ion ion-bag"></i>
+											</div>
+											<a th:href="@{/administrator/user/list}"
+												class="small-box-footer">More info <i
+												class="fas fa-arrow-circle-right"></i></a>
+										</div>
+									</div>
+									<!-- ./col -->
+									<div class="col-sm-6">
+										<!-- small box -->
+										<div class="small-box bg-success">
+											<div class="inner">
+												<h3>53</h3>
+
+												<p>Phòng trọ</p>
+											</div>
+											<div class="icon">
+												<i class="ion ion-stats-bars"></i>
+											</div>
+											<a th:href="@{/administrator/room/list}"
+												class="small-box-footer">More info <i
+												class="fas fa-arrow-circle-right"></i></a>
+										</div>
+									</div>
+									<!-- ./col -->
+
+									<!-- ./col -->
+
+									<!-- ./col -->
+								</div>
+							</div>
+							<!-- /.card-body -->
+
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
 			</div>
 			<!-- /.container-fluid -->
 		</div>

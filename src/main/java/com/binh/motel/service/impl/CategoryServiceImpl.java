@@ -1,6 +1,7 @@
 package com.binh.motel.service.impl;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -11,7 +12,12 @@ import org.springframework.util.ObjectUtils;
 
 import com.binh.motel.dto.CategoryDto;
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.MotelRoom;
+import com.binh.motel.entity.RoomImage;
+import com.binh.motel.entity.User;
 import com.binh.motel.repository.CategoryRepository;
+import com.binh.motel.repository.PostRoomRepository;
+import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.service.CategoryService;
 import com.binh.motel.util.SlugUtil;
 
@@ -21,6 +27,12 @@ import javassist.NotFoundException;
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryRepository repo;
+
+	@Autowired
+	private PostRoomRepository postRepository;
+
+	@Autowired
+	private RoomImageRepository roomImageRepo;
 
 	@Override
 	public Category saveCategory(CategoryDto categoryReq) throws NotFoundException {
@@ -64,13 +76,43 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Set<Category> findChildrenByCode(String code) {
 		Set<Category> ret = new HashSet<Category>();
-		
+
 		Optional<Category> parent = repo.findById(code);
-		
+
 		if (parent.isPresent()) {
 			ret = parent.get().getChildren();
 		}
 		return ret;
+	}
+
+	@Override
+	public Category get(String code) {
+		// TODO Auto-generated method stub
+		return repo.findById(code).get();
+	}
+
+	@Override
+	public void deleteCategory(String code) throws NotFoundException {
+
+		Category category = getCategoryByCode(code);
+		Set<Category> cats = category.getChildren();
+		for (Category cat : cats) {
+			deleteRooms(cat);
+		}
+
+		deleteRooms(category);
+
+		repo.deleteAll(cats);
+		repo.delete(category);
+	}
+
+	private void deleteRooms(Category category) {
+		List<MotelRoom> motelRooms = category.getRooms();
+		for (MotelRoom room : motelRooms) {
+			List<RoomImage> images = room.getImages();
+			roomImageRepo.deleteAll(images);
+		}
+		postRepository.deleteAll(motelRooms);
 	}
 
 }
