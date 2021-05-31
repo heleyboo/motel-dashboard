@@ -47,6 +47,8 @@ public interface UserService {
 
 	void saveUser(User user);
 
+	public long countUsers();
+
 //	public void editUser(int userId) throws NotFoundException;
 	
 

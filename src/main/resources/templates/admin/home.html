@@ -42,46 +42,65 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<!-- /.card-header -->
 							<div class="card-body">
 								<div class="row">
-									<div class="col-sm-6">
-										<!-- small box -->
-										<div class="small-box bg-info">
-											<div class="inner">
-												<!--<input type="text" th:field="*{id}" placeholder="id" -->
-												<!-- class="form-control" /> -->
-												<h3>53</h3>
-												<p>Người dùng</p>
-											</div>
-											<div class="icon">
-												<i class="ion ion-bag"></i>
-											</div>
-											<a th:href="@{/administrator/user/list}"
-												class="small-box-footer">More info <i
-												class="fas fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-									<!-- ./col -->
-									<div class="col-sm-6">
-										<!-- small box -->
-										<div class="small-box bg-success">
-											<div class="inner">
-												<h3>53</h3>
+					<div class="col-md-3 col-sm-6 col-12">
+						<div class="info-box">
+							<span class="info-box-icon bg-info"><i
+								class="fas fa-store"></i></span>
 
-												<p>Phòng trọ</p>
-											</div>
-											<div class="icon">
-												<i class="ion ion-stats-bars"></i>
-											</div>
-											<a th:href="@{/administrator/room/list}"
-												class="small-box-footer">More info <i
-												class="fas fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-									<!-- ./col -->
+							<div class="info-box-content">
+								<span class="info-box-text">Phòng trọ</span>
+								<span class="info-box-number" th:text="${roomsCount}"></span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+						<!-- /.info-box -->
+					</div>
+					<!-- /.col -->
+					<div class="col-md-3 col-sm-6 col-12">
+						<div class="info-box">
+							<span class="info-box-icon bg-success"><i
+								class="fas fa-users"></i></span>
 
-									<!-- ./col -->
+							<div class="info-box-content">
+								<span class="info-box-text" >Người dùng</span>
+								<span class="info-box-number" th:text="${userCount}"></span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+						<!-- /.info-box -->
+					</div>
+					<!-- /.col -->
+<!-- 					<div class="col-md-3 col-sm-6 col-12"> -->
+<!-- 						<div class="info-box"> -->
+<!-- 							<span class="info-box-icon bg-warning"><i -->
+<!-- 								class="far fa-copy"></i></span> -->
 
-									<!-- ./col -->
-								</div>
+<!-- 							<div class="info-box-content"> -->
+<!-- 								<span class="info-box-text" -->
+<!-- 									th:text="#{dashboard.info.customers}"></span> <span -->
+<!-- 									class="info-box-number" th:text="${customerCount}"></span> -->
+<!-- 							</div> -->
+<!-- 							/.info-box-content -->
+<!-- 						</div> -->
+<!-- 						/.info-box -->
+<!-- 					</div> -->
+<!-- 					/.col -->
+<!-- 					<div class="col-md-3 col-sm-6 col-12"> -->
+<!-- 						<div class="info-box"> -->
+<!-- 							<span class="info-box-icon bg-danger"><i -->
+<!-- 								class="far fa-star"></i></span> -->
+
+<!-- 							<div class="info-box-content"> -->
+<!-- 								<span class="info-box-text" -->
+<!-- 									th:text="#{dashboard.info.transactions}"></span> <span -->
+<!-- 									class="info-box-number" th:text="${transactionCount}"></span> -->
+<!-- 							</div> -->
+<!-- 							/.info-box-content -->
+<!-- 						</div> -->
+<!-- 						/.info-box -->
+<!-- 					</div> -->
+<!-- 					/.col -->
+				</div>
 							</div>
 							<!-- /.card-body -->
 

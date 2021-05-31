@@ -1,17 +1,17 @@
 package com.binh.motel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.binh.motel.entity.Category;
-import com.binh.motel.entity.MotelRoom;
+
+
 import com.binh.motel.service.PostRoomService;
+import com.binh.motel.service.UserService;
+import com.mtt.pos.exception.UnassignedStoreException;
 
 @Controller
 @RequestMapping("/administrator/dashboard")
@@ -19,17 +19,18 @@ public class DashboardController {
 	@Autowired
 	private PostRoomService postrepo;
 	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping
 	public String dashboard() {
 		return "admin/home";
 	}
 	
-
-	@RequestMapping(value = "/count", method = RequestMethod.GET)
-	@ResponseBody
-	public long countMotelRoom() {
-		long count = postrepo.getCountMotelRoom();
-		return count;
+	@GetMapping
+	public String dashboard(Model model) throws NotFoundException  {
+		model.addAttribute("roomsCount", postrepo.countRooms());
+		model.addAttribute("userCount", userService.countUsers());
+		return "admin/home";
 	}
 }
