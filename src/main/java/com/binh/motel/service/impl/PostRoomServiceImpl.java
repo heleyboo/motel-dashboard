@@ -97,6 +97,7 @@ public class PostRoomServiceImpl  implements PostRoomService{
 	@Override
 	public MotelRoom save(MotelRoomDto room) throws NotFoundException{
 		MotelRoom motelRoom = new MotelRoom();
+		motelRoom.setId(room.getId());
 		motelRoom.setTitle(room.getTitle());
 		motelRoom.setDescription(room.getDescription());
 		motelRoom.setPrice(room.getPrice());
@@ -132,7 +133,7 @@ public class PostRoomServiceImpl  implements PostRoomService{
 		motelRoom.setAddress(room.getAddress());
 		motelRoom.setPhoneNumber(room.getPhoneNumber());
 		motelRoom.setSlug(room.getSlug());
-
+		motelRoom.setUserName("BInhLOl");
 
 		MotelRoom saved = postRoomRepository.save(motelRoom);
 		return saved;

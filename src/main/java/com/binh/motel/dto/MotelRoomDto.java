@@ -56,7 +56,7 @@ public class MotelRoomDto {
 	
 	private String googleMapUrl;
 
-	@NotEmpty(message = "Danh mục bắt buộc nhập")
+	 @NotEmpty(message = "Danh mục bắt buộc nhập")
 	private String category;
 
 	@NotEmpty(message = "Xã/phường bắt buộc nhập")
