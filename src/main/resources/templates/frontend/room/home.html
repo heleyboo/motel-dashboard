@@ -21,8 +21,9 @@
 					<div class="card-body">
 						<div class="row">
 							<div th:each="room: ${paged.pageData.content}" class="col-md-2 box room-item-wrapper">
-								<a th:href="@{/room/{slug}.html(slug=${room.slug})}"> <img class="room-image room-image-grid"
-									th:src="${room.images[0].url}" />
+								<a th:href="@{/room/{slug}.html(slug=${room.slug})}"> 
+								<img th:if="${room.images.size > 0}" class="room-image room-image-grid" th:src="${room.images[0].url}" />
+								<img th:if="${room.images.size <= 0}" class="room-image room-image-grid" th:src="@{/images/home.jpg}" />
 									<div class="room-title" th:text="${room.title}"></div> <span
 									class="room-area"> <span th:text="${room.area}"></span>
 										m<sup>2</sup> <span th:text="${room.numOfBedrooms + ' Phòng'}"></span>
@@ -41,7 +42,6 @@
 		</div>
 	</div>
 	<th:block layout:fragment="scripts">
-		<script th:src="@{/js/room/main.js}"></script>
 	</th:block>
 </body>
 </html>
