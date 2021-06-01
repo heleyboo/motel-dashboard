@@ -38,7 +38,6 @@ public class CommentServiceImpl implements CommentService {
 	public void deleteComment(int id) throws NotFoundException {
 		Comment comment = findById(id);
 		commentRepo.delete(comment);
-		Comment comment1 = findById(id);
 	}
 
 	@Override

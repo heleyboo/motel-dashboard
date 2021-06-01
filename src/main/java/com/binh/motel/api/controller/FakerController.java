@@ -8,11 +8,14 @@ import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.binh.motel.dto.RoomFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.District;
@@ -28,12 +31,13 @@ import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.repository.WardRepository;
 import com.binh.motel.service.AuthenticationService;
 import com.binh.motel.service.DistrictService;
+import com.binh.motel.service.MotelRoomService;
 import com.binh.motel.service.ProvinceService;
 import com.binh.motel.service.WardService;
 import com.binh.motel.util.SlugUtil;
 import com.github.javafaker.Faker;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/fake")
 public class FakerController {
 	
@@ -59,7 +63,7 @@ public class FakerController {
 	@Autowired CommentRepository commentRepo;
 	
 	@GetMapping
-	public void createRooms() {
+	public String createRooms() {
 		
 		
 		List<Ward> wards = repo.findAll();
@@ -83,6 +87,8 @@ public class FakerController {
 			roomImageRepo.saveAll(images);
 			
 		}
+		
+		return "redirect:/administrator/dashboard";
 		
 	}
 	
@@ -141,12 +147,17 @@ public class FakerController {
 		return motelRoom;
 	}
 	
+	@Autowired MotelRoomService roomService;
 	@GetMapping("/comments")
-	public void fakeComments() {
-		Optional<MotelRoom> opmotelRoom = roomRepo.findById(137);
+	public String fakeComments() {
 		Faker faker = new Faker(new Locale("vi-VN"));
-		if (opmotelRoom.isPresent()) {
-			MotelRoom room = opmotelRoom.get();
+		RoomFilter roomRilter = new RoomFilter("0", "100", null);
+		PageResponse<MotelRoom> paged = roomService.searchRooms(roomRilter);
+		
+		List<MotelRoom> rooms = paged.getPageData().getContent();
+		int index = faker.random().nextInt(0, rooms.size() - 1);
+		MotelRoom motelRoom = rooms.get(index);
+		if (null != motelRoom) {
 
 			List<Comment> comments = new ArrayList<Comment>();
 			for (int i = 0; i < 100; i++) {
@@ -156,12 +167,14 @@ public class FakerController {
 				cmt.setPhoneNumber(faker.phoneNumber().phoneNumber());
 				cmt.setCommentedBy(faker.name().fullName());
 				cmt.setContent(faker.address().fullAddress());
-				cmt.setRoom(room);
+				cmt.setRoom(motelRoom);
 				comments.add(cmt);
 			}
 			
 			commentRepo.saveAll(comments);
 		}
+		
+		return "redirect:/administrator/comment/list";
 	}
 
 }
