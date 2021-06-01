@@ -79,3 +79,7 @@
 	weight: 25px;
 	height:25px;
 }
+
+.map iframe {
+	width:100%;
+}

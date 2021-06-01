@@ -1,5 +1,7 @@
 package com.binh.motel.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import com.binh.motel.data.domain.FilterPageRequest;
 import com.binh.motel.dto.CommentFilter;
 import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Comment;
+import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.repository.CommentRepository;
 import com.binh.motel.service.CommentService;
 
@@ -45,6 +48,16 @@ public class CommentServiceImpl implements CommentService {
 		Comment comment = findById(id);
 		comment.setApproved(status);
 		commentRepo.save(comment);
+	}
+
+	@Override
+	public List<Comment> findApprovedTrueAndRoom(MotelRoom room) {
+		return commentRepo.findByApprovedTrueAndRoom(room);
+	}
+
+	@Override
+	public Comment save(Comment comment) {
+		return commentRepo.save(comment);
 	}
 
 }

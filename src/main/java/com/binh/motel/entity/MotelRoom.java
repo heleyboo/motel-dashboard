@@ -75,6 +75,9 @@ public class MotelRoom {
 	@Column(name ="latlng")
 	private String latlng;
 	
+	@Column(name = "googleMap", columnDefinition = "varchar(2000)")
+	private String googleMap;
+	
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoomImage> images;
 	
