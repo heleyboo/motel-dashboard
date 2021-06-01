@@ -20,7 +20,7 @@ public class FrontDetailRoomController {
 	
 	@GetMapping("{slug}.html")
 	public String roomDetails(@PathVariable("slug") String slug, Model model) throws NotFoundException {
-		MotelRoom room = roomService.findBySlug(slug);
+		MotelRoom room = roomService.findBySlugOrId(slug);
 		model.addAttribute("room", room);
 		return "frontend/room/details";
 	}

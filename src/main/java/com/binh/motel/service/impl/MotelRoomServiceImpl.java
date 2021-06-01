@@ -235,8 +235,9 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	}
 
 	@Override
-	public MotelRoom findBySlug(String slug) throws NotFoundException {
-		return roomRepo.findBySlug(slug).orElseThrow(() -> new NotFoundException("Không tồn tại"));
+	public MotelRoom findBySlugOrId(String value) throws NotFoundException {
+		return roomRepo.findBySlugOrId(value, Integer.parseInt(value) ).orElseThrow(() -> new NotFoundException("Room không tồn tại"));
+		
 	}
 
 }
