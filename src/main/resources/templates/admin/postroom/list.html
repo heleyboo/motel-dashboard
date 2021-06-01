@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="motelRoom: ${motelRooms}">
+										<tr th:each="motelRoom: ${paged.pageData.content}">
 											<td th:text="${motelRoom.id}">
 											</th>
 											<td th:text="${motelRoom.title}">
@@ -75,12 +75,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer clearfix">
-								<ul class="pagination pagination-sm m-0 float-right">
-									<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+								<ul th:if="${paged.pageData.totalPages > 1}"
+									class="pagination m-0">
+									<li th:each="page : ${paged.getPages()}"
+										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
+										<div th:if="${filter.search != null and filter.search != ''}">
+											<a
+												th:href="@{/administrator/room/list(pageSize=${filter.pageSize}, pageNum=${page.key}, search=${filter.search})}"
+												th:text=${page.key} th:class="page-link">
+											</a>
+										</div>
+										<div
+											th:unless="${filter.search != null and filter.search != ''}">
+											<a
+												th:href="@{/administrator/room/list(pageSize=${filter.pageSize}, pageNum=${page.key})}"
+												th:text=${page.key} th:class="page-link">
+											</a>
+										</div>
+									</li>
 								</ul>
 							</div>
 						</div>

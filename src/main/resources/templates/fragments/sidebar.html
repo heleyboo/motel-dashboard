@@ -22,9 +22,9 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li sec:authorize="hasRole('ROLE_ADMIN')" 
-          	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-item menu-open' : 'nav-item'}">
+          	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/category') ? 'nav-item menu-open' : 'nav-item'}">
             <a href="#" 
-            th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/store') ? 'nav-link active' : 'nav-link'}">
+            th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/category') ? 'nav-link active' : 'nav-link'}">
               <i class="nav-icon fas fa-store"></i>
               <p th:inline="text">
               	<span> Quản lý Danh Mục</span>
@@ -89,6 +89,26 @@
                   <p>
                   	<span>Danh sách Phòng Trọ</span>
                   </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li sec:authorize="hasRole('ROLE_ADMIN')" 
+          	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/comment') ? 'nav-item menu-open' : 'nav-item'}">
+            <a href="#" 
+            th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/comment') ? 'nav-link active' : 'nav-link'}">
+              <i class="nav-icon fas fa-store"></i>
+              <p th:inline="text">
+              	<span> Quản lý bình luận</span>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a th:href="@{/administrator/comment/list}" th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/comment/') ? 'nav-link active' : 'nav-link'}">
+                  <i class="far fa-plus-square nav-icon"></i>
+                  <span>Danh sách bình luận</span>
                 </a>
               </li>
             </ul>
