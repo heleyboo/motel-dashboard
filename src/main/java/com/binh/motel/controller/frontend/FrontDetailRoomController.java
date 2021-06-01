@@ -20,6 +20,7 @@ public class FrontDetailRoomController {
 	
 	@GetMapping("{slug}.html")
 	public String roomDetails(@PathVariable("slug") String slug, Model model) throws NotFoundException {
+		// Nếu file bị lỗi font tiếng việt kiểm tra lại xem có phải là UTF8 hay chưa
 		MotelRoom room = roomService.findBySlugOrId(slug);
 		model.addAttribute("room", room);
 		return "frontend/room/details";
