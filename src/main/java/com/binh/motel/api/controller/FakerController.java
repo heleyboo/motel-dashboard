@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.District;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
@@ -20,6 +22,7 @@ import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.Ward;
 import com.binh.motel.enums.RoomDirection;
 import com.binh.motel.repository.CategoryRepository;
+import com.binh.motel.repository.CommentRepository;
 import com.binh.motel.repository.MotelRoomRepository;
 import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.repository.WardRepository;
@@ -52,6 +55,8 @@ public class FakerController {
 	@Autowired AuthenticationService authService;
 	
 	@Autowired RoomImageRepository roomImageRepo;
+	
+	@Autowired CommentRepository commentRepo;
 	
 	@GetMapping
 	public void createRooms() {
@@ -134,6 +139,29 @@ public class FakerController {
 		
 		
 		return motelRoom;
+	}
+	
+	@GetMapping("/comments")
+	public void fakeComments() {
+		Optional<MotelRoom> opmotelRoom = roomRepo.findById(137);
+		Faker faker = new Faker(new Locale("vi-VN"));
+		if (opmotelRoom.isPresent()) {
+			MotelRoom room = opmotelRoom.get();
+
+			List<Comment> comments = new ArrayList<Comment>();
+			for (int i = 0; i < 100; i++) {
+				
+				Comment cmt = new Comment();
+				cmt.setEmail(faker.bothify(("????##@gmail.com")));
+				cmt.setPhoneNumber(faker.phoneNumber().phoneNumber());
+				cmt.setCommentedBy(faker.name().fullName());
+				cmt.setContent(faker.address().fullAddress());
+				cmt.setRoom(room);
+				comments.add(cmt);
+			}
+			
+			commentRepo.saveAll(comments);
+		}
 	}
 
 }
