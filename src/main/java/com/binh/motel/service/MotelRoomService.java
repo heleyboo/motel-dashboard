@@ -10,7 +10,6 @@ import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.MotelRoom;
-import com.binh.motel.entity.RoomImage;
 import com.binh.motel.specification.Filter;
 
 import javassist.NotFoundException;
@@ -29,7 +28,7 @@ public interface MotelRoomService {
 	
 	public void deleteRoom(int id) throws NotFoundException;
 	
-	RoomImage getRoomImageById(int id) throws NotFoundException;
+	MotelRoom findById(int id) throws NotFoundException;
 
 
 	public long getCountMotelRoom();

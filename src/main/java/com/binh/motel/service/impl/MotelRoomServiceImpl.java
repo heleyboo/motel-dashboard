@@ -88,9 +88,8 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	}
 
 	@Override
-	public RoomImage getRoomImageById(int id) throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public MotelRoom findById(int id) throws NotFoundException {
+		return roomRepo.findById(id).orElseThrow(() -> new NotFoundException("Không tồn tại"));
 	}
 
 	@Transactional(readOnly = true)

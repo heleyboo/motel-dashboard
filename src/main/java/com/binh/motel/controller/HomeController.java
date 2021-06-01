@@ -20,7 +20,7 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model) {
 		
-		RoomFilter filter = new RoomFilter("0", "12", "");
+		RoomFilter filter = new RoomFilter("0", "24", "");
 		PageResponse<MotelRoom> paged = roomService.searchRooms(filter);
 		model.addAttribute("paged", paged);
 		return "frontend/room/home";

@@ -78,6 +78,9 @@ public class MotelRoom {
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoomImage> images;
 	
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Comment> comments;
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
 	private User createdBy;
