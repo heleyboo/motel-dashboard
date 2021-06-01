@@ -13,10 +13,23 @@ public class FilterPageRequest extends PageRequest {
 		super(page, size, sort);
 	}
 
+	private static int pageNum;
+	private static int pageSize;
+
 	@SuppressWarnings("rawtypes")
 	public static PageRequest of(Filter filter) {
-		int pageNum;
-		int pageSize;
+		calculatePageData(filter);
+		return of(pageNum, pageSize, Sort.unsorted());
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static PageRequest of(Filter filter, Sort sort) {
+		calculatePageData(filter);
+		return of(pageNum, pageSize, sort);
+	}
+
+	private static void calculatePageData(@SuppressWarnings("rawtypes") Filter filter) {
+
 		if (null == filter.getPageNum() || !isInteger(filter.getPageNum())) {
 			pageNum = 0;
 		} else {
@@ -27,12 +40,10 @@ public class FilterPageRequest extends PageRequest {
 		} else {
 			pageSize = Integer.parseInt(filter.getPageSize());
 		}
-		
+
 		if (pageNum <= 0) {
 			pageNum = 0;
 		}
-
-		return of(pageNum, pageSize, Sort.unsorted());
 	}
 
 	public static boolean isInteger(String strNum) {

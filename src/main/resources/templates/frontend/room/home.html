@@ -2,23 +2,42 @@
 <html lang="en" layout:decorate="~{layouts/frontend}">
 <head>
 <title>Dang tin</title>
+<th:block layout:fragment="styles">
+	<link rel="stylesheet" th:href="@{/frontend/css/style.css}">
+</th:block>
 </head>
 <body>
 	<div class="container" layout:fragment="content">
 		<div class="row">
 			<div class="col-md-12">
 				<!-- jquery validation -->
-				<div class="card card-success">
+				<div class="card card-default">
 					<div class="card-header">
-						<h3 class="card-title">Dang tin</h3>
+						<h3 class="card-title">Tin đăng mới</h3>
 					</div>
-				
+					<div class="card-body">
+						<div class="row">
+							<div th:each="room: ${paged.pageData.content}" class="col-md-2 box room-item-wrapper">
+								<a th:href="@{/room/{slug}.html(slug=${room.slug})}"> <img class="room-image room-image-grid"
+									th:src="${room.images[0].url}" />
+									<div class="room-title" th:text="${room.title}"></div> <span
+									class="room-area"> <span th:text="${room.area}"></span>
+										m<sup>2</sup> <span th:text="${room.numOfBedrooms + ' Phòng'}"></span>
+								</span> <span class="room-price" th:text="${room.price}"></span> <span
+									class="room-provine" th:text="${room.province}"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer paging-center clearfix">
+						<a th:href="@{/search}" class="more-rooms">Xem thêm</a>
+					</div>
 				</div>
 				<!-- /.card -->
 			</div>
 		</div>
 	</div>
-	<th:block layout:fragment="script">
+	<th:block layout:fragment="scripts">
 		<script th:src="@{/js/room/main.js}"></script>
 	</th:block>
 </body>

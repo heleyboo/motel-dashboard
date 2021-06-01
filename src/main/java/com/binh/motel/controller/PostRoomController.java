@@ -19,7 +19,7 @@ import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.service.CategoryService;
-import com.binh.motel.service.PostRoomService;
+import com.binh.motel.service.MotelRoomService;
 
 import javassist.NotFoundException;
 
@@ -27,7 +27,7 @@ import javassist.NotFoundException;
 @RequestMapping("/administrator/room")
 public class PostRoomController {
 	@Autowired
-	private PostRoomService service;
+	private MotelRoomService service;
 
 	
 	

@@ -17,7 +17,7 @@ import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
 import com.binh.motel.enums.RoomDirection;
-import com.binh.motel.service.PostRoomService;
+import com.binh.motel.service.MotelRoomService;
 import com.binh.motel.service.ProvinceService;
 
 import javassist.NotFoundException;
@@ -31,7 +31,7 @@ public class FrontCreateRoomController {
 	
 	
 	@Autowired
-	private PostRoomService post;
+	private MotelRoomService post;
 
 	@GetMapping
 	public String showForm(Model model) {

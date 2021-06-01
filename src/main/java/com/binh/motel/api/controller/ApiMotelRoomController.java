@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.entity.MotelRoom;
-import com.binh.motel.service.PostRoomService;
+import com.binh.motel.service.MotelRoomService;
 import com.binh.motel.specification.Filter;
 
 import javassist.NotFoundException;
@@ -28,7 +28,7 @@ import javassist.NotFoundException;
 @RequestMapping("/api/v1/rooms")
 public class ApiMotelRoomController {
 	@Autowired
-	private PostRoomService motelroomservice;
+	private MotelRoomService motelroomservice;
 
 	@PostMapping
 	public MotelRoom createRoom(@Valid @RequestBody MotelRoomDto room) throws NotFoundException {

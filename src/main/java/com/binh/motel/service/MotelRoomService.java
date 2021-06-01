@@ -1,7 +1,5 @@
 package com.binh.motel.service;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +7,8 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 
 import com.binh.motel.dto.MotelRoomDto;
+import com.binh.motel.dto.RoomFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.specification.Filter;
@@ -16,7 +16,7 @@ import com.binh.motel.specification.Filter;
 import javassist.NotFoundException;
 
 
-public interface PostRoomService {
+public interface MotelRoomService {
 
 
 
@@ -42,15 +42,10 @@ public interface PostRoomService {
 
 
 	List<MotelRoom> getMotelRooms(String userName);
-
+	
+	PageResponse<MotelRoom> searchRooms(RoomFilter filter);
 
 	public long countRooms();
-
-
-
-
-
-
-
-
+	
+	public MotelRoom findBySlug(String slug) throws NotFoundException;
 }

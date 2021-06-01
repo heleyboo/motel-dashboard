@@ -1,10 +1,9 @@
 package com.binh.motel.service.impl;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,29 +14,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.binh.motel.specification.Filter;
-import com.binh.motel.specification.MotelRoomSpecification;
+import com.binh.motel.data.domain.FilterPageRequest;
 import com.binh.motel.dto.MotelRoomDto;
+import com.binh.motel.dto.RoomFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.District;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.Ward;
+import com.binh.motel.repository.MotelRoomRepository;
+import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.service.CategoryService;
 import com.binh.motel.service.DistrictService;
+import com.binh.motel.service.MotelRoomService;
 import com.binh.motel.service.ProvinceService;
-import com.binh.motel.service.StorageService;
 import com.binh.motel.service.WardService;
-import com.binh.motel.repository.PostRoomRepository;
-import com.binh.motel.repository.RoomImageRepository;
-import com.binh.motel.service.PostRoomService;
+import com.binh.motel.specification.Filter;
+import com.binh.motel.specification.MotelRoomSpecification;
 
 import javassist.NotFoundException;
 
 @Service
-public class PostRoomServiceImpl  implements PostRoomService{
+public class MotelRoomServiceImpl  implements MotelRoomService{
 	@Autowired
-	private PostRoomRepository postRoomRepository;
+	private MotelRoomRepository roomRepo;
 	
 	@Autowired
 	private RoomImageRepository roomImageRepository;
@@ -56,19 +57,19 @@ public class PostRoomServiceImpl  implements PostRoomService{
 
 	@Override
 	public MotelRoom getMotelRoomById(int id) throws NotFoundException {
-		return postRoomRepository.findById(id).orElseThrow(() -> new NotFoundException("Room notfound"));
+		return roomRepo.findById(id).orElseThrow(() -> new NotFoundException("Room notfound"));
 	}
 
 	@Override
 	public List<MotelRoom> getAll() {
-		return postRoomRepository.findAll();
+		return roomRepo.findAll();
 	}
 	
 	@Override
 	public void approveRoom(int roomId) throws NotFoundException {
 		MotelRoom motelRoom = getMotelRoomById(roomId);
 		motelRoom.setApprove(1);
-		postRoomRepository.save(motelRoom);
+		roomRepo.save(motelRoom);
 	}
 	
 	@Override
@@ -79,7 +80,7 @@ public class PostRoomServiceImpl  implements PostRoomService{
 		roomImageRepository.deleteAll(roomImages);
 
 		
-		 postRoomRepository.deleteById(id);
+		 roomRepo.deleteById(id);
 	    }
 
 	@Override
@@ -90,7 +91,7 @@ public class PostRoomServiceImpl  implements PostRoomService{
 
 	@Transactional(readOnly = true)
 	public long getCountMotelRoom() {
-		long count = postRoomRepository.count();
+		long count = roomRepo.count();
 		return count;
 	}
 	
@@ -99,9 +100,9 @@ public class PostRoomServiceImpl  implements PostRoomService{
 		MotelRoom motelRoom = new MotelRoom();
 		motelRoom.setTitle(room.getTitle());
 		motelRoom.setDescription(room.getDescription());
-		motelRoom.setPrice(room.getPrice());
+		motelRoom.setPrice(BigDecimal.valueOf(room.getPrice()));
 		motelRoom.setArea(room.getArea());
-		motelRoom.setDepositAmount(room.getDepositAmount());
+		motelRoom.setDepositAmount(BigDecimal.valueOf(room.getDepositAmount()));
 		motelRoom.setBalconyDirection(room.getBalconyDirection());
 		motelRoom.setDoorDirection(room.getDoorDirection());
 		motelRoom.setNumOfBedrooms(room.getNumOfBedrooms());
@@ -134,7 +135,7 @@ public class PostRoomServiceImpl  implements PostRoomService{
 		motelRoom.setSlug(room.getSlug());
 
 
-		MotelRoom saved = postRoomRepository.save(motelRoom);
+		MotelRoom saved = roomRepo.save(motelRoom);
 		return saved;
 
 
@@ -214,18 +215,30 @@ public class PostRoomServiceImpl  implements PostRoomService{
 			spec = spec.and(MotelRoomSpecification.provinceCodeEqual(filter.getProvinceCode()));
 		}
 		
-		return postRoomRepository.findAll(spec, pageAble);
+		return roomRepo.findAll(spec, pageAble);
 	}
 
 	@Override
 	public List<MotelRoom> getMotelRooms(String userName) {
-		List<MotelRoom> rooms = postRoomRepository.findByUserName(userName);
-		return rooms;
+		return null;
 	}
 
 	@Override
 	public long countRooms() {
-		return postRoomRepository.count();
+		return roomRepo.count();
+	}
+
+	@Override
+	public PageResponse<MotelRoom> searchRooms(RoomFilter filter) {
+		Pageable pageAble = FilterPageRequest.of(filter);
+		Specification<MotelRoom> spec = filter.buildSpec();
+		Page<MotelRoom> paged = roomRepo.findAll(spec, pageAble);
+		return new PageResponse<MotelRoom>(paged, filter);
+	}
+
+	@Override
+	public MotelRoom findBySlug(String slug) throws NotFoundException {
+		return roomRepo.findBySlug(slug).orElseThrow(() -> new NotFoundException("Không tồn tại"));
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.binh.motel.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,10 +42,10 @@ public class MotelRoom {
 	private String description;
 	
 	@Column(name ="price", nullable = false)
-	private double price;
+	private BigDecimal price;
 	
 	@Column(name = "deposit_amount", nullable = true)
-	private double depositAmount;
+	private BigDecimal depositAmount;
 	
 	@Column(name ="area", nullable = false)
 	private float area;
@@ -73,13 +75,14 @@ public class MotelRoom {
 	@Column(name ="latlng")
 	private String latlng;
 	
-	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoomImage> images;
 	
-	@Column(name ="user_name", nullable = false)
-	private String userName;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
+	private User createdBy;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "category_id", referencedColumnName = "code", nullable = true)
 	private Category category;
 	
@@ -113,7 +116,7 @@ public class MotelRoom {
 	@Column(name ="updated_at")
 	private Date updatedAt;
 	
-	@Column(name ="slug")
+	@Column(name ="slug", unique = true, nullable = false)
 	private String slug;
 	
 	@Column(name ="province")

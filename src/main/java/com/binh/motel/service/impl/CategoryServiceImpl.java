@@ -16,7 +16,7 @@ import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.User;
 import com.binh.motel.repository.CategoryRepository;
-import com.binh.motel.repository.PostRoomRepository;
+import com.binh.motel.repository.MotelRoomRepository;
 import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.service.CategoryService;
 import com.binh.motel.util.SlugUtil;
@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository repo;
 
 	@Autowired
-	private PostRoomRepository postRepository;
+	private MotelRoomRepository postRepository;
 
 	@Autowired
 	private RoomImageRepository roomImageRepo;
