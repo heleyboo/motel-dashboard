@@ -21,11 +21,22 @@
 				<div class="card card-default">
 					<form th:action="@{/dang-tin}" method="post"
 						th:object="${motelRoomDto}">
-						<div class="card-header">
-							<h3 class="card-title">Thông tin</h3>
+						<div class="card-header ">
+							<label class="card-title">Nhập thông tin phòng trọ</label>
+										<a th:href="@{/administrator/dang-tin}" class="btn btn-success float-right"><i
+											class="fas fa-angle-left"></i> Back</a>
 							<button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Đăng tin</button>
 						</div>
 						<div class="card-body">
+							<div class="form-group">
+								<label for="category">Danh mục</label> <select
+									class="form-control select2" th:field="*{category}">
+									<option value="">Chọn danh mục</option>
+									<option th:each="category: ${categorys}"
+										th:value="${category.getCode()}"
+										th:text="${category.getName()}"></option>
+								</select>
+							</div>
 							<div class="form-group">
 								<label for="province">Chọn tỉnh/thành </label> 
 								<select
@@ -113,27 +124,36 @@
 									id="utilities-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
-								<label for="phoneNumber">Tiện ích</label> <input
+								<label for="phoneNumber">Số điện thoại</label> <input
 									class="form-control" type="text" th:field="*{phoneNumber}"
-									placeholder="Nhập tiện ích" />
+									placeholder="Nhập số điện thoại" />
 									<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
 									id="phoneNumber-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
 								<label for="title">Tiêu đề</label> <input
 									class="form-control" type="text" th:field="*{title}"
-									placeholder="Nhập tiện ích" />
+									placeholder="Nhập tiêu đề" />
 									<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
 									id="title-error" class="error error-field"></span>
 							</div>
 							<div class="form-group">
-								<label for="description">Tiện ích</label> <input
+								<label for="description">Mô tả</label> <input
 									class="form-control" type="text" th:field="*{description}"
-									placeholder="Nhập tiện ích" />
+									placeholder="Mô tả" />
 									<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
 									id="title-error" class="error error-field"></span>
 							</div>
 						</div>
+						
+						<!-- /.card-body -->
+								<div class="card-footer">
+									<div class="btn-group float-right">
+										<button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Đăng tin</button>
+										<a th:href="@{/administrator/dang-tin}" class="btn btn-success"><i
+											class="fas fa-angle-left"></i> Back</a>
+									</div>
+								</div>
 					</form>
 
 				</div>

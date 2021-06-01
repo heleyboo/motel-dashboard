@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.binh.motel.dto.MotelRoomDto;
-import com.binh.motel.entity.MotelRoom;
+import com.binh.motel.entity.Category;
 import com.binh.motel.entity.Province;
 import com.binh.motel.enums.RoomDirection;
+import com.binh.motel.service.AuthenticationService;
+import com.binh.motel.service.CategoryService;
 import com.binh.motel.service.MotelRoomService;
 import com.binh.motel.service.ProvinceService;
 
@@ -29,16 +31,24 @@ public class FrontCreateRoomController {
 	@Autowired
 	private ProvinceService provinceService;
 	
+	@Autowired
+	private CategoryService cate;
 	
 	@Autowired
 	private MotelRoomService post;
+	
+	@Autowired AuthenticationService authService;
+	
+	
 
 	@GetMapping
 	public String showForm(Model model) {
+		authService.getUserDetails();
 		MotelRoomDto motelRoomDto = new MotelRoomDto();
-//		List<MotelRoom> motelRoomDto = post.getAll();
+		List<Category> categorys = cate.getAll();
 		List<Province> provinces = provinceService.getAll();
 		List<RoomDirection> directions = Arrays.asList(RoomDirection.values());
+		model.addAttribute("categorys", categorys);
 		model.addAttribute("provinces", provinces);
 		model.addAttribute("motelRoomDto", motelRoomDto);
 		model.addAttribute("directions", directions);
@@ -48,8 +58,10 @@ public class FrontCreateRoomController {
 	@PostMapping
 	public String create(@Valid MotelRoomDto motelRoomDto, BindingResult bindingResult, Model model) throws NotFoundException {
 		if (bindingResult.hasErrors()) {
+			List<Category> categorys = cate.getAll();
 			List<Province> provinces = provinceService.getAll();
 			List<RoomDirection> directions = Arrays.asList(RoomDirection.values());
+			model.addAttribute("categorys", categorys);
 			model.addAttribute("provinces", provinces);
 			model.addAttribute("motelRoomDto", motelRoomDto);
 			model.addAttribute("directions", directions);

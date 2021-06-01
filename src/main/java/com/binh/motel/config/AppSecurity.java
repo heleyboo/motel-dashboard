@@ -35,7 +35,7 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/setup").permitAll()
 				.antMatchers("/lib/bootstrap/**", "/css/**", "/img/**", "/js/**").permitAll()
 				.antMatchers("/registration").permitAll()
-				.antMatchers("/api/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+				.antMatchers("/api/**").permitAll()
 				.antMatchers("/administrator/dashboard").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 				.antMatchers("/administrator/store/**").access("hasAnyRole('ROLE_ADMIN')")
 				.antMatchers("/administrator/user/**").access("hasRole('ROLE_ADMIN')")
