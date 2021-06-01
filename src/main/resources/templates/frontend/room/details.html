@@ -48,6 +48,7 @@
 
 								<!-- Start content -->
 								<div class="row">
+									<h3 th:text="${room.title}"></h3>
 									<div class="col-md-12">
 										<p th:text="${room.description}" class="room-description"></p>
 									</div>
@@ -55,12 +56,22 @@
 								<div class="row">
 									<div class="col-md-6">
 										<p>
-											Diện tích <span th:text="${room.area}"></span>
+											Diện tích:  <span th:text="${room.area}"></span>
 										</p>
 									</div>
 									<div class="col-md-6">
 										<p>
-											Gía/m2 <span th:text="${room.area}"></span>
+											GÃ­a/m2 <span th:text="${room.area}"></span>
+										</p>
+									</div>
+									<div class="col-md-6">
+										<p>
+											Diá»‡n tÃ­ch <span th:text="${room.area}"></span>
+										</p>
+									</div>
+									<div class="col-md-6">
+										<p>
+											GÃ­a/m2 <span th:text="${room.area}"></span>
 										</p>
 									</div>
 								</div>

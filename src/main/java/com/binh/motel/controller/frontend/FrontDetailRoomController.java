@@ -28,7 +28,7 @@ public class FrontDetailRoomController {
 	
 	@GetMapping("{slug}.html")
 	public String roomDetails(@PathVariable("slug") String slug, Model model) throws NotFoundException {
-		MotelRoom room = roomService.findBySlug(slug);
+		MotelRoom room = roomService.findBySlugOrId(slug);
 		Comment comment = new Comment();
 		comment.setRoom(room);
 		model.addAttribute("room", room);

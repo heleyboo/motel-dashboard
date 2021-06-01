@@ -46,5 +46,5 @@ public interface MotelRoomService {
 
 	public long countRooms();
 	
-	public MotelRoom findBySlug(String slug) throws NotFoundException;
+	public MotelRoom findBySlugOrId(String value) throws NotFoundException;
 }

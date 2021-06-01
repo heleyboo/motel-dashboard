@@ -21,7 +21,7 @@
 					<div class="card-body">
 						<div class="row">
 							<div th:each="room: ${paged.pageData.content}" class="col-md-2 box room-item-wrapper">
-								<a th:href="@{/room/{slug}.html(slug=${room.slug})}"> 
+								<a th:href="@{/room/{slug}.html(slug=${!#strings.isEmpty(room.slug) ? room.slug : room.id})}"> 
 								<img th:if="${room.images.size > 0}" class="room-image room-image-grid" th:src="${room.images[0].url}" />
 								<img th:if="${room.images.size <= 0}" class="room-image room-image-grid" th:src="@{/images/home.jpg}" />
 									<div class="room-title" th:text="${room.title}"></div> <span

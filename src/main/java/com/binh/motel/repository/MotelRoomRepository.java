@@ -13,5 +13,6 @@ public interface MotelRoomRepository extends JpaRepository<MotelRoom, Integer>, 
 
 	List<MotelRoom> findByCreatedBy(User userName);
 	Optional<MotelRoom> findBySlug(String slug);
+	Optional<MotelRoom> findBySlugOrId(String slug, int id);
 
 }
