@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.binh.motel.entity.RoomType;
 import com.binh.motel.enums.RoomDirection;
 
@@ -69,7 +71,8 @@ public class MotelRoomDto {
 
 	private String slug;
 	
-	private List<String> images;
+//	private List<String> images;
+	MultipartFile[] files;
 	
 	private int status;
 }

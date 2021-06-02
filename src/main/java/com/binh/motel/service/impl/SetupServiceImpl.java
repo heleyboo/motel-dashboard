@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.binh.motel.dto.AdminUserDto;
 import com.binh.motel.entity.Role;
 import com.binh.motel.entity.User;
+import com.binh.motel.enums.RoleEnum;
 import com.binh.motel.repository.RoleRepository;
 import com.binh.motel.repository.UserRepository;
 import com.binh.motel.service.SetupService;
@@ -30,11 +31,11 @@ public class SetupServiceImpl implements SetupService {
 	private PasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public void setup(AdminUserDto adminUser) {
-		saveAdminUser(adminUser);
+	public void setup(AdminUserDto adminUser, boolean isAdmin) {
+		saveAdminUser(adminUser, isAdmin);
 	}
 
-	public User saveAdminUser(AdminUserDto userDto) {
+	public User saveAdminUser(AdminUserDto userDto, boolean isAdmin) {
 		User user = new User();
 		user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 		user.setActive(true);
@@ -45,15 +46,24 @@ public class SetupServiceImpl implements SetupService {
 		user.setEmail(userDto.getEmail());
 		user.setActive(true);
 
-		Role adminRole = roleRepo.findByRole("ROLE_ADMIN");
+		Role adminRole = roleRepo.findByRole(RoleEnum.ROLE_ADMIN.toString());
+		
 		if (null == adminRole) {
-			adminRole = new Role("ROLE_ADMIN", "Quản trị");
+			adminRole = new Role(RoleEnum.ROLE_ADMIN.toString(), "Quản trị");
 			roleRepo.save(adminRole);
 		}
 		
+		Role userRole = roleRepo.findByRole(RoleEnum.ROLE_USER.toString());
+		
+		if (null == userRole) {
+			userRole = new Role(RoleEnum.ROLE_USER.toString(), "Người dùng");
+			roleRepo.save(userRole);
+		}
+		
+		Role theRole = isAdmin ? adminRole : userRole;
 		
 
-		List<Role> roles = Arrays.asList(adminRole);
+		List<Role> roles = Arrays.asList(theRole);
 		Set<Role> setRoles = new HashSet<>(roles);
 		user.setRoles(setRoles);
 

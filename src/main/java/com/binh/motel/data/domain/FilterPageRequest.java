@@ -36,7 +36,7 @@ public class FilterPageRequest extends PageRequest {
 			pageNum = Integer.parseInt(filter.getPageNum()) - 1;
 		}
 		if (null == filter.getPageSize() || !isInteger(filter.getPageSize())) {
-			pageSize = 10;
+			pageSize = 12;
 		} else {
 			pageSize = Integer.parseInt(filter.getPageSize());
 		}

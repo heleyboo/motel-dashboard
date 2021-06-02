@@ -19,8 +19,7 @@
 				<!-- jquery validation -->
 
 				<div class="card card-default">
-					<form th:action="@{/dang-tin}" method="post"
-						th:object="${motelRoomDto}">
+					<form th:action="@{/dang-tin}" method="post" th:object="${motelRoomDto}" enctype="multipart/form-data">
 						<div class="card-header ">
 							<label class="card-title">Nhập thông tin phòng trọ</label>
 										<a th:href="@{/administrator/dang-tin}" class="btn btn-success float-right"><i
@@ -47,14 +46,14 @@
 							</div>
 							<div class="form-group">
 								<label for="district">Chọn quận/huyện</label> <select
-									class="form-control" id="district">
+									class="form-control select2" id="district">
 									<option value="">Chọn quận huyện</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="ward">Chọn phường/xã</label> 
 								<select
-									class="form-control" th:field="*{ward}">
+									class="form-control select2" th:field="*{ward}">
 									<option value="">Chọn phường/xã</option>
 								</select>
 							</div>
@@ -122,6 +121,10 @@
 									placeholder="Nhập tiện ích" />
 									<span th:if="${#fields.hasErrors('utilities')}" th:errors="*{utilities}"
 									id="utilities-error" class="error error-field"></span>
+							</div>
+							<div class="form-group">
+								<label for="images">Hình ảnh</label>
+								<input type="file" multiple="multiple" th:field="*{files}" />
 							</div>
 							<div class="form-group">
 								<label for="phoneNumber">Số điện thoại</label> <input

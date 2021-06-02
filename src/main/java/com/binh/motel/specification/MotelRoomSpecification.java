@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.MotelRoom;
+import com.binh.motel.entity.User;
 import com.binh.motel.enums.RoomDirection;
 
 public final class MotelRoomSpecification {
@@ -97,8 +98,14 @@ public final class MotelRoomSpecification {
 		return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(property), "%" + value + "%");
 	}
 	
+	public static Specification<MotelRoom> isApproved(Boolean status) {
+		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("approve"), status);
+	}
 	
 	
-	
+	public static Specification<MotelRoom> userEqual(User user) {
+		return (root, query, criteriaBuilder)
+				-> criteriaBuilder.equal(root.get("createdBy"), user);
+	}
 
 }

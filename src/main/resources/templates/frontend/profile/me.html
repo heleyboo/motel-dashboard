@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/frontend}">
+<head>
+<title>Trang cá nhân</title>
+<th:block layout:fragment="styles">
+	<link rel="stylesheet" th:href="@{/frontend/css/style.css}">
+</th:block>
+</head>
+<body>
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="container" layout:fragment="content">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- jquery validation -->
+						<div class="card card-default">
+							<div class="card-header">
+								<h3 class="card-title">Trang cá nhân</h3>
+							</div>
+							<div class="card-body">
+								Tên người dùng:
+								<span th:text="${user.userName}"></span>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<!-- jquery validation -->
+						<div class="card card-default">
+							<div class="card-header">
+								<h3 class="card-title">Tin rao đang đang hiển thị</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div th:each="room: ${paged.pageData.content}"
+										class="col-md-2 box room-item-wrapper">
+										<a
+											th:href="@{/room/{slug}.html(slug=${!#strings.isEmpty(room.slug) ? room.slug : room.id})}">
+											<img th:if="${room.images.size > 0}"
+											class="room-image room-image-grid"
+											th:src="${room.images[0].url}" /> <img
+											th:if="${room.images.size <= 0}"
+											class="room-image room-image-grid"
+											th:src="@{/images/home.jpg}" />
+											<div class="room-title" th:text="${room.title}"></div> <span
+											class="room-area"> <span th:text="${room.area}"><span>-</span></span>
+												m<sup>2</sup> <span
+												th:text="${room.numOfBedrooms + ' Phòng'}"></span>
+										</span> <span class="room-price" th:text="${room.price}"></span> <span
+											class="room-provine" th:text="${room.province}"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer paging-center clearfix">
+								<a th:href="@{/search}" class="more-rooms">Xem thêm</a>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+				</div>
+			</div>
+			<th:block layout:fragment="scripts">
+			</th:block>
+</body>
+</html>

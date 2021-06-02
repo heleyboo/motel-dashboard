@@ -1,8 +1,13 @@
 package com.binh.motel.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -13,7 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.binh.motel.data.domain.FilterPageRequest;
 import com.binh.motel.dto.MotelRoomDto;
@@ -73,7 +80,6 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		return roomRepo.findAll();
 	}
 
-
 	@Override
 	public void deleteRoom(int id) throws NotFoundException {
 		MotelRoom motelRoom = getMotelRoomById(id);
@@ -98,6 +104,7 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	@Override
 	public MotelRoom save(MotelRoomDto room) throws NotFoundException {
 		MotelRoom motelRoom = new MotelRoom();
+
 		motelRoom.setId(room.getId());
 		motelRoom.setTitle(room.getTitle());
 		motelRoom.setDescription(room.getDescription());
@@ -135,8 +142,33 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		motelRoom.setCreatedBy(currentUser);
 
 		MotelRoom saved = roomRepo.save(motelRoom);
+		saveImages(motelRoom, room.getFiles());
 		return saved;
 
+	}
+
+	private void saveImages(MotelRoom motelRoom, MultipartFile[] files) {
+		// Save images
+		ClassLoader classLoader = getClass().getClassLoader();
+		try {
+			List<RoomImage> images = new ArrayList<RoomImage>();
+			String basePath = "static/images";
+			URL uploadPath = classLoader.getResource(basePath);
+			String fullPath = uploadPath.getPath();
+			for (MultipartFile multipartFile : files) {
+				UUID uuid = UUID.randomUUID();
+				String uuidAsString = uuid.toString();
+				String fileName = uuidAsString + multipartFile.getOriginalFilename();
+				FileCopyUtils.copy(multipartFile.getBytes(), new File(fullPath + "/" + fileName));
+				RoomImage ri = new RoomImage();
+				ri.setUrl(String.format("/%s/%s", "images", fileName));
+				ri.setRoom(motelRoom);
+				images.add(ri);
+			}
+			roomImageRepository.saveAll(images);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -189,10 +221,6 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 
 		if (null != filter.getDoorDirection() && StringUtils.hasText(filter.getDoorDirection())) {
 			spec = spec.and(MotelRoomSpecification.doorDirectionEqual(filter.getDoorDirection()));
-		}
-
-		if (StringUtils.hasText(filter.getCategory())) {
-			spec = spec.and(MotelRoomSpecification.categoryEqual(filter.getCategory()));
 		}
 
 		String wardCode;
@@ -254,6 +282,14 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		roomRepo.save(motel);
 	}
 
-	
+	@Override
+	public PageResponse<MotelRoom> searchRoomsByUser(User user) {
+		RoomFilter filter = new RoomFilter("0", "12", null);
+		filter.setUser(user);
+		Pageable pageAble = FilterPageRequest.of(filter);
+		Specification<MotelRoom> spec = filter.buildSpec();
+		Page<MotelRoom> paged = roomRepo.findAll(spec, pageAble);
+		return new PageResponse<MotelRoom>(paged, filter);
+	}
 
 }

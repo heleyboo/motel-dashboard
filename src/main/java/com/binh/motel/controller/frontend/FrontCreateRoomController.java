@@ -1,5 +1,6 @@
 package com.binh.motel.controller.frontend;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,16 +31,15 @@ public class FrontCreateRoomController {
 
 	@Autowired
 	private ProvinceService provinceService;
-	
+
 	@Autowired
 	private CategoryService cate;
-	
+
 	@Autowired
 	private MotelRoomService post;
-	
-	@Autowired AuthenticationService authService;
-	
-	
+
+	@Autowired
+	AuthenticationService authService;
 
 	@GetMapping
 	public String showForm(Model model) {
@@ -56,7 +56,9 @@ public class FrontCreateRoomController {
 	}
 
 	@PostMapping
-	public String create(@Valid MotelRoomDto motelRoomDto, BindingResult bindingResult, Model model) throws NotFoundException {
+	public String create(@Valid MotelRoomDto motelRoomDto, BindingResult bindingResult, Model model)
+			throws NotFoundException {
+
 		if (bindingResult.hasErrors()) {
 			List<Category> categorys = cate.getAll();
 			List<Province> provinces = provinceService.getAll();
@@ -69,7 +71,7 @@ public class FrontCreateRoomController {
 		}
 
 		post.save(motelRoomDto);
-		return "redirect:/dang-tin";
+		return "redirect:/profile/me";
 
 	}
 }

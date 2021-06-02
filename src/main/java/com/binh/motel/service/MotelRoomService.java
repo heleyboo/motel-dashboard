@@ -10,6 +10,7 @@ import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.MotelRoom;
+import com.binh.motel.entity.User;
 import com.binh.motel.specification.Filter;
 
 import javassist.NotFoundException;
@@ -42,6 +43,8 @@ public interface MotelRoomService {
 	List<MotelRoom> getMotelRooms(String userName);
 	
 	PageResponse<MotelRoom> searchRooms(RoomFilter filter);
+	
+	PageResponse<MotelRoom> searchRoomsByUser(User user);
 
 	public long countRooms();
 	

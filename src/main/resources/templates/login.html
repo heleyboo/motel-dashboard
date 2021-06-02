@@ -22,8 +22,6 @@
 				<a href="@{/login}" class="h1" th:text="#{login.title}"></a>
 			</div>
 			<div class="card-body">
-				<p class="login-box-msg" th:text="#{login.message}"></p>
-
 				<form th:action="@{/login}" method="POST">
 					<div align="center" th:if="${param.error}">
 			            <p style="font-size: 20; color: #FF1C19;" th:text="#{login.error}"></p>
@@ -55,7 +53,7 @@
 
 				<p class="mb-1">
 					<a href="forgot-password" th:text="#{login.forgot}"></a>
-					<a href="setup" class="float-right">Quên pass</a>
+					<a th:href="@{/register}" class="float-right">Đăng ký</a>
 				</p>
 			</div>
 			<!-- /.card-body -->

@@ -44,8 +44,9 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/lib/bootstrap/**", "/css/**", "/img/**", "/js/**").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/api/**").permitAll()
-				.antMatchers("/dang-tin").access("hasAnyRole('ROLE_ADMIN')")
-				.antMatchers("/administrator/dashboard").access("hasAnyRole('ROLE_ADMIN')")
+				.antMatchers("/dang-tin").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+				.antMatchers("/administrator/dashboard").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/profile/me").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 				.antMatchers("/administrator/user/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers("/administrator/category/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers("/administrator/room/**").access("hasRole('ROLE_ADMIN')")
@@ -62,7 +63,7 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/dist/**", "/plugins/**", "/resources/**", "/static/**", "/css/**", "/js/**",
+		web.ignoring().antMatchers("/dist/**", "/plugins/**", "/resources/**", "/public/**", "/static/**", "/css/**", "/js/**",
 				"/images/**");
 	}
 }

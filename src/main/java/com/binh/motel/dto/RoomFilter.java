@@ -11,6 +11,7 @@ import com.binh.motel.entity.Category;
 import com.binh.motel.entity.District;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
+import com.binh.motel.entity.User;
 import com.binh.motel.entity.Ward;
 import com.binh.motel.enums.RoomDirection;
 import com.binh.motel.specification.MotelRoomSpecification;
@@ -32,6 +33,8 @@ public class RoomFilter extends Filter<MotelRoom> {
 	private String numOfToilets;
 	private String priceRange;
 	private String areaRange;
+	private User user;
+	private Boolean approve = true;
 
 	public RoomFilter(String pageNum, String pageSize, String search) {
 		super(pageNum, pageSize, search);
@@ -39,7 +42,7 @@ public class RoomFilter extends Filter<MotelRoom> {
 
 	@Override
 	public Specification<MotelRoom> buildSpec() {
-		Specification<MotelRoom> spec = MotelRoomSpecification.isTrue();
+		Specification<MotelRoom> spec = MotelRoomSpecification.isApproved(approve);
 		
 		if (null != category) {
 			spec = spec.and(MotelRoomSpecification.categoryEqual(category));
@@ -94,6 +97,10 @@ public class RoomFilter extends Filter<MotelRoom> {
 			Specification<MotelRoom> toiletSpec = MotelRoomSpecification.numOfToiletsGreaterThanOrEqual(minToilets);
 			toiletSpec = toiletSpec.and(MotelRoomSpecification.numOfToiletsLessThanOrEqual(maxToilets));
 			spec = spec.and(toiletSpec);
+		}
+		
+		if (null != user) {
+			spec = spec.and(MotelRoomSpecification.userEqual(user));
 		}
 		
 		return spec;

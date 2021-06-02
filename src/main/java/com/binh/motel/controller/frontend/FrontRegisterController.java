@@ -1,4 +1,4 @@
-package com.binh.motel.controller;
+package com.binh.motel.controller.frontend;
 
 import javax.validation.Valid;
 
@@ -14,9 +14,8 @@ import com.binh.motel.dto.AdminUserDto;
 import com.binh.motel.service.SetupService;
 
 @Controller
-@RequestMapping("/setup")
-public class SetupController {
-
+@RequestMapping("/register")
+public class FrontRegisterController {
 	@Autowired
 	private SetupService setupService;
 
@@ -24,16 +23,16 @@ public class SetupController {
 	public String showCreateAdminForm(Model model) {
 		AdminUserDto userDto = new AdminUserDto();
 		model.addAttribute("userDto", userDto);
-		return "create_admin";
+		return "frontend/create_user";
 	}
 
 	@PostMapping
 	public String createAdminUser(@Valid AdminUserDto userDto, BindingResult bindingResult, Model model) throws Exception {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userDto", userDto);
-			return "create_admin";
+			return "frontend/create_user";
 		}
-		setupService.setup(userDto, true);
+		setupService.setup(userDto, false);
 		return "redirect:/login";
 	}
 }
