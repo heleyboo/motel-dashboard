@@ -105,13 +105,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												class="badge bg-warning">Đang chờ approve</span>
 											</th>
 
-											<td><a th:if="${!comment.approved}"
-												class="btn btn-success"
+											<td><a th:if="${!comment.approved}" class="btn btn-success"
 												th:href="@{/administrator/comment/approve/{commentId}(commentId=${comment.id})}">Phê
-													duyệt</a> <a th:if="${comment.approved}"
-												class="btn btn-warning"
+													duyệt</a> 
+													<a th:if="${comment.approved}" class="btn btn-warning"
 												th:href="@{/administrator/comment/disapprove/{commentId}(commentId=${comment.id})}">Hủy
-													phê duyệt</a> <a class="btn btn-danger"
+													phê duyệt</a>
+													 <a class="btn btn-danger"
 												th:href="@{/administrator/comment/delete/{id}(id=${comment.id})}"><i
 													class="fas fa-trash"></i> Xóa</a></td>
 										</tr>

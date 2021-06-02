@@ -60,4 +60,9 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepo.save(comment);
 	}
 
+	@Override
+	public long countComment() {
+		return commentRepo.count();
+	}
+
 }

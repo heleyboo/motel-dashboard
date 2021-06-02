@@ -20,6 +20,7 @@ import com.binh.motel.data.domain.FilterPageRequest;
 import com.binh.motel.dto.UserDto;
 import com.binh.motel.dto.UserFilter;
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Role;
 import com.binh.motel.entity.RoomImage;
@@ -85,12 +86,6 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User notfound"));
 	}
 
-	@Override
-	public void approveUser(int userId) throws NotFoundException {
-		User user = getUserById(userId);
-		user.setActive(false);
-		userRepository.save(user);
-	}
 
 //		@Override
 //  	  public Optional<User> findUserById(int id) {  
@@ -138,6 +133,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long countUsers() {
 		return userRepository.count();
+	}
+
+	@Override
+	public void toggleStatus(int id, boolean status) throws NotFoundException {
+		User user = findById(id);
+		user.setActive(status);
+		userRepository.save(user);
+		
+	}
+
+	private User findById(int id) throws NotFoundException {
+		return userRepository.findById(id).orElseThrow(() -> new NotFoundException("Không tồn tại phản hồi"));
 	}
 
 }

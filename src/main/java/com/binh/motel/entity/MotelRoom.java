@@ -104,11 +104,11 @@ public class MotelRoom {
 	@Column(name ="utilities")
 	private String utilities;
 	
-	@Column(name ="approve")
-	private int approve;
+	@Column(name ="approve", columnDefinition = "boolean default false")
+	private Boolean approve;
 	
 	@Column(name = "status")
-	private int status;
+	private Boolean status;
 	
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;

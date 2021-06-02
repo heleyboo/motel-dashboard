@@ -16,5 +16,6 @@ public interface CommentService {
 	public void toggleStatus(int id, boolean status) throws NotFoundException;
 	public List<Comment> findApprovedTrueAndRoom(MotelRoom room);
 	public Comment save(Comment comment);
+	public long countComment();
 	
 }

@@ -69,9 +69,15 @@ public class UserController {
 	    return mav;
 	}
 	
-	@RequestMapping("/active/{roomId}")
-	public String approveUser(@PathVariable("roomId") int id) throws NotFoundException {
-		userService.approveUser(id);
+	@GetMapping("/approve/{id}")
+	public String approveComment(@PathVariable("id") int id) throws NotFoundException {
+		userService.toggleStatus(id, true);
+		return "redirect:/administrator/user/list";
+	}
+	
+	@GetMapping("/disapprove/{id}")
+	public String disApproveComment(@PathVariable("id") int id) throws NotFoundException {
+		userService.toggleStatus(id, false);
 		return "redirect:/administrator/user/list";
 	}
 	

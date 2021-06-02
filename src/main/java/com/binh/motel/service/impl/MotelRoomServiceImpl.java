@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,7 @@ import com.binh.motel.data.domain.FilterPageRequest;
 import com.binh.motel.dto.MotelRoomDto;
 import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.response.PageResponse;
+import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.District;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
@@ -70,12 +73,6 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		return roomRepo.findAll();
 	}
 
-	@Override
-	public void approveRoom(int roomId) throws NotFoundException {
-		MotelRoom motelRoom = getMotelRoomById(roomId);
-		motelRoom.setApprove(1);
-		roomRepo.save(motelRoom);
-	}
 
 	@Override
 	public void deleteRoom(int id) throws NotFoundException {
@@ -249,5 +246,14 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		}
 		return motelRoom;
 	}
+
+	@Override
+	public void toggleStatus(int id, boolean status) throws NotFoundException {
+		MotelRoom motel = findById(id);
+		motel.setApprove(status);
+		roomRepo.save(motel);
+	}
+
+	
 
 }

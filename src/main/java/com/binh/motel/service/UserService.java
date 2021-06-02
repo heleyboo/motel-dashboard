@@ -29,9 +29,8 @@ public interface UserService {
 	
 	public Page<User> searchUsers(UserFilter userFilter);
 
-
+	public void toggleStatus(int id, boolean status) throws NotFoundException;
 	
-	public void approveUser(int roomId) throws NotFoundException;
 	
 	public void deleteUser(int id) throws NotFoundException;
 	

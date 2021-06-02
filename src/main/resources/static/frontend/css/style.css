@@ -83,3 +83,13 @@
 .map iframe {
 	width:100%;
 }
+.room-phoneNumber{
+	color: #3399ff;
+}
+.room-fulAddress{
+	box-sizing: border-box;
+	color: #3399ff;
+}
+.btn-success{
+	weight: 100%;
+}
