@@ -1,5 +1,7 @@
 package com.binh.motel.controller.frontend;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.repository.CommentRepository;
+import com.binh.motel.service.CommentService;
 import com.binh.motel.service.MotelRoomService;
 
 import javassist.NotFoundException;
@@ -24,15 +27,20 @@ public class FrontDetailRoomController {
 	
 	@Autowired MotelRoomService roomService;
 	
-	@Autowired CommentRepository commentRepo;
+	@Autowired CommentService commentService;
 	
 	@GetMapping("{slug}.html")
 	public String roomDetails(@PathVariable("slug") String slug, Model model) throws NotFoundException {
 		MotelRoom room = roomService.findBySlugOrId(slug);
 		Comment comment = new Comment();
 		comment.setRoom(room);
+		
+		// Lấy danh sách comment đã được approve của rooms
+		List<Comment> approvedComments = commentService.findApprovedTrueAndRoom(room);
+		
 		model.addAttribute("room", room);
 		model.addAttribute("comment", comment);
+		model.addAttribute("comments", approvedComments);
 		return "frontend/room/details";
 	}
 	
@@ -46,7 +54,7 @@ public class FrontDetailRoomController {
 			model.addAttribute("comment", comment);
 			return "frontend/room/details";
 		}
-		commentRepo.save(comment);
+		commentService.save(comment);
 		return "redirect:/room/" + room.getSlug() + ".html";
 	}
 }

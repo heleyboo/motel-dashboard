@@ -70,7 +70,7 @@ public class FakerController {
 		List<Category> categories = categoryRepo.findAll();
 		List<MotelRoom> motels = new ArrayList<MotelRoom>();
 		Faker faker = new Faker(new Locale("vi-VN"));
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 100; i++) {
 			MotelRoom motelRoom = createRandomMotelRoom(faker, wards, categories);
 			motelRoom.setCreatedBy(authService.currentUser());
 			MotelRoom savedRoom = roomRepo.save(motelRoom);

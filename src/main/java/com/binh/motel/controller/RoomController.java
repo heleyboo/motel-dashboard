@@ -19,33 +19,39 @@ import javassist.NotFoundException;
 @RequestMapping("/administrator/room")
 public class RoomController {
 	@Autowired
-	private MotelRoomService service;
+	private MotelRoomService motelRoomservice;
 
 	
 	
 	@GetMapping("/list")
 	public String searchRooms(Model model, @ModelAttribute("filter") RoomFilter filter) {
-		PageResponse<MotelRoom> paged = service.searchRooms(filter);
+		PageResponse<MotelRoom> paged = motelRoomservice.searchRooms(filter);
 		model.addAttribute("paged", paged);
 		return "admin/postroom/list";
 	}
 	
 	@GetMapping("/{code}")
 	public String editMotelRoom(@PathVariable int id, Model model) throws NotFoundException {
-		MotelRoom motelRoom = service.getMotelRoomById(id);
+		MotelRoom motelRoom = motelRoomservice.getMotelRoomById(id);
 		model.addAttribute("motelRoom", motelRoom);
 		return "admin/postroom/list";
 	}
 	
-	@RequestMapping("/approve/{roomId}")
-	public String approveRoom(@PathVariable("roomId") int id) throws NotFoundException {
-		service.approveRoom(id);
-		return "redirect:/administrator/room/list";
+	@GetMapping("/approve/{id}")
+	public String approveComment(@PathVariable("id") int id) throws NotFoundException {
+		motelRoomservice.toggleStatus(id, true);
+		return "redirect:/administrator/postroom/list";
+	}
+	
+	@GetMapping("/disapprove/{id}")
+	public String disApproveComment(@PathVariable("id") int id) throws NotFoundException {
+		motelRoomservice.toggleStatus(id, false);
+		return "redirect:/administrator/postroom/list";
 	}
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteRoom(@PathVariable("id") int id) throws NotFoundException {
-	    service.deleteRoom(id);
+		motelRoomservice.deleteRoom(id);
 	    return "redirect:/administrator/room/list";       
 	}
 }

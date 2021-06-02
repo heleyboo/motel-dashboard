@@ -24,7 +24,6 @@ public interface MotelRoomService {
 
 	MotelRoom getMotelRoomById(int id) throws NotFoundException;
 	
-	public void approveRoom(int roomId) throws NotFoundException;
 	
 	public void deleteRoom(int id) throws NotFoundException;
 	
@@ -47,4 +46,7 @@ public interface MotelRoomService {
 	public long countRooms();
 	
 	public MotelRoom findBySlugOrId(String value) throws NotFoundException;
+
+
+	void toggleStatus(int id, boolean status) throws NotFoundException;
 }

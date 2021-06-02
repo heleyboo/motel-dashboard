@@ -47,7 +47,7 @@ public class User {
 	private String password;
 	
 	@Column(name = "active")
-	private Boolean active = false;
+	private Boolean active;
 	
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;

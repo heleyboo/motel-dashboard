@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a th:href="@{/administrator/dashboard}">Home</a></li>
-							<li class="breadcrumb-item active"><a th:href="@{/administrator/user/list}">Danh sách Phòng trọ</a></li>
+							<li class="breadcrumb-item active"><a th:href="@{/administrator/user/list}">Danh sách phòng trọ</a></li>
 						</ol>
 					</div>
 				</div>
@@ -55,8 +55,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<td th:text="${user.userName}"></td>
 											<td th:text="${user.email}"></td>
 											<td th:text="${user.firstName}"></td>
-											<td th:text="${user.active}"></td>
-											
+											<td th:if="${user.active}">
+											<span class="badge bg-success">Đã approve</span>
+
+											<td th:if="${!user.active}">
+											<span class="badge bg-warning">Đang chờ approve</span>
 											<td>
 												<a class="btn btn-primary" 
 												th:href="@{/administrator/user/edit/{id}(id=${user.id})}">
@@ -68,8 +71,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<i class="fas fa-trash"></i>
 													<span th:text="#{global.delete}"></span>
 												</a>
-												<a class="btn btn-success" 
-												th:href="@{/administrator/user/active/{roomId}(roomId=${user.id})}">Approve</a>
+												<a th:if="${!user.active}" class="btn btn-success"
+												th:href="@{/administrator/user/approve/{userId}(userId=${user.id})}">Phê
+													duyệt</a> 
+													<a th:if="${user.active}" class="btn btn-warning"
+												th:href="@{/administrator/user/disapprove/{userId}(userId=${user.id})}">Hủy
+													phê duyệt</a>
 											</td>
 										</tr>
 									</tbody>

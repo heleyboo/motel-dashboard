@@ -32,6 +32,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body card-body table-responsive p-0">
+								<form th:action="@{/administrator/comment/list}"
+									th:object="${filter}">
+									<div class="input-group">
+
+										<input type="search" th:value="*{search}" th:field="*{search}"
+											class="form-control form-control-lg"
+											placeholder="Tìm kiếm">
+										<div class="input-group-append">
+
+											<button type="submit" class="btn btn-lg btn-info">
+												<i class="fa fa-search"></i> 
+												<span>Tìm kiếm</span>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
@@ -63,38 +89,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<tr th:each="comment: ${paged.pageData.content}">
 											<td th:text="${comment.id}">
 											</th>
-											<td>
-												<a th:href="@{/administrator/room/details/{id}(id=${comment.room.id})}"
-													th:text="${comment.room.title}"
-												>
-												</a>
+											<td><a
+												th:href="@{/administrator/room/details/{id}(id=${comment.room.id})}"
+												th:text="${comment.room.title}"> </a>
 											</th>
 											<td th:text="${comment.commentedBy}">
 											</th>
 											<td th:text="${#strings.abbreviate(comment.content,10)}">
 											</th>
-											<td th:if="${comment.approved}">
-												<span class="badge bg-success">Đã approve</span>
-											</th>
-											
-											<td th:if="${!comment.approved}">
-												<span class="badge bg-warning">Đang chờ approve</span>
+											<td th:if="${comment.approved}"><span
+												class="badge bg-success">Đã approve</span>
 											</th>
 
-											<td>
-												<a th:if="${!comment.approved}" class="btn btn-success"
-												th:href="@{/administrator/comment/approve/{commentId}(commentId=${comment.id})}">Phê duyệt</a>
-												
-												<a th:if="${comment.approved}" class="btn btn-warning"
-												th:href="@{/administrator/comment/disapprove/{commentId}(commentId=${comment.id})}">Hủy phê duyệt</a>
-												
-												<a class="btn btn-danger"
+											<td th:if="${!comment.approved}"><span
+												class="badge bg-warning">Đang chờ approve</span>
+											</th>
+
+											<td><a th:if="${!comment.approved}" class="btn btn-success"
+												th:href="@{/administrator/comment/approve/{commentId}(commentId=${comment.id})}">Phê
+													duyệt</a> 
+													<a th:if="${comment.approved}" class="btn btn-warning"
+												th:href="@{/administrator/comment/disapprove/{commentId}(commentId=${comment.id})}">Hủy
+													phê duyệt</a>
+													 <a class="btn btn-danger"
 												th:href="@{/administrator/comment/delete/{id}(id=${comment.id})}"><i
 													class="fas fa-trash"></i> Xóa</a></td>
 										</tr>
 									</tbody>
 								</table>
-								
+
 								<div class="card-footer">
 									<ul th:if="${paged.pageData.totalPages > 1}"
 										class="pagination m-0">

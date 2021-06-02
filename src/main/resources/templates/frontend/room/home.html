@@ -25,7 +25,7 @@
 								<img th:if="${room.images.size > 0}" class="room-image room-image-grid" th:src="${room.images[0].url}" />
 								<img th:if="${room.images.size <= 0}" class="room-image room-image-grid" th:src="@{/images/home.jpg}" />
 									<div class="room-title" th:text="${room.title}"></div> <span
-									class="room-area"> <span th:text="${room.area}"></span>
+									class="room-area"> <span th:text="${room.area}"><span>-</span></span>
 										m<sup>2</sup> <span th:text="${room.numOfBedrooms + ' Phòng'}"></span>
 								</span> <span class="room-price" th:text="${room.price}"></span> <span
 									class="room-provine" th:text="${room.province}"></span>
