@@ -25,6 +25,7 @@ public class RoomController {
 	
 	@GetMapping("/list")
 	public String searchRooms(Model model, @ModelAttribute("filter") RoomFilter filter) {
+		filter.setApprove(null);
 		PageResponse<MotelRoom> paged = motelRoomservice.searchRooms(filter);
 		model.addAttribute("paged", paged);
 		return "admin/postroom/list";
@@ -40,13 +41,13 @@ public class RoomController {
 	@GetMapping("/approve/{id}")
 	public String approveComment(@PathVariable("id") int id) throws NotFoundException {
 		motelRoomservice.toggleStatus(id, true);
-		return "redirect:/administrator/postroom/list";
+		return "redirect:/administrator/room/list";
 	}
 	
 	@GetMapping("/disapprove/{id}")
 	public String disApproveComment(@PathVariable("id") int id) throws NotFoundException {
 		motelRoomservice.toggleStatus(id, false);
-		return "redirect:/administrator/postroom/list";
+		return "redirect:/administrator/room/list";
 	}
 	
 	@RequestMapping("/delete/{id}")

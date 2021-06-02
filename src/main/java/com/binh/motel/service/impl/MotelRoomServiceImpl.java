@@ -140,6 +140,7 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 
 		User currentUser = authService.currentUser();
 		motelRoom.setCreatedBy(currentUser);
+		motelRoom.setApprove(false);
 
 		MotelRoom saved = roomRepo.save(motelRoom);
 		saveImages(motelRoom, room.getFiles());

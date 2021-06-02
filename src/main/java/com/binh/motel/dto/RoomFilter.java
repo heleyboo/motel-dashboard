@@ -42,7 +42,11 @@ public class RoomFilter extends Filter<MotelRoom> {
 
 	@Override
 	public Specification<MotelRoom> buildSpec() {
-		Specification<MotelRoom> spec = MotelRoomSpecification.isApproved(approve);
+		Specification<MotelRoom> spec = MotelRoomSpecification.isTrue();
+		
+		if (null != approve) {
+			spec = spec.and(MotelRoomSpecification.isApproved(approve));
+		}
 		
 		if (null != category) {
 			spec = spec.and(MotelRoomSpecification.categoryEqual(category));

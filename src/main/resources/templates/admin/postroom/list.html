@@ -12,6 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<div class="container-fluid">
+
 				<div class="row mb-2">
 					<div class="col-sm-6">
 						<h1>Danh sách phòng trọ</h1>
@@ -19,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a th:href="@{/administrator/dashboard}">Home</a></li>
-							<li class="breadcrumb-item active"><a th:href="@{/administrator/room/list}">Danh sÃ¡ch PhÃ²ng Trá»�</a></li>
+							<li class="breadcrumb-item active"><a th:href="@{/administrator/room/list}">Danh sách Phòng trọ</a></li>
 						</ol>
 					</div>
 				</div>
@@ -30,6 +31,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body card-body table-responsive p-0">
+								<form th:action="@{/administrator/room/list}"
+									th:object="${filter}">
+									<div class="input-group">
+
+										<input type="search" th:value="*{search}" th:field="*{search}"
+											class="form-control form-control-lg"
+											placeholder="Tìm kiếm">
+										<div class="input-group-append">
+
+											<button type="submit" class="btn btn-lg btn-info">
+												<i class="fa fa-search"></i> 
+												<span>Tìm kiếm</span>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
@@ -62,19 +87,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</th>
 											<td th:text="${motelRoom.category.name}">
 											</th>
-											<td th:if="${motelRoom.approve}"><span
+											<td th:if="${motelRoom.approve != null && motelRoom.approve}"><span
 												class="badge bg-success">Đã phê duyệt</span>
 											</th>
 
-											<td th:if="${!motelRoom.approve}"><span
+											<td th:if="${motelRoom.approve == null || !motelRoom.approve}"><span
 												class="badge bg-warning">Đang chờ phê duyệt</span>
 											</th>
 											
 											<td>
-												<a th:if="${!motelRoom.approve}" class="btn btn-success"
-												th:href="@{/administrator/comment/approve/{motelRoomId}(motelRoomId=${motelRoom.id})}">Phê
+												<a th:if="${motelRoom.approve == null || !motelRoom.approve}" class="btn btn-success"
+												th:href="@{/administrator/room/approve/{motelRoomId}(motelRoomId=${motelRoom.id})}">Phê
 													duyệt</a> 
-													<a th:if="${motelRoom.approve}" class="btn btn-warning"
+													<a th:if="${motelRoom.approve != null && motelRoom.approve}" class="btn btn-warning"
 												th:href="@{/administrator/room/disapprove/{motelRoomId}(motelRoomId=${motelRoom.id})}">Hủy
 													phê duyệt</a>
 												<a class="btn btn-danger" th:href="@{/administrator/room/delete/{id}(id=${motelRoom.id})}"><i class="fas fa-trash"></i> Delete</a>
