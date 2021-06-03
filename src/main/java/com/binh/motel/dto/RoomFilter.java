@@ -35,6 +35,7 @@ public class RoomFilter extends Filter<MotelRoom> {
 	private String areaRange;
 	private User user;
 	private Boolean approve = true;
+	private Boolean deleted = false;
 
 	public RoomFilter(String pageNum, String pageSize, String search) {
 		super(pageNum, pageSize, search);
@@ -46,6 +47,10 @@ public class RoomFilter extends Filter<MotelRoom> {
 		
 		if (null != approve) {
 			spec = spec.and(MotelRoomSpecification.isApproved(approve));
+		}
+		
+		if (null != deleted) {
+			spec = spec.and(MotelRoomSpecification.isDeleted(deleted));
 		}
 		
 		if (null != category) {

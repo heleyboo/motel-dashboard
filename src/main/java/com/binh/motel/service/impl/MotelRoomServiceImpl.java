@@ -141,6 +141,7 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		User currentUser = authService.currentUser();
 		motelRoom.setCreatedBy(currentUser);
 		motelRoom.setApprove(false);
+		motelRoom.setDeleted(false);
 
 		MotelRoom saved = roomRepo.save(motelRoom);
 		saveImages(motelRoom, room.getFiles());
@@ -262,11 +263,11 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	@Override
 	public MotelRoom findBySlugOrId(String value) throws NotFoundException {
 
-		MotelRoom motelRoom = roomRepo.findBySlug(value).orElse(null);
+		MotelRoom motelRoom = roomRepo.findBySlugAndDeletedFalse(value).orElse(null);
 
 		if (null == motelRoom) {
 			try {
-				motelRoom = roomRepo.findBySlugOrId(value, Integer.parseInt(value))
+				motelRoom = roomRepo.findBySlugOrIdAndDeletedFalse(value, Integer.parseInt(value))
 						.orElseThrow(() -> new NotFoundException("Room không tồn tại"));
 			} catch (Exception e) {
 				throw new NotFoundException("Room không tồn tại");
@@ -291,6 +292,13 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 		Specification<MotelRoom> spec = filter.buildSpec();
 		Page<MotelRoom> paged = roomRepo.findAll(spec, pageAble);
 		return new PageResponse<MotelRoom>(paged, filter);
+	}
+
+	@Override
+	public void toggleDelete(int id, boolean status) throws NotFoundException {
+		MotelRoom motel = findById(id);
+		motel.setDeleted(status);
+		roomRepo.save(motel);
 	}
 
 }

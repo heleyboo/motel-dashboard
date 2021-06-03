@@ -60,11 +60,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="card">
 							<div class="card-header">
 								<h3 class="card-title">Danh sách Phòng trọ</h3>
+								<ul th:if="${paged.pageData.totalPages > 1}"
+									class="pagination m-0 float-right">
+									<li th:each="page : ${paged.getPages()}"
+										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
+										<a
+												th:href="@{/administrator/room/list(pageSize=${filter.pageSize}, pageNum=${page.key}, search=${filter.search})}"
+												th:text=${page.key} th:class="page-link">
+											</a>
+									</li>
+								</ul>
 								
 							</div>
 							<!-- /.card-header -->
-							<div class="card-body">
-								<table class="table table-bordered">
+							<div class="card-body card-body table-responsive p-0">
+								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
 											<th>id</th>
@@ -83,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</th>
 											<td th:text="${motelRoom.title}">
 											</th>
-											<td th:text="${motelRoom.price}">
+											<td th:text="${#numbers.formatCurrency(motelRoom.price)}">
 											</th>
 											<td th:text="${motelRoom.category.name}">
 											</th>
@@ -102,31 +112,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													<a th:if="${motelRoom.approve != null && motelRoom.approve}" class="btn btn-warning"
 												th:href="@{/administrator/room/disapprove/{motelRoomId}(motelRoomId=${motelRoom.id})}">Hủy
 													phê duyệt</a>
-												<a class="btn btn-danger" th:href="@{/administrator/room/delete/{id}(id=${motelRoom.id})}"><i class="fas fa-trash"></i> Delete</a>
+													
+													
+												<a th:if="${motelRoom.deleted == null || !motelRoom.deleted}" class="btn btn-danger"
+												th:href="@{/administrator/room/restore/{motelRoomId}(motelRoomId=${motelRoom.id})}">Xóa</a> 
+													<a th:if="${motelRoom.deleted != null && motelRoom.deleted}" class="btn btn-success"
+												th:href="@{/administrator/room/delete/{motelRoomId}(motelRoomId=${motelRoom.id})}">Khôi phục</a>
+													
 											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 							<!-- /.card-body -->
-							<div class="card-footer clearfix">
+							<div class="">
+								sdsdsd
+							</div>
+							<div class="card-footer">
 								<ul th:if="${paged.pageData.totalPages > 1}"
 									class="pagination m-0">
 									<li th:each="page : ${paged.getPages()}"
 										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
-										<div th:if="${filter.search != null and filter.search != ''}">
-											<a
+										<a
 												th:href="@{/administrator/room/list(pageSize=${filter.pageSize}, pageNum=${page.key}, search=${filter.search})}"
 												th:text=${page.key} th:class="page-link">
 											</a>
-										</div>
-										<div
-											th:unless="${filter.search != null and filter.search != ''}">
-											<a
-												th:href="@{/administrator/room/list(pageSize=${filter.pageSize}, pageNum=${page.key})}"
-												th:text=${page.key} th:class="page-link">
-											</a>
-										</div>
 									</li>
 								</ul>
 							</div>

@@ -102,6 +102,11 @@ public final class MotelRoomSpecification {
 		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("approve"), status);
 	}
 	
+	public static Specification<MotelRoom> isDeleted(Boolean status) {
+		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("deleted"), status);
+	}
+	
+	
 	
 	public static Specification<MotelRoom> userEqual(User user) {
 		return (root, query, criteriaBuilder)

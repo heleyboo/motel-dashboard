@@ -107,6 +107,9 @@ public class MotelRoom {
 	@Column(name ="approve", columnDefinition = "boolean default false")
 	private Boolean approve;
 	
+	@Column(name ="deleted", columnDefinition = "boolean default false")
+	private Boolean deleted;
+	
 	@Column(name = "status")
 	private Boolean status;
 	

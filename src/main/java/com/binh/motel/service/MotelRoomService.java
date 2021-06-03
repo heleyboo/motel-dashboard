@@ -52,4 +52,6 @@ public interface MotelRoomService {
 
 
 	void toggleStatus(int id, boolean status) throws NotFoundException;
+	
+	void toggleDelete(int id, boolean status) throws NotFoundException;
 }

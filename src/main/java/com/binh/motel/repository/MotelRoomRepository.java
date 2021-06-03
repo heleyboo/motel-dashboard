@@ -12,7 +12,7 @@ import com.binh.motel.entity.User;
 public interface MotelRoomRepository extends JpaRepository<MotelRoom, Integer>, JpaSpecificationExecutor<MotelRoom>{
 
 	List<MotelRoom> findByCreatedBy(User userName);
-	Optional<MotelRoom> findBySlug(String slug);
-	Optional<MotelRoom> findBySlugOrId(String slug, int id);
+	Optional<MotelRoom> findBySlugAndDeletedFalse(String slug);
+	Optional<MotelRoom> findBySlugOrIdAndDeletedFalse(String slug, int id);
 
 }

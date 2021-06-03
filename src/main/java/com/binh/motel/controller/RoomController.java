@@ -26,6 +26,7 @@ public class RoomController {
 	@GetMapping("/list")
 	public String searchRooms(Model model, @ModelAttribute("filter") RoomFilter filter) {
 		filter.setApprove(null);
+		filter.setDeleted(null);
 		PageResponse<MotelRoom> paged = motelRoomservice.searchRooms(filter);
 		model.addAttribute("paged", paged);
 		return "admin/postroom/list";
@@ -52,7 +53,13 @@ public class RoomController {
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteRoom(@PathVariable("id") int id) throws NotFoundException {
-		motelRoomservice.deleteRoom(id);
+		motelRoomservice.toggleDelete(id, false);
+	    return "redirect:/administrator/room/list";       
+	}
+	
+	@RequestMapping("/restore/{id}")
+	public String restoreRoom(@PathVariable("id") int id) throws NotFoundException {
+		motelRoomservice.toggleDelete(id, true);
 	    return "redirect:/administrator/room/list";       
 	}
 }
