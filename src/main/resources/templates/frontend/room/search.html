@@ -12,7 +12,8 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet" th:href="@{/frontend/css/style.css}">
 	<!-- Ion Slider -->
-  	<link rel="stylesheet" th:href="@{/plugins/ion-rangeslider/css/ion.rangeSlider.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/plugins/ion-rangeslider/css/ion.rangeSlider.min.css}">
 </th:block>
 </head>
 <body>
@@ -21,166 +22,230 @@
 		<div class="content-header">
 			<div class="container" layout:fragment="content">
 				<div class="row">
-					<form ht:action="@{/tim-kiem}" method="get" th:object="${filter}">
-						<div class="card">
-							<div class="card-header">
-								<h5 class="card-title">Bộ lọc</h5>
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-minus"></i>
-									</button>
+					<div class="col-md-12">
+						<form ht:action="@{/tim-kiem}" method="get" th:object="${filter}">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Bộ lọc</h5>
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool"
+											data-card-widget="collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
 								</div>
-							</div>
-							<!-- /.card-header -->
-							<div class="card-body" style="display: block;">
-								<div class="row">
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="category">Danh mục</label> <select
-												class="form-control select2" th:field="*{category}">
-												<option value="">Tất cả</option>
-												<option th:each="category: ${categorys}"
-													th:value="${category.getCode()}"
-													th:text="${category.getName()}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="province">Chọn tỉnh/thành </label> <select
-												th:field="*{province}" class="form-control select2"
-												id="province">
-												<option value="">Toàn quốc</option>
-												<option th:each="province: ${provinces}"
-													th:value="${province.code}"
-													th:text="${province.nameWithType}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="district">Chọn quận/huyện</label> <select
-												th:field="*{district}" class="form-control select2" id="district">
-												<option value="">Tất cả quận huyện</option>
-												<th:block th:if="${filter.province != null}">
-													<option th:each="district: ${filter.province.districts}"
-														th:value="${district.code}"
-														th:text="${district.nameWithType}"></option>
-												</th:block>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="ward">Chọn phường/xã</label> <select
-												class="form-control select2" th:field="*{ward}">
-												<option value="">Tất cả  phường/xã</option>
-												<th:block th:if="${filter.district != null}">
-													<option th:each="ward: ${filter.district.wards}"
-														th:value="${ward.code}" th:text="${ward.nameWithType}">
-													</option>
-												</th:block>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="doorDirection">Chọn hướng cửa chính</label> <select
-												class="form-control select2" th:field="*{doorDirection}">
-												<option value="">Chọn hướng cửa chính</option>
-												<option th:each="direction: ${directions}"
-													th:value="${direction.getCode()}"
-													th:text="${direction.getName()}"></option>
-											</select>
-										</div>
-
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="balconyDirection">Hướng ban công</label> <select
-												class="form-control select2" th:field="*{balconyDirection}">
-												<option value="">Chọn hướng ban công</option>
-												<option th:each="direction: ${directions}"
-													th:value="${direction.getCode()}"
-													th:text="${direction.getName()}"></option>
-											</select>
-										</div>
-									</div>
-
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="numOfBedrooms">Số phòng ngủ</label> <select
-												class="form-control select2" th:field="*{numOfBedrooms}">
-												<option value="">Số phòng ngủ</option>
-												<option value="1">1 -> 2 Phòng ngủ</option>
-												<option value="2">2 -> 3 Phòng ngủ</option>
-												<option value="3">3 -> 4 Phòng ngủ</option>
-												<option value="4">4 -> 5 Phòng ngủ</option>
-												<option value="5">5 -> 6 Phòng ngủ</option>
-												<option value="6">6 -> 7 Phòng ngủ</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="numOfToilets">Số toilets</label> <select
-												class="form-control select2" th:field="*{numOfToilets}">
-												<option value="">Số toilets</option>
-												<option value="1">1 -> 2 toilets</option>
-												<option value="2">2 -> 3 toilets</option>
-												<option value="3">3 -> 4 toilets</option>
-												<option value="4">4 -> 5 toilets</option>
-												<option value="5">5 -> 6 toilets</option>
-												<option value="6">6 -> 7 toilets</option>
-											</select>
-										</div>
-									</div>
-									
-									<div class="col-md-6">
-										<label for="priceRange">Giá tiền (VNĐ)</label>
-										<input id="priceRange" type="text" name="priceRange" value="">
-									</div>
-									
-									<div class="col-md-6">
-										<label for="areaRange">Diện tích (m2)</label>
-										<input id="areaRange" type="text" name="areaRange" value="">
-									</div>
-
-									<div class="col-md-12 filter">
-										<div class="input-group">
-											<input type="search" th:value="*{search}"
-												th:field="*{search}" class="form-control form-control-lg"
-												placeholder="Tìm theo tiêu đề, nội dung mô tả">
-											<div class="input-group-append">
-												<button type="submit" class="btn btn-lg btn-success">
-													<i class="fa fa-search"></i> Tìm kiếm
-												</button>
+								<!-- /.card-header -->
+								<div class="card-body" style="display: block;">
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="category">Danh mục</label> <select
+													class="form-control select2" th:field="*{category}">
+													<option value="">Tất cả</option>
+													<option th:each="category: ${categorys}"
+														th:value="${category.getCode()}"
+														th:text="${category.getName()}"></option>
+												</select>
 											</div>
 										</div>
-									</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="province">Chọn tỉnh/thành </label> <select
+													th:field="*{province}" class="form-control select2"
+													id="province">
+													<option value="">Toàn quốc</option>
+													<option th:each="province: ${provinces}"
+														th:value="${province.code}"
+														th:text="${province.nameWithType}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="district">Chọn quận/huyện</label> <select
+													th:field="*{district}" class="form-control select2"
+													id="district">
+													<option value="">Tất cả quận huyện</option>
+													<th:block th:if="${filter.province != null}">
+														<option th:each="district: ${filter.province.districts}"
+															th:value="${district.code}"
+															th:text="${district.nameWithType}"></option>
+													</th:block>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="ward">Chọn phường/xã</label> <select
+													class="form-control select2" th:field="*{ward}">
+													<option value="">Tất cả phường/xã</option>
+													<th:block th:if="${filter.district != null}">
+														<option th:each="ward: ${filter.district.wards}"
+															th:value="${ward.code}" th:text="${ward.nameWithType}">
+														</option>
+													</th:block>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="doorDirection">Chọn hướng cửa chính</label> <select
+													class="form-control select2" th:field="*{doorDirection}">
+													<option value="">Chọn hướng cửa chính</option>
+													<option th:each="direction: ${directions}"
+														th:value="${direction.getCode()}"
+														th:text="${direction.getName()}"></option>
+												</select>
+											</div>
 
-									<!-- /.row -->
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="balconyDirection">Hướng ban công</label> <select
+													class="form-control select2" th:field="*{balconyDirection}">
+													<option value="">Chọn hướng ban công</option>
+													<option th:each="direction: ${directions}"
+														th:value="${direction.getCode()}"
+														th:text="${direction.getName()}"></option>
+												</select>
+											</div>
+										</div>
+
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="numOfBedrooms">Số phòng ngủ</label> <select
+													class="form-control select2" th:field="*{numOfBedrooms}">
+													<option value="">Số phòng ngủ</option>
+													<option value="1">1 -> 2 Phòng ngủ</option>
+													<option value="2">2 -> 3 Phòng ngủ</option>
+													<option value="3">3 -> 4 Phòng ngủ</option>
+													<option value="4">4 -> 5 Phòng ngủ</option>
+													<option value="5">5 -> 6 Phòng ngủ</option>
+													<option value="6">6 -> 7 Phòng ngủ</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="numOfToilets">Số toilets</label> <select
+													class="form-control select2" th:field="*{numOfToilets}">
+													<option value="">Số toilets</option>
+													<option value="1">1 -> 2 toilets</option>
+													<option value="2">2 -> 3 toilets</option>
+													<option value="3">3 -> 4 toilets</option>
+													<option value="4">4 -> 5 toilets</option>
+													<option value="5">5 -> 6 toilets</option>
+													<option value="6">6 -> 7 toilets</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<label for="priceRange">Giá tiền (VNĐ)</label> <input
+												id="priceRange" type="text" name="priceRange" value="">
+										</div>
+
+										<div class="col-md-6">
+											<label for="areaRange">Diện tích (m2)</label> <input
+												id="areaRange" type="text" name="areaRange" value="">
+										</div>
+
+										<div class="col-md-12 filter">
+											<div class="input-group">
+												<input type="search" th:value="*{search}"
+													th:field="*{search}" class="form-control form-control-lg"
+													placeholder="Tìm theo tiêu đề, nội dung mô tả">
+												<div class="input-group-append">
+													<button type="submit" class="btn btn-lg btn-success">
+														<i class="fa fa-search"></i> Tìm kiếm
+													</button>
+												</div>
+											</div>
+										</div>
+
+										<!-- /.row -->
+									</div>
 								</div>
+								<!-- /.card -->
 							</div>
-							<!-- /.card -->
-						</div>
-					</form>
+						</form>
+					</div>
 					<!-- /.col -->
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<!-- jquery validation -->
 						<div class="card card-default">
-							<div class="card-header">
-								<h3 class="card-title">Kết quả tìm kiếm</h3>
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-minus"></i>
-									</button>
-								</div>
+							<div class="card-header d-flex p-0">
+								<h3 class="card-title p-3">Kết quả tìm kiếm</h3>
+								<ul class="nav nav-pills ml-auto p-2">
+									<li class="nav-item dropdown">
+									<a th:if="${(filter.order != '2' && filter.order != '3')}"
+										class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Tin mới trước
+										<span class="caret"></span>
+									</a>
+									<a th:if="${(filter.order == '2')}"
+										class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Giá thấp trước
+										<span class="caret"></span>
+									</a>
+									<a th:if="${(filter.order == '3')}"
+										class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Giá cao trước
+										<span class="caret"></span>
+									</a>
+										<div class="dropdown-menu" style="">
+											<a class="dropdown-item"  th:classappend="${(filter.order != '2' && filter.order != '3') ? 'active' : ''} " tabindex="-1" th:href="@{/tim-kiem(
+													pageSize=${filter.pageSize}, 
+													pageNum=${filter.pageNum}, 
+													search=${filter.search}, 
+													balconyDirection=${filter.balconyDirection != null? filter.balconyDirection.getCode() : ''},
+													doorDirection=${filter.doorDirection != null? filter.doorDirection.getCode() : ''},
+													numOfToilets=${filter.numOfToilets != null? filter.numOfToilets : ''},
+													numOfBedrooms=${filter.numOfBedrooms != null? filter.numOfBedrooms : ''},
+													priceRange=${filter.priceRange != null? filter.priceRange : ''},
+													areaRange=${filter.areaRange != null? filter.areaRange : ''},
+													category=${filter.category != null? filter.category.code : ''},
+													province=${filter.province != null? filter.province.code : ''},
+													district=${filter.district != null? filter.district.code : ''},
+													ward=${filter.ward != null? filter.ward.code : ''},
+													order=1
+													)}">Tin mới trước</a>
+											<a class="dropdown-item" tabindex="-1"  th:classappend="${(filter.order == '2') ? 'active' : ''} " 
+												th:href="@{/tim-kiem(
+													pageSize=${filter.pageSize}, 
+													pageNum=${filter.pageNum}, 
+													search=${filter.search}, 
+													balconyDirection=${filter.balconyDirection != null? filter.balconyDirection.getCode() : ''},
+													doorDirection=${filter.doorDirection != null? filter.doorDirection.getCode() : ''},
+													numOfToilets=${filter.numOfToilets != null? filter.numOfToilets : ''},
+													numOfBedrooms=${filter.numOfBedrooms != null? filter.numOfBedrooms : ''},
+													priceRange=${filter.priceRange != null? filter.priceRange : ''},
+													areaRange=${filter.areaRange != null? filter.areaRange : ''},
+													category=${filter.category != null? filter.category.code : ''},
+													province=${filter.province != null? filter.province.code : ''},
+													district=${filter.district != null? filter.district.code : ''},
+													ward=${filter.ward != null? filter.ward.code : ''},
+													order=2
+													)}">Giá thấp trước</a>
+											<a class="dropdown-item" tabindex="-1" th:classappend="${(filter.order == '3') ? 'active' : ''} "  th:href="@{/tim-kiem(
+													pageSize=${filter.pageSize}, 
+													pageNum=${filter.pageNum}, 
+													search=${filter.search}, 
+													balconyDirection=${filter.balconyDirection != null? filter.balconyDirection.getCode() : ''},
+													doorDirection=${filter.doorDirection != null? filter.doorDirection.getCode() : ''},
+													numOfToilets=${filter.numOfToilets != null? filter.numOfToilets : ''},
+													numOfBedrooms=${filter.numOfBedrooms != null? filter.numOfBedrooms : ''},
+													priceRange=${filter.priceRange != null? filter.priceRange : ''},
+													areaRange=${filter.areaRange != null? filter.areaRange : ''},
+													category=${filter.category != null? filter.category.code : ''},
+													province=${filter.province != null? filter.province.code : ''},
+													district=${filter.district != null? filter.district.code : ''},
+													ward=${filter.ward != null? filter.ward.code : ''},
+													order=3
+													)}">Giá cao trước</a>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<div class="card-body">
 								<div class="row">
@@ -198,8 +263,12 @@
 											class="room-area"> <span th:text="${room.area}"><span>-</span></span>
 												m<sup>2</sup> <span
 												th:text="${room.numOfBedrooms + ' Phòng'}"></span>
-										</span> <span class="room-price" th:text="${#numbers.formatCurrency(room.price)}"></span> <span
-											class="room-provine" th:text="${room.province}"></span>
+										</span> 
+											<span class="room-price" th:text="${#numbers.formatCurrency(room.price)}"></span><br/>
+											<i class="fas fa-location-arrow"></i>
+											<span class="room-provine" th:text="${room.province}"></span><br/>
+											<i class="far fa-clock"></i>
+											<span class="room-date" th:text="${#dates.format(room.createdDate, 'dd-MM-yyyy HH:mm')}"></span>
 										</a>
 									</div>
 								</div>
@@ -208,62 +277,65 @@
 								<ul th:if="${paged.pageData.totalPages > 1}"
 									class="pagination m-0">
 									<li th:each="page : ${paged.getPages()}"
-										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
-											<a
-												th:href="@{/tim-kiem(
-												pageSize=${filter.pageSize}, 
-												pageNum=${page.key}, 
-												search=${filter.search}, 
-												balconyDirection=${filter.balconyDirection != null? filter.balconyDirection.getCode() : ''},
-												doorDirection=${filter.doorDirection != null? filter.doorDirection.getCode() : ''},
-												numOfToilets=${filter.numOfToilets != null? filter.numOfToilets : ''},
-												numOfBedrooms=${filter.numOfBedrooms != null? filter.numOfBedrooms : ''},
-												priceRange=${filter.priceRange != null? filter.priceRange : ''},
-												areaRange=${filter.areaRange != null? filter.areaRange : ''},
-												category=${filter.category != null? filter.category.code : ''},
-												province=${filter.province != null? filter.province.code : ''},
-												district=${filter.district != null? filter.district.code : ''},
-												ward=${filter.ward != null? filter.ward.code : ''})}"
-												th:text=${page.key} th:class="page-link">
-											</a>
+										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key)) 
+										|| page.key == 1 && (filter.pageNum == '' || filter.pageNum == null) }
+										? 'page-item active' : 'page-item'">
+										<a
+										th:href="@{/tim-kiem(
+													pageSize=${filter.pageSize}, 
+													pageNum=${page.key}, 
+													search=${filter.search}, 
+													order=${filter.order}, 
+													balconyDirection=${filter.balconyDirection != null? filter.balconyDirection.getCode() : ''},
+													doorDirection=${filter.doorDirection != null? filter.doorDirection.getCode() : ''},
+													numOfToilets=${filter.numOfToilets != null? filter.numOfToilets : ''},
+													numOfBedrooms=${filter.numOfBedrooms != null? filter.numOfBedrooms : ''},
+													priceRange=${filter.priceRange != null? filter.priceRange : ''},
+													areaRange=${filter.areaRange != null? filter.areaRange : ''},
+													category=${filter.category != null? filter.category.code : ''},
+													province=${filter.province != null? filter.province.code : ''},
+													district=${filter.district != null? filter.district.code : ''},
+													ward=${filter.ward != null? filter.ward.code : ''})}"
+										th:text=${page.key} th:class="page-link"> </a>
 									</li>
 								</ul>
 							</div>
+							<!-- /.card -->
 						</div>
-						<!-- /.card -->
 					</div>
 				</div>
 			</div>
-			<th:block layout:fragment="scripts">
-			</th:block>
+		</div>
+	</div>
+	<th:block layout:fragment="scripts">
+	</th:block>
 </body>
 
 <th:block layout:fragment="scripts">
 
 	<script th:inline="javascript">
-	/*<![CDATA[*/
+		/*<![CDATA[*/
 		function extractArray(myArray, index, value) {
-			if(typeof myArray[index] === 'undefined') {
+			if (typeof myArray[index] === 'undefined') {
 				return value;
-			}
-			else {
+			} else {
 				return myArray[index];
 			}
 		}
-	
-	    var priceRange = /*[[${filter.priceRange != null? filter.priceRange : '0;20000000'}]]*/ '0;20000000';
-	    var areaRange = /*[[${filter.areaRange != null? filter.areaRange: '0;1000'}]]*/ '0;1000';
-	    var priceRangeArr = priceRange.split(";");
-	    var areaRangeArr = areaRange.split(";");
-	    var minPrice = extractArray(priceRangeArr, 0, 0);
-	    var maxPrice = extractArray(priceRangeArr, 1, 20000000);
-	    
-	    var minArea = extractArray(areaRangeArr, 0, 0);
-	    var maxArea = extractArray(areaRangeArr, 1, 1000);
-	    
-	    console.log(priceRange);
-	
-	/*]]>*/
+
+		var priceRange = /*[[${filter.priceRange != null? filter.priceRange : '0;20000000'}]]*/'0;20000000';
+		var areaRange = /*[[${filter.areaRange != null? filter.areaRange: '0;1000'}]]*/'0;1000';
+		var priceRangeArr = priceRange.split(";");
+		var areaRangeArr = areaRange.split(";");
+		var minPrice = extractArray(priceRangeArr, 0, 0);
+		var maxPrice = extractArray(priceRangeArr, 1, 20000000);
+
+		var minArea = extractArray(areaRangeArr, 0, 0);
+		var maxArea = extractArray(areaRangeArr, 1, 1000);
+
+		console.log(priceRange);
+
+		/*]]>*/
 	</script>
 	<!-- Ion Slider -->
 	<script th:src="@{/plugins/ion-rangeslider/js/ion.rangeSlider.min.js}"></script>

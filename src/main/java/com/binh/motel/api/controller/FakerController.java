@@ -3,9 +3,12 @@ package com.binh.motel.api.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -175,6 +178,21 @@ public class FakerController {
 		}
 		
 		return "redirect:/administrator/comment/list";
+	}
+	
+	@GetMapping("/dates")
+	public String fakeDates() {
+		List<MotelRoom> allRooms = roomRepo.findAll();
+		Faker faker = new Faker(new Locale("vi-VN"));
+		for (Iterator iterator = allRooms.iterator(); iterator.hasNext();) {
+			MotelRoom motelRoom = (MotelRoom) iterator.next();
+			int ranromIdx = faker.random().nextInt(1, 10);
+			Date past = faker.date().past(ranromIdx, TimeUnit.DAYS);
+			motelRoom.setCreatedDate(past);
+			
+		}
+		roomRepo.saveAll(allRooms);
+		return "redirect:/";
 	}
 
 }

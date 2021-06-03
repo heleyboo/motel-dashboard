@@ -64,6 +64,15 @@
     margin: 2px 4px 0 0;
 }
 
+.room-provine, .room-date {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.33;
+    color: #9b9b9b;
+    display: inline-block;
+    margin: 2px 4px 0 0;
+}
+
 .paging-center {
   display: flex;
   margin: 1px 0;

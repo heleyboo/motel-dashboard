@@ -25,4 +25,36 @@ public class CustomStringUtils {
 
 		return "";
 	}
+	
+	public static Double parseDoubleOrValue(String string, Double value) {
+		Double retValue = null;
+		try {
+			retValue = Double.parseDouble(string);
+		} catch (Exception e) {
+			retValue = value;
+		}
+		return retValue;
+	}
+	
+	public static Integer parseIntegerOrNull(String string) {
+		Integer result = null;
+		try {
+			result = Integer.parseInt(string);
+		} catch (Exception e) {
+			return null;
+		}
+		
+		return result;
+	}
+	
+	public static Integer parseIntegerOrZero(String string) {
+		Integer result = null;
+		try {
+			result = Integer.parseInt(string);
+		} catch (Exception e) {
+			return 0;
+		}
+		
+		return result;
+	}
 }

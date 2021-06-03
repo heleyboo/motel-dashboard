@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import org.springframework.data.domain.Page;
 
 import com.binh.motel.dto.Filter;
+import com.binh.motel.util.CustomStringUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class PageResponse<T> {
 	public TreeMap<Integer, String> getPages() {
 		TreeMap<Integer, String> pages = new TreeMap<Integer, String>();
 		int totalPages = pageData.getTotalPages();
-		int currentPage = filter.getPageNum() != null ? Integer.parseInt(filter.getPageNum()) : 1;
+		int currentPage = CustomStringUtils.parseIntegerOrZero(filter.getPageNum()) + 1;
 		
 		
 		if (totalPages <= 5) {

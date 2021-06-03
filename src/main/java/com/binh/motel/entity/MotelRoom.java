@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import com.binh.motel.enums.RoomDirection;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "motel_room")
-public class MotelRoom {
+public class MotelRoom extends Auditable<String> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -118,12 +119,6 @@ public class MotelRoom {
 	
 	@Column(name ="amenities")
 	private int amenities;
-	
-	@Column(name ="created_at")
-	private Date createdAt;
-	
-	@Column(name ="updated_at")
-	private Date updatedAt;
 	
 	@Column(name ="slug", unique = true, nullable = false)
 	private String slug;

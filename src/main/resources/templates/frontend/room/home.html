@@ -7,41 +7,52 @@
 </th:block>
 </head>
 <body>
-		<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-	<div class="container" layout:fragment="content">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- jquery validation -->
-				<div class="card card-default">
-					<div class="card-header">
-						<h3 class="card-title">Tin đăng mới</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div th:each="room: ${paged.pageData.content}" class="col-md-2 box room-item-wrapper">
-								<a th:href="@{/room/{slug}.html(slug=${!#strings.isEmpty(room.slug) ? room.slug : room.id})}"> 
-								<img th:if="${room.images.size > 0}" class="room-image room-image-grid" th:src="${room.images[0].url}" />
-								<img th:if="${room.images.size <= 0}" class="room-image room-image-grid" th:src="@{/images/home.jpg}" />
-									<div class="room-title" th:text="${room.title}"></div> <span
-									class="room-area"> <span th:text="${room.area}"><span>-</span></span>
-										m<sup>2</sup> <span th:text="${room.numOfBedrooms + ' Phòng'}"></span>
-								</span> <span class="room-price" th:text="${#numbers.formatCurrency(room.price)}"></span> <span
-									class="room-provine" th:text="${room.province}"></span>
-								</a>
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="container" layout:fragment="content">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- jquery validation -->
+						<div class="card card-default">
+							<div class="card-header">
+								<h3 class="card-title">Tin đăng mới</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div th:each="room: ${paged.pageData.content}"
+										class="col-md-2 box room-item-wrapper">
+										<a
+											th:href="@{/room/{slug}.html(slug=${!#strings.isEmpty(room.slug) ? room.slug : room.id})}">
+											<img th:if="${room.images.size > 0}"
+											class="room-image room-image-grid"
+											th:src="${room.images[0].url}" /> <img
+											th:if="${room.images.size <= 0}"
+											class="room-image room-image-grid"
+											th:src="@{/images/home.jpg}" />
+											<div class="room-title" th:text="${room.title}"></div> <span
+											class="room-area"> <span th:text="${room.area}"><span>-</span></span>
+												m<sup>2</sup> <span
+												th:text="${room.numOfBedrooms + ' Phòng'}"></span>
+										</span> <span class="room-price"
+											th:text="${#numbers.formatCurrency(room.price)}"></span><br />
+											<i class="fas fa-location-arrow"></i> <span
+											class="room-provine" th:text="${room.province}"></span><br />
+											<i class="far fa-clock"></i> <span class="room-date"
+											th:text="${#dates.format(room.createdDate, 'dd-MM-yyyy HH:mm')}"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer paging-center clearfix">
+								<a th:href="@{/tim-kiem}" class="more-rooms">Xem thêm</a>
 							</div>
 						</div>
-					</div>
-					<div class="card-footer paging-center clearfix">
-						<a th:href="@{/tim-kiem}" class="more-rooms">Xem thêm</a>
+						<!-- /.card -->
 					</div>
 				</div>
-				<!-- /.card -->
 			</div>
-		</div>
-	</div>
-	<th:block layout:fragment="scripts">
-	</th:block>
+			<th:block layout:fragment="scripts">
+			</th:block>
 </body>
 </html>

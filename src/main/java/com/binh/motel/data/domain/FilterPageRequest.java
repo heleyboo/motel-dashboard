@@ -16,10 +16,11 @@ public class FilterPageRequest extends PageRequest {
 	private static int pageNum;
 	private static int pageSize;
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static PageRequest of(Filter filter) {
 		calculatePageData(filter);
-		return of(pageNum, pageSize, Sort.unsorted());
+		Sort sort = filter.orders() == null ? Sort.unsorted() : Sort.by(filter.orders());
+		return of(pageNum, pageSize, sort);
 	}
 
 	@SuppressWarnings("rawtypes")
