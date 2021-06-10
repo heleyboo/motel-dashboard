@@ -1,5 +1,7 @@
 package com.binh.motel.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ import com.binh.motel.entity.Category;
 import com.binh.motel.entity.User;
 import com.binh.motel.service.UserService;
 
+
 import javassist.NotFoundException;
 
 @Controller
@@ -40,7 +43,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/create")
-	public String createCategory(@Valid UserDto userDto, BindingResult bindingResult, Model model)
+	public String createUser(@Valid UserDto userDto, BindingResult bindingResult, Model model)
 			throws NotFoundException {
 		if (bindingResult.hasErrors()) {
 			List<User> users = userService.getAll();
@@ -60,14 +63,24 @@ public class UserController {
 		return "admin/user/list";
 	}
 	
-	@RequestMapping("/edit/{id}")
-	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
-	    ModelAndView mav = new ModelAndView("admin/user/edit");
+	@GetMapping("/edit/{id}")
+	public String showEditUser(Model model,@PathVariable(name = "id") int id) throws NotFoundException, FileNotFoundException, IOException{
 	    User user = userService.get(id);
-	    mav.addObject("user", user);
+	    model.addAttribute("user", user);
 	     
-	    return mav;
+	    return "admin/user/edit";
 	}
+	
+	@PostMapping("/edit/{id}")
+	public String editUser(@PathVariable(value = "id") Integer id, @Valid UserDto dto,
+			BindingResult bindingResult, Model model) throws NotFoundException, FileNotFoundException, IOException{
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("user", dto);
+			return "admin/user/edit";
+		}
+		userService.editUser(id, dto);
+		return "redirect:/administrator/user/list";
+		}
 	
 	@GetMapping("/approve/{id}")
 	public String approveComment(@PathVariable("id") int id) throws NotFoundException {
@@ -87,9 +100,4 @@ public class UserController {
 	    return "redirect:/administrator/user/list";       
 	}
 	
-	@RequestMapping("/save/{id}")  
-	  public String save(User user) {  
-	    userService.saveUser(user);  
-	    return "redirect:/administrator/user/list";  
-	  }  
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.binh.motel.entity.User;
 import com.binh.motel.dto.UserDto;
 import com.binh.motel.dto.UserFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Role;
 
@@ -44,9 +45,13 @@ public interface UserService {
 
 	void saveUser(@Valid UserDto userDto) throws NotFoundException;
 
-	void saveUser(User user);
 
 	public long countUsers();
+
+	public void editUser(int id, @Valid UserDto userDto);
+
+
+//	PageResponse<User> detailsUserByUser(User user);
 
 //	public void editUser(int userId) throws NotFoundException;
 	

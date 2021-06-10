@@ -17,15 +17,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.binh.motel.data.domain.FilterPageRequest;
+import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.UserDto;
 import com.binh.motel.dto.UserFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Role;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.User;
+import com.binh.motel.repository.CommentRepository;
+import com.binh.motel.repository.MotelRoomRepository;
 import com.binh.motel.repository.RoleRepository;
+import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.repository.UserRepository;
 import com.binh.motel.service.UserService;
 import com.binh.motel.util.SlugUtil;
@@ -45,6 +50,15 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private MotelRoomRepository motelRepo;
+	
+	@Autowired
+	private CommentRepository commentRepo;
+	
+	@Autowired
+	private RoomImageRepository roomImageRepo;
 
 	public User findUserByEmail(String email) throws NotFoundException {
 		return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(""));
@@ -87,32 +101,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-//		@Override
-//  	  public Optional<User> findUserById(int id) {  
-//		    return userRepository.findById(id);  
-//		  }  
-
 	@Override
 	public void deleteUser(int id) throws NotFoundException {
 
+		
+		
 		User user = getUserById(id);
+		List<MotelRoom> motels = user.getMotelRooms();
+		for (MotelRoom room : motels) {
+			List<Comment> comments = room.getComments();
+			commentRepo.deleteAll(comments);
+			List<RoomImage> images = room.getImages();
+			roomImageRepo.deleteAll(images);
+			
+		}
+		
+		motelRepo.deleteAll(motels);
 		userRepository.delete(user);
 	}
 
-	@Override
-	public void saveUser(User user) {
-		userRepository.save(user);
-	}
-
-//	@Override
-//	public Role getRoleById(int id) throws NotFoundException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public User get(int id) {
-		// TODO Auto-generated method stub
 		return userRepository.findById(id).get();
 	}
 
@@ -147,4 +157,19 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id).orElseThrow(() -> new NotFoundException("Không tồn tại phản hồi"));
 	}
 
+	@Override
+	public void editUser(int id, @Valid UserDto userDto) {
+		User newUser = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(""));
+		newUser.setEmail(userDto.getEmail());
+		newUser.setFirstName(userDto.getFirstName());
+		newUser.setUserName(userDto.getUserName());
+		newUser.setLastName(userDto.getLastName());
+		newUser.setPassword(userDto.getPassword());
+		newUser.setPhoneNumber(userDto.getPhoneNumber());
+
+		userRepository.save(newUser);
+		
+	}
+	
+	
 }

@@ -13,7 +13,7 @@
 				<!-- jquery validation -->
 				<div class="card card-default">
 					<div class="card-header">
-						<h3 class="card-title" th:text="${room.title}"></h3>
+						<h3 class="card-title" th:text="${room.title}" style="font-style: italic"></h3>
 					</div>
 					<div class="card-body">
 						<div class="row">
@@ -22,11 +22,11 @@
 									<!-- Start slideshow -->
 									<div id="imageSlideshow" class="carousel slide"
 										data-ride="carousel">
-										<div class="carousel-inner">
+										<div class="carousel-inner" >
 											<div th:each="image: ${room.images}"
-												th:class="${room.images[0].id == image.id ? 'carousel-item active' : 'carousel-item'}">
+												th:class="${room.images[0].id == image.id ? 'carousel-item active' : 'carousel-item'}" >
 												<img class="d-block w-100 img-slideshow"
-													th:src="@{{url}(url=${image.url})}" alt="">
+													th:src="@{{url}(url=${image.url})}" alt="" style="width: 100% !important;">
 											</div>
 										</div>
 										<a class="carousel-control-prev" href="#imageSlideshow"
@@ -48,18 +48,18 @@
 
 								<!-- Start content -->
 								<div class="row">
-									<h3 th:text="${room.title}"></h3>
+									<h3 th:text="${room.title}" style="font-style: italic"></h3>
 									<div class="col-md-12">
-										<p th:text="${room.description}" class="room-description"></p>
+										<p th:text="${room.description}" class="room-description" style="font-style: italic;font-weight: bold"></p>
 										<p>
-											Giá <span th:text="${room.price}" class="room-price"></span>
+											Giá thuê: <span th:text="${#numbers.formatCurrency(room.price)}" class="room-price"></span>
 										</p>
 									</div>
 									<div class="col-md-12">
 										Số điện thoại liên hệ: <span th:text="${room.phoneNumber}"
 											class="room-phoneNumber"></span>
 									</div>
-								</div>
+								</div><br>
 								<div class="row">
 									<div class="col-md-6">
 										<p>
@@ -77,6 +77,12 @@
 										<p>
 											<img class="image" alt="" src="../images/toilets.png">
 											Số phòng vệ sinh: <span th:text="${room.numOfToilets}"></span>
+										</p>
+									</div>
+									<div class="col-md-6">
+										<p>
+											<i class="fas fa-money-bill-alt" style="height: 25px; width: 25px"></i>
+											Số tiền đặt cọc: <span th:text="${#numbers.formatCurrency(room.depositAmount)}"></span>
 										</p>
 									</div>
 									<div class="col-md-6">
@@ -199,20 +205,23 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-2 user-block">
-								<img class="img-circle img-bordered-sm" th:src="@{/images/user.png}" alt="user image"> 							
+								<img class="img-circle img-bordered-sm" th:src="@{/images/user.png}" alt="user image" style="width: 50px; height: 50px"> 							
 							</div>
 							<div class="col-md-6">
-								<span th:text="${room.createdBy.userName}"></span>
+								<span th:text="${room.createdBy.userName}" style="font-size: 18px;font-weight: 500;"></span>
 							</div>
 							<div class="col-md-2">
-							<button type="submit" class="btn btn-outline-warning btn-sm"> Xem</button>
+							<a th:href="@{/profile/me}">
+							<button type="submit" class="btn btn-outline-warning btn-sm" > Xem</button>						
+							</a>
 							</div>
-							<div class="col-md-12">
-								<button type="submit" class="btn btn-success">
+							<div class="col-md-12" >
+									<br>
+									<div style="background: green; text-align: center;">	
+									<span style="color: white; font-size: 20px">Số điện thoại: </span>		
 									<img class="image float-left" alt="" src="https://static.chotot.com.vn/storage/chotot-icons/svg/white-phone.svg">
-									<span th:text="${room.phoneNumber}"></span>
-									<span class="float-right">Số điện thoại</span>
-								 </button>
+									<span th:text="${room.phoneNumber}" style="color: white; font-size: 20px"></span>
+									</div>
 							</div>
 						</div>
 					</div>

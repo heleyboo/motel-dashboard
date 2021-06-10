@@ -1,5 +1,7 @@
 package com.binh.motel.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.binh.motel.dto.CategoryDto;
+import com.binh.motel.dto.UserDto;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.User;
 import com.binh.motel.service.CategoryService;
@@ -73,17 +76,22 @@ public class CategoryController {
 	}
 
 	@RequestMapping("/edit/{code}")
-	public ModelAndView showEditProductPage(@PathVariable(name = "code") String code) {
-		ModelAndView mav = new ModelAndView("admin/category/edit");
+	public String showEditProductPage(@PathVariable(name = "code") String code, Model model) throws NotFoundException, FileNotFoundException, IOException{
 		Category category = service.get(code);
-		mav.addObject("category", category);
+		model.addAttribute("category", category);
 
-		return mav;
+		return "admin/category/edit";
 	}
 
-	@RequestMapping("/save/{code}")
-	public String save(CategoryDto categoryDto) throws NotFoundException {
-		service.saveCategory(categoryDto);
+
+	@PostMapping("/edit/{code}")
+	public String editCategory(@PathVariable(value = "code") String code, @Valid CategoryDto dto,
+			BindingResult bindingResult, Model model) throws NotFoundException, FileNotFoundException, IOException{
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("category", dto);
+			return "admin/user/edit";
+		}
+		service.editCategory(code, dto);
 		return "redirect:/administrator/category/list";
-	}
+		}
 }

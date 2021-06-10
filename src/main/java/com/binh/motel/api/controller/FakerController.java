@@ -144,7 +144,7 @@ public class FakerController {
 		motelRoom.setAddress(address);
 		motelRoom.setPhoneNumber(faker.phoneNumber().phoneNumber());
 		motelRoom.setSlug(SlugUtil.toSlug(fullAddress));
-		motelRoom.setApprove(true);
+		motelRoom.setApprove(false);
 		
 		
 		return motelRoom;

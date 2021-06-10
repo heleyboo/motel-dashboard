@@ -290,6 +290,7 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	public PageResponse<MotelRoom> searchRoomsByUser(User user) {
 		RoomFilter filter = new RoomFilter("0", "12", null);
 		filter.setUser(user);
+		filter.setDeleted(null);
 		Pageable pageAble = FilterPageRequest.of(filter);
 		Specification<MotelRoom> spec = filter.buildSpec();
 		Page<MotelRoom> paged = roomRepo.findAll(spec, pageAble);

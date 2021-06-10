@@ -62,4 +62,5 @@ public class RoomController {
 		motelRoomservice.toggleDelete(id, true);
 	    return "redirect:/administrator/room/list";       
 	}
+	
 }

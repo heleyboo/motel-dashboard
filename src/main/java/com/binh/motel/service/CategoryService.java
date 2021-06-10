@@ -3,6 +3,8 @@ package com.binh.motel.service;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import com.binh.motel.dto.CategoryDto;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.User;
@@ -39,5 +41,7 @@ public interface CategoryService {
 	public Category get(String code);
 
 	public void deleteCategory(String code) throws NotFoundException;
+
+	public void editCategory(String code, @Valid CategoryDto dto);
 
 }

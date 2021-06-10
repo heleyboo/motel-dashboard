@@ -6,16 +6,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.binh.motel.dto.CategoryDto;
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.User;
 import com.binh.motel.repository.CategoryRepository;
+import com.binh.motel.repository.CommentRepository;
 import com.binh.motel.repository.MotelRoomRepository;
 import com.binh.motel.repository.RoomImageRepository;
 import com.binh.motel.service.CategoryService;
@@ -33,6 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private RoomImageRepository roomImageRepo;
+	
+	@Autowired
+	private CommentRepository commentRepo;
 
 	@Override
 	public Category saveCategory(CategoryDto categoryReq) throws NotFoundException {
@@ -109,10 +117,33 @@ public class CategoryServiceImpl implements CategoryService {
 	private void deleteRooms(Category category) {
 		List<MotelRoom> motelRooms = category.getRooms();
 		for (MotelRoom room : motelRooms) {
+			List<Comment> comments = room.getComments();
+			commentRepo.deleteAll(comments);
 			List<RoomImage> images = room.getImages();
 			roomImageRepo.deleteAll(images);
+			
 		}
 		postRepository.deleteAll(motelRooms);
 	}
+
+	@Override
+	public void editCategory(String code, @Valid CategoryDto dto) {
+		Category newCategory = repo.findById(code).orElseThrow(() -> new UsernameNotFoundException(""));
+		newCategory.setCode(dto.getCode());
+		newCategory.setName(dto.getName());
+		newCategory.setPosition(dto.getPosition());
+		newCategory.setIsEnable(dto.getIsEnable());
+		newCategory.setIsVisible(dto.getIsVisible());
+		newCategory.setDescription(dto.getDescription());
+		newCategory.setMetaTagTitle(dto.getMetaTagTitle());
+		newCategory.setMetaTagDescription(dto.getMetaTagDescription());
+		newCategory.setMetaTagKeywords(dto.getMetaTagKeywords());
+
+		if (ObjectUtils.isEmpty(dto.getSlug())) {
+			newCategory.setSlug(SlugUtil.toSlug(dto.getName()));
+		}
+		 repo.save(newCategory);
+	}
+	
 
 }
