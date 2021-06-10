@@ -23,7 +23,7 @@ import com.binh.motel.dto.UserDto;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.User;
 import com.binh.motel.service.UserService;
-
+import com.binh.motel.entity.Role;
 
 import javassist.NotFoundException;
 
@@ -37,8 +37,10 @@ public class UserController {
 	public String showForm(Model model) {
 		UserDto userDto = new UserDto();
 		List<User> users = userService.getAll();
+		List<Role> roles = userService.getRoles();
 		model.addAttribute("users", users);
 		model.addAttribute("userDto", userDto);
+		model.addAttribute("roles", roles);
 		return "admin/user/edit";
 	}
 
@@ -47,8 +49,10 @@ public class UserController {
 			throws NotFoundException {
 		if (bindingResult.hasErrors()) {
 			List<User> users = userService.getAll();
+			List<Role> roles = userService.getRoles();
 			model.addAttribute("users", users);
 			model.addAttribute("userDto", userDto);
+			model.addAttribute("roles", roles);
 			return "admin/user/edit";
 		}
 		userService.saveUser(userDto);
@@ -59,7 +63,9 @@ public class UserController {
 	@GetMapping("/list")
 	public String listUsers(Model model) {
 		List<User> users = userService.getAll();
+		List<Role> roles = userService.getRoles();
 		model.addAttribute("users", users);
+		model.addAttribute("roles", roles);
 		return "admin/user/list";
 	}
 	

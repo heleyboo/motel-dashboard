@@ -104,8 +104,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(int id) throws NotFoundException {
 
-		
-		
 		User user = getUserById(id);
 		List<MotelRoom> motels = user.getMotelRooms();
 		for (MotelRoom room : motels) {

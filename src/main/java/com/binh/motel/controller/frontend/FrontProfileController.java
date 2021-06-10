@@ -39,6 +39,7 @@ public class FrontProfileController {
 	
 	@Autowired MotelRoomService roomService;
 	
+	@Autowired 
 	private UserService userService;
 	
 	@GetMapping
@@ -50,29 +51,24 @@ public class FrontProfileController {
 		return "frontend/profile/me";
 	}
 	
-	@GetMapping("/list")
-	public String listUsers(Model model) {
-		model.addAttribute("user", authService.currentUser());
-		return "frontend/profile/me";
-	}
 
 	@GetMapping("/edit/{id}")
 	public String showEditUser(Model model) throws NotFoundException, FileNotFoundException, IOException{
 		model.addAttribute("user", authService.currentUser());
-		return "frontend/profile/me";
+		return "frontend/room/detailsProfile";
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String editUser(@PathVariable(value = "id") Integer id, @Valid UserDto dto,
+	public String editUser(@PathVariable(value = "id") int id, @Valid UserDto dto,
 			BindingResult bindingResult, Model model, RedirectAttributes attibutes) throws NotFoundException, FileNotFoundException, IOException{
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("user", authService.currentUser());
-			return "frontend/profile/me";
+			return "frontend/room/detailsProfile";
 		}
 		userService.editUser(id, dto);
 		String message = "Cập nhật thành công";
 		attibutes.addFlashAttribute("message", message);
-		return "redirect:/profile/me/list";
+		return "redirect:/profile/me";
 		}
 	
 	@RequestMapping("/delete/{id}")

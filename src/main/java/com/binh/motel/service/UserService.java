@@ -49,11 +49,7 @@ public interface UserService {
 	public long countUsers();
 
 	public void editUser(int id, @Valid UserDto userDto);
-
-
-//	PageResponse<User> detailsUserByUser(User user);
-
-//	public void editUser(int userId) throws NotFoundException;
+	
 	
 
 }
