@@ -30,7 +30,7 @@
 								<div class="row">
 									<!-- Start slideshow -->
 									<div id="imageSlideshow" class="carousel slide"
-										data-ride="carousel">
+										data-ride="carousel" style="width: 100% !important;">
 										<div class="carousel-inner">
 											<div th:each="image: ${room.images}"
 												th:class="${room.images[0].id == image.id ? 'carousel-item active' : 'carousel-item'}">
@@ -60,8 +60,9 @@
 								<div class="row">
 									<h3 th:text="${room.title}" style="font-style: italic"></h3>
 									<div class="col-md-12">
+									<span style="font-style: italic; font-weight: bold">Mô tả:</span> <br>
 										<p th:text="${room.description}" class="room-description"
-											style="font-style: italic; font-weight: bold"></p>
+											style="font-style: italic"></p>
 										<p>
 											Giá thuê: <span
 												th:text="${#numbers.formatCurrency(room.price)}"
@@ -219,7 +220,7 @@
 					<div class="card-header">
 						<h1 class="card-title">Thông tin người đăng</h1>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="background: green; color: white">
 						<div class="row">
 							<div class="col-md-2 user-block">
 								<img class="img-circle img-bordered-sm"
@@ -230,19 +231,14 @@
 								<span th:text="${room.createdBy.userName}"
 									style="font-size: 18px; font-weight: 500;"></span>
 							</div>
-							<div class="col-md-2">
-								<a th:href="@{/profile/me}">
-									<button type="submit" class="btn btn-outline-warning btn-sm">
-										Xem</button>
-								</a>
-							</div>
+							
 							<div class="col-md-12">
 								<br>
 								<div style="background: green; text-align: center;">
 									<span style="color: white; font-size: 20px">Số điện
 										thoại: </span> <img class="image float-left" alt=""
 										src="https://static.chotot.com.vn/storage/chotot-icons/svg/white-phone.svg">
-									<span th:text="${room.phoneNumber}"
+									<span th:text="${room.createdBy.phoneNumber}"
 										style="color: white; font-size: 20px"></span>
 								</div>
 							</div>
@@ -261,15 +257,14 @@
 
 
 		/*]]>*/
-	</script>
-	
+	</script>	
+		<script th:src="@{/js/map.js}"></script>
 		<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
 		<script
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXxvVzSSOfKjHOcCipX7WTNMBU5kba7D4&callback=initMap&libraries=&v=weekly"
 			async></script>
 		<script th:src="@{/plugins/sweetalert2/sweetalert2.min.js}"></script>
 		<script th:src="@{/plugins/toastr/toastr.min.js}"></script>
-		<script th:src="@{/js/map.js}"></script>
 	</th:block>
 </body>
 </html>

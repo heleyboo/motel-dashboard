@@ -11,8 +11,7 @@
 </th:block>
 </head>
 <body>
-	<div class="content-wrapper" layout:fragment="content">
-		<section class="content">
+	<div class="content-wrapper" layout:fragment="content">		
 			<div class="container">
 				<div class="row">
 					<!-- left column -->
@@ -40,51 +39,48 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-											<span style="color: blue">UserName:</span>
-												<input type="text" th:field="*{userName}" placeholder="userName"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											<div class="form-group">
-											<span style="color: blue">FirstName:</span>
-												<input type="text" th:field="*{firstName}" placeholder="firstName"
+												<label for="firstName" th:text="#{user.add.first_name}"></label>
+												<input type="text" th:field="*{firstName}" th:attr="placeholder=#{user.add.first_name}"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-											<span style="color: blue">LastName: </span>
-												<input type="text" th:field="*{lastName}" placeholder="lastName"
+												<label for="lastName" th:text="#{user.add.last_name}"></label>
+												<input type="text" th:field="*{lastName}" th:attr="placeholder=#{user.add.last_name}"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-											<span style="color: blue">PassWord: </span>
-												<input type="text" th:field="*{password}" placeholder="password"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-													id="code-error" class="error error-field"></span>
-											</div>
-											
-											
-											
-											<div class="form-group">
-											<span style="color: blue">Email:  </span>
-												<input type="text" th:field="*{email}" placeholder="Email"
+												<label for="email" th:text="#{user.add.email}"></label>
+												<input type="text" th:field="*{email}" th:attr="placeholder=#{user.add.email}"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-											<span style="color: blue">Phone:  </span>
-												<input type="text" th:field="*{phoneNumber}" placeholder="Sá»‘ Ä‘iá»‡n thoáº¡i"
+												<label for="userName" th:text="#{user.add.username}"></label>
+												<input type="text" th:field="*{userName}" disabled="disabled" th:attr="placeholder=#{user.add.username}"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+												<label for="password" th:text="#{user.add.password}"></label>
+												<input type="password" th:field="*{password}" th:attr="placeholder=#{user.add.password}"
+													class="form-control" /> 
+													<span
+													th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+													id="code-error" class="error error-field"></span>
+											</div>
+											<div class="form-group">
+												<label for="phoneNumber" th:text="#{user.add.phone}"></label>
+												<input type="text" th:field="*{phoneNumber}" th:attr="placeholder=#{user.add.phone}"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
@@ -100,7 +96,7 @@
 										<button type="submit" class="btn btn-info">
 											<i class="fas fa-save"></i> lưu
 										</button>
-										<a th:href="@{/administrator/user/list}"
+										<a th:href="@{/profile/me}"
 											class="btn btn-success"><i class="fas fa-angle-left"></i>
 											Quay lại</a>
 									</div>
@@ -115,7 +111,7 @@
 				<!-- /.row -->
 			</div>
 			<!-- /.container-fluid -->
-		</section>
+
 		<!-- /.content -->
 		</div>
 	<!-- /.content-wrapper -->

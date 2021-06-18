@@ -5,7 +5,8 @@ function initMap() {
 	let geoCodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${fullAddress}&key=AIzaSyAXxvVzSSOfKjHOcCipX7WTNMBU5kba7D4`;
 	console.log(geoCodeUrl);
 
-
+	//const directionsService = new google.maps.DirectionsService();
+	//const directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
 
 
 
@@ -20,11 +21,6 @@ function initMap() {
 		console.log(data);
 		let mapData = data['results'][0];
 
-		const latlngStr = "40.714224,-73.961452".split(",", 2);
-		const latlng = {
-			lat: parseFloat(latlngStr[0]),
-			lng: parseFloat(latlngStr[1]),
-		};
 		const map = new google.maps.Map(document.getElementById("map"), {
 			zoom: 17,
 			center: mapData.geometry.location

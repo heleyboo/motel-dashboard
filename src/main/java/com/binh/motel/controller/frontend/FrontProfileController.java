@@ -45,7 +45,7 @@ public class FrontProfileController {
 	@GetMapping
 	public String showProfile(Model model,@ModelAttribute("filter") RoomFilter filter) {
 		model.addAttribute("user", authService.currentUser());
-		PageResponse<MotelRoom> paged = roomService.searchRoomsByUser(authService.currentUser());
+		PageResponse<MotelRoom> paged = roomService.searchRoomsByUser(authService.currentUser(), filter);
 		model.addAttribute("paged", paged);
 		model.addAttribute("user", authService.currentUser());
 		return "frontend/profile/me";

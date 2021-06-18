@@ -45,6 +45,25 @@
 									th:errors="*{userName}" id="code-error"
 									class="error error-field"></span>
 							</div>
+
+							<div class="form-group">
+								<label for="firstName" th:text="#{user.add.first_name}"></label>
+								<input type="text" th:field="*{firstName}"
+									th:attr="placeholder=#{user.add.first_name}"
+									class="form-control" /> <span
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}" id="code-error"
+									class="error error-field"></span>
+							</div>
+							<div class="form-group">
+								<label for="lastName" th:text="#{user.add.last_name}"></label> <input
+									type="text" th:field="*{lastName}"
+									th:attr="placeholder=#{user.add.last_name}"
+									class="form-control" /> <span
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}" id="code-error"
+									class="error error-field"></span>
+							</div>
 							<div class="form-group">
 								<label for="password" th:text="#{user.add.password}"></label> <input
 									type="password" th:field="*{password}"
