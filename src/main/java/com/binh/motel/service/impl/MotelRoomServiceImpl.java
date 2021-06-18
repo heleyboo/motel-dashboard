@@ -287,8 +287,7 @@ public class MotelRoomServiceImpl implements MotelRoomService {
 	}
 
 	@Override
-	public PageResponse<MotelRoom> searchRoomsByUser(User user) {
-		RoomFilter filter = new RoomFilter("0", "12", null);
+	public PageResponse<MotelRoom> searchRoomsByUser(User user, RoomFilter filter) {
 		filter.setUser(user);
 		filter.setDeleted(null);
 		Pageable pageAble = FilterPageRequest.of(filter);

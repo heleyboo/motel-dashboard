@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">Danh mục</li>
+							<li class="breadcrumb-item active">Danh Mục</li>
 						</ol>
 					</div>
 				</div>
@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-											<span style="color: blue">Description:</span>
+											<span style="color: blue">Mô tả:</span>
 												<input type="text" th:field="*{description}" placeholder="Description"
 													class="form-control" /> 
 													<span
@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-											<span style="color: blue">TagTittle:</span>
+											<span style="color: blue">Liên kết tiêu đề:</span>
 												<input type="text" th:field="*{metaTagTitle}" placeholder="metaTagTitle"
 													class="form-control" /> 
 													<span
@@ -76,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													id="code-error" class="error error-field"></span>
 											</div>
 											<div class="form-group">
-											<span style="color: blue">Slug: </span>
+											<span style="color: blue">Đường dẫn: </span>
 												<input type="text" th:field="*{slug}" placeholder="slug"
 													class="form-control" /> 
 													<span
@@ -87,21 +87,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											
 											
 											<div class="form-group">
-											<span style="color: blue">Name:  </span>
+											<span style="color: blue">Tên danh mục:  </span>
 												<input type="text" th:field="*{name}" placeholder="name"
 													class="form-control" /> 
 													<span
 													th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 													id="code-error" class="error error-field"></span>
 											</div>
-											<div class="form-group">
-											<span style="color: blue">Code:  </span>
-												<input type="text" th:field="*{code}" placeholder="code"
-													class="form-control" /> 
-													<span
-													th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
-													id="code-error" class="error error-field"></span>
-											</div>
+										
 										</div>
 									</div>
 
@@ -110,11 +103,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-footer">
 									<div class="btn-group float-right">
 										<button type="submit" class="btn btn-info">
-											<i class="fas fa-save"></i> LÆ°u
+											<i class="fas fa-save"></i> Lưu
 										</button>
 										<a th:href="@{/administrator/category}"
 											class="btn btn-success"><i class="fas fa-angle-left"></i>
-											Quay láº¡i</a>
+											Quay lai</a>
 									</div>
 								</div>
 

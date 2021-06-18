@@ -13,8 +13,11 @@
         <div class="image">
           <img th:src="@{/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="User Image">
         </div>
-
-      </div>
+			<div class="info">
+				<a th:href="@{/profile/me}" class="d-block"
+					th:text="${#authentication.getPrincipal().getUsername()}"></a>
+			</div>
+		</div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -54,7 +57,7 @@
             <a href="#" 
             th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/user
             ') ? 'nav-link active' : 'nav-link'}">
-              <i class="nav-icon fas fa-store"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p th:inline="text">
               	<span> Quản lý người dùng</span>
                 <i class="right fas fa-angle-left"></i>
@@ -77,7 +80,7 @@
           	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/room') ? 'nav-item menu-open' : 'nav-item'}">
             <a href="#" 
             th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/room') ? 'nav-link active' : 'nav-link'}">
-              <i class="nav-icon fas fa-store"></i>
+              <i class="nav-icon fas fa-th"></i>
               <p th:inline="text">
               	<span> Quản lý phòng trọ</span>
                 <i class="right fas fa-angle-left"></i>
@@ -99,7 +102,7 @@
           	th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/comment') ? 'nav-item menu-open' : 'nav-item'}">
             <a href="#" 
             th:attr="class=${#strings.contains(#httpServletRequest.requestURI, '/administrator/comment') ? 'nav-link active' : 'nav-link'}">
-              <i class="nav-icon fas fa-store"></i>
+              <i class="fas fa-comments"></i>
               <p th:inline="text">
               	<span> Quản lý bình luận</span>
                 <i class="right fas fa-angle-left"></i>

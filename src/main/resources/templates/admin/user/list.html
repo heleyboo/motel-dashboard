@@ -54,7 +54,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<td th:text="${user.id}"></td>
 											<td th:text="${user.userName}"></td>
 											<td th:text="${user.email}"></td>
-											<td th:text="${user.firstName}"></td>
+											<td > 
+												<span class="badge bg-success" th:each="role: ${user.roles}" th:text="${role.roleName}"></span>
+											</td>
 											<td th:if="${user.active != null && user.active}">
 											<span class="badge bg-success">Đã approve</span>
 

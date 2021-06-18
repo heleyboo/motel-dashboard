@@ -44,7 +44,7 @@ public interface MotelRoomService {
 	
 	PageResponse<MotelRoom> searchRooms(RoomFilter filter);
 	
-	PageResponse<MotelRoom> searchRoomsByUser(User user);
+	PageResponse<MotelRoom> searchRoomsByUser(User user, RoomFilter filter);
 
 	public long countRooms();
 	

@@ -37,4 +37,11 @@ public class AdminUserDto implements Serializable, UserPassword {
 	@Email(message = "Địa chỉ email không đúng định dạng")
 	@UniqueUserEmail
 	private String email;
+	
+	@NotEmpty(message = "*Mật khẩu bắt buộc nhập")
+	private String firstName;
+
+	@NotEmpty(message = "*Nhập lại mật khẩu")
+	private String lastName;
+
 }
