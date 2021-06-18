@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProformaInvoiceReport" pageWidth="850" pageHeight="842" columnWidth="810" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="ac85fe0f-2e30-4e3a-a3e4-c41ae91f0bfe">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="list_item_bg" fill="Solid" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></conditionExpression>
+			<style backcolor="#E9EFF2"/>
+		</conditionalStyle>
+	</style>
+	<style name="list_header" mode="Transparent" backcolor="#31859B" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{bundle}.getString("report.font.name") == "SansSerif"]]></conditionExpression>
+			<style/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{bundle}.getString("report.font.name") != "SansSerif"]]></conditionExpression>
+			<style fontName="华文宋体"/>
+		</conditionalStyle>
+	</style>
+	<style name="style_font" isDefault="true">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{bundle}.getString("report.font.name") == "SansSerif"]]></conditionExpression>
+			<style/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{bundle}.getString("report.font.name") != "SansSerif"]]></conditionExpression>
+			<style fontName="华文宋体"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="bundle" class="java.util.ResourceBundle"/>
+	<parameter name="dateFormat" class="java.lang.String"/>
+	<parameter name="currentDate" class="java.util.Date"/>
+	<parameter name="imagePath" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="userid" class="java.lang.String"/>
+	<parameter name="inputSONoFrom" class="java.lang.String"/>
+	<parameter name="inputSONoTo" class="java.lang.String"/>
+	<field name="ourDivisionDame" class="java.lang.String"/>
+	<field name="customerNo" class="java.lang.String"/>
+	<field name="customerName" class="java.lang.String"/>
+	<field name="customerInvoiceAddress" class="java.lang.String"/>
+	<field name="customerDelAddress" class="java.lang.String"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="postCode" class="java.lang.String"/>
+	<field name="attention" class="java.lang.String"/>
+	<field name="customerAddress" class="java.lang.String"/>
+	<field name="yourRefPerson" class="java.lang.String"/>
+	<field name="payerName" class="java.lang.String"/>
+	<field name="ourRef" class="java.lang.String"/>
+	<field name="deliveryNo" class="java.lang.String"/>
+	<field name="currency" class="java.lang.String"/>
+	<field name="paymentTerm" class="java.lang.String"/>
+	<field name="printDate" class="java.util.Date"/>
+	<field name="colineId" class="java.lang.Long"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="discountRate" class="java.math.BigDecimal"/>
+	<field name="discountAmt" class="java.math.BigDecimal"/>
+	<field name="orderNo" class="java.lang.String"/>
+	<field name="invoicedQty" class="java.math.BigDecimal"/>
+	<field name="charge" class="java.math.BigDecimal"/>
+	<field name="invAmount" class="java.math.BigDecimal"/>
+	<field name="invAmountInLocal" class="java.math.BigDecimal"/>
+	<field name="totalVAT" class="java.math.BigDecimal"/>
+	<field name="totalAmount" class="java.math.BigDecimal"/>
+	<field name="remarks" class="java.lang.String"/>
+	<field name="reportTitle" class="java.lang.String"/>
+	<field name="itemNo" class="java.lang.String"/>
+	<field name="itemName" class="java.lang.String"/>
+	<field name="localCurrency" class="java.lang.String"/>
+	<field name="orderLine" class="java.lang.String"/>
+	<field name="orderCurrency" class="java.lang.String"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="payerNo" class="java.lang.String"/>
+	<variable name="subTotalInvAmt" class="java.math.BigDecimal" resetType="Group" resetGroup="proformaInvoice" calculation="Sum">
+		<variableExpression><![CDATA[$F{invAmount}]]></variableExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
+	</variable>
+	<variable name="subTotalInvAmtInLocal" class="java.math.BigDecimal" resetType="Group" resetGroup="proformaInvoice" calculation="Sum">
+		<variableExpression><![CDATA[$F{invAmountInLocal}]]></variableExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
+	</variable>
+	<variable name="sumOfTotalVat" class="java.math.BigDecimal" resetType="Group" resetGroup="proformaInvoice" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalVAT}]]></variableExpression>
+	</variable>
+	<variable name="totalAmt" class="java.math.BigDecimal" resetType="Group" resetGroup="proformaInvoice">
+		<variableExpression><![CDATA[$V{sumOfTotalVat}.add($V{subTotalInvAmtInLocal})]]></variableExpression>
+	</variable>
+	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{colineId}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="proformaInvoice" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{deliveryNo}+$F{payerNo}+$F{orderCurrency}+$F{paymentTerm}]]></groupExpression>
+		<groupHeader>
+			<band height="208">
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="163" width="56" height="45" forecolor="#FFFFFF" uuid="5b9221a3-5ca2-4207-9765-1673e37f1f24"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.lineno.title")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="56" y="163" width="135" height="45" forecolor="#FFFFFF" uuid="15ca9077-c057-4bed-a581-163e65a51a41"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.itemno.title")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="191" y="163" width="145" height="45" forecolor="#FFFFFF" uuid="9bfbfe35-c07e-4939-9b3b-0675c04a3eee"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.itemdesc.title")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="336" y="163" width="246" height="45" forecolor="#FFFFFF" uuid="b99b917f-c458-4009-a37a-5eec6d4abd37"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.ordernoandline.title")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="582" y="163" width="70" height="45" forecolor="#FFFFFF" uuid="8bb4a6f3-fd3b-436b-8c34-2219e7edd364"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.invqty.title")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="652" y="163" width="66" height="45" forecolor="#FFFFFF" uuid="1a05ece4-9938-4635-9f7c-83d27b6f94ce"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.invamt.title").concat("(").concat($F{orderCurrency}).concat(")")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="582" y="20" width="227" height="20" uuid="e7ae43ca-c533-4f41-8a15-12c07a0db8a1"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerNo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="582" y="60" width="228" height="20" uuid="09b144f6-aeb7-41c1-ba2f-e81e4b56d190"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerDelAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="582" y="80" width="228" height="20" uuid="2d054216-3feb-45e7-b935-e8312026a4d5"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{country} + ", " + $F{postCode}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="582" y="0" width="227" height="20" uuid="cae04a46-40a6-4289-8a35-f4dae6c5796d"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.shipto.title").concat(":")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="208" height="20" uuid="0c5be9b4-9423-42e0-8752-0a2c1816b28e"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.soldto.title").concat(" : ")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="20" width="208" height="20" uuid="0ddccb7b-de4c-44c7-a077-335146b6afe7"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerNo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="102" width="46" height="20" uuid="69bdd1af-df4b-4ccf-b2be-c7313249d4aa"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice..title").concat(" : ")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="46" y="101" width="162" height="20" uuid="7d840d7a-0054-4fb8-a479-51a20f203f30"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{attention}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="582" y="40" width="228" height="20" uuid="f7e9675b-43df-4d63-83b1-709723a2853b"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="718" y="163" width="91" height="45" forecolor="#FFFFFF" uuid="8bad4454-6c64-4b00-98fe-652a85531c77"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.invamt.title").concat("(").concat($F{localCurrency}).concat(")")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="41" width="208" height="20" uuid="6f10994e-633a-4a2c-a6b9-f0dc18224483"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="61" width="208" height="20" uuid="dc9cd86a-0378-4195-b558-13583a4aa6db"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customerInvoiceAddress}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="81" width="208" height="20" uuid="727c2dd7-7ab5-4f9c-8425-7eb170b1a0d2"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{country} + ", " + $F{postCode}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="170">
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="614" y="30" width="104" height="20" uuid="a6ee8a1a-359d-4e97-a93d-3028d72aa1c1"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.totalvat.title").concat(":")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="614" y="50" width="104" height="20" uuid="e355422c-985c-43ba-ac64-8fd8b871e7c9"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.totalamt.title").concat(":")]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" pattern="#,##0.00;-#,##0.00">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="718" y="30" width="91" height="20" uuid="ba620272-f29e-4449-b55a-39c83b71e4e5"/>
+					<box bottomPadding="2" rightPadding="5"/>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sumOfTotalVat}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" pattern="#,##0.00;-#,##0.00">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="718" y="50" width="91" height="20" uuid="1d41ce5e-8a86-4323-aa38-1b7a04171c79"/>
+					<box bottomPadding="2" rightPadding="5"/>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalAmt}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="75" width="563" height="25" uuid="bedbd832-4e6c-4d81-a7ca-cea6ff21da3a"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="11" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<p><b>".concat($P{bundle}.getString("report.proformainvoice.remarks.title")).concat("</b>").concat("</p>")]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement x="0" y="100" width="563" height="66" uuid="56bbeb59-1ef7-4a47-b8a2-4602e79d21cf"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+					<textElement markup="html">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="list_header" mode="Opaque" x="0" y="0" width="652" height="20" backcolor="#CCCCCC" uuid="81da37ef-08a2-4f4a-b007-261467b3d57c"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.sum.title")]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement mode="Opaque" x="718" y="0" width="91" height="20" backcolor="#CCCCCC" uuid="5cf4f2c9-4c53-4176-9e94-09d48afdefb5"/>
+					<box bottomPadding="2" rightPadding="5">
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{subTotalInvAmtInLocal}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="652" y="0" width="66" height="20" backcolor="#CCCCCC" uuid="2e5c81d8-6754-4068-90dd-1fa2d3dc5a7c"/>
+					<box bottomPadding="2" rightPadding="5">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{subTotalInvAmt}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="20" y="50" width="291" height="1" uuid="b1d2e3e2-2274-4b0b-9b21-155a92108126"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="238" height="48" uuid="4d3a37ab-6eb8-4c50-8037-3172ebd7ec5a"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="582" y="0" width="206" height="30" uuid="be8c7421-f77b-4b8e-bbae-d06bdf01386d"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Left">
+					<font size="20" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bundle}.getString("report.proformainvoice.title")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="56" y="0" width="135" height="20" uuid="329fba05-6beb-42ee-9708-3d27380b3ab4"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemNo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="56" y="20" width="135" height="20" uuid="796ab816-8cb7-4c07-b0a7-477bb5cf1343"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="191" y="0" width="145" height="20" uuid="330726c7-ed0a-48c0-a3a8-ca66413d8713"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="191" y="20" width="145" height="20" uuid="c983f564-c549-4b94-8a05-145a0d970897"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.valueOf($F{discountRate}.setScale(2, RoundingMode.HALF_UP)).concat(" %")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="336" y="0" width="246" height="20" uuid="3c5dc16b-672f-46f7-931a-7471bff13847"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderNo}.concat(" / ").concat($F{orderLine})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="336" y="20" width="246" height="20" uuid="0652cc91-4913-4119-a291-561c8bbea2d8"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discountAmt}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="582" y="0" width="70" height="20" uuid="dc60d4e7-afb0-4436-8c0e-b546530cfa8c"/>
+				<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.valueOf($F{invoicedQty}.setScale(0, RoundingMode.HALF_UP)).concat(" ").concat($F{unit})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="582" y="20" width="70" height="20" uuid="4b29a3e4-ba42-404d-918e-51f20fb84447"/>
+				<box bottomPadding="2" rightPadding="5"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{charge}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="FixRelativeToBottom" mode="Opaque" x="652" y="0" width="66" height="40" uuid="87a36d94-7767-45ee-bd73-a2fc72721892"/>
+				<box bottomPadding="2" rightPadding="5"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invAmount}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="FixRelativeToBottom" mode="Opaque" x="718" y="0" width="91" height="40" uuid="03f0a419-d0ab-4bda-b433-9020520f4605"/>
+				<box bottomPadding="2" rightPadding="5">
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invAmountInLocal}.setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="list_item_bg" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="56" height="40" uuid="d7e5737b-9279-4437-9362-0969399930a5"/>
+				<box topPadding="10" leftPadding="4" bottomPadding="2" rightPadding="2">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="427" height="20" uuid="4b4f4fc8-c36c-467d-877e-5b2f530d809b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="427" y="0" width="383" height="20" uuid="509f3780-16d4-44ab-8831-df1b6cf64f96"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="232">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="140" width="563" height="25" uuid="29fe5cbb-2133-4ba3-b02a-adb53fecf218"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<p><b>".concat($P{bundle}.getString("report.proformainvoice.remarks.title")).concat("</b>").concat("</p>")]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="165" width="563" height="66" uuid="1911cc39-68ac-4f70-aa19-1392f570b24f"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement markup="html">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="68" width="114" height="20" uuid="0723e0ec-99a8-4fc6-93f4-2dcaea4d2955"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement markup="html">
+					<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bundle}.getString("report.print.user.title")]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="88" width="114" height="20" uuid="ec539fb4-57b7-4efd-9d7f-f23106f07380"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement markup="html">
+					<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bundle}.getString("report.print.datetime.title")]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="115" width="114" height="20" uuid="db7955d3-7287-49cc-9685-ff6b45715c9b"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement markup="html">
+					<font size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bundle}.getString("report.salesorder.sono.title")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="115" width="449" height="20" uuid="e17b0163-b1a1-4a11-b42f-cb5e3e294bc2"/>
+				<textElement textAlignment="Left" markup="html"/>
+				<textFieldExpression><![CDATA["<u>".concat($P{inputSONoFrom}).concat("</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>").concat($P{inputSONoTo}).concat("</u>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="68" width="449" height="20" uuid="8e5a5b22-1c69-4c8a-8e84-5b80df4ac9f0"/>
+				<textFieldExpression><![CDATA[$P{userid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="88" width="449" height="20" uuid="98dd4e2d-08fb-495c-86ce-7125d4a1a5c5"/>
+				<textFieldExpression><![CDATA[$F{printDate} != null ? new SimpleDateFormat($P{dateFormat} + " hh:mm:ss").format($F{printDate}) : ""]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="20" width="563" height="27" uuid="3dd42197-890b-427e-837c-03dace9d9bbf"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+				<textElement markup="html">
+					<font size="16" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bundle}.getString("report.print.selection.title")]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

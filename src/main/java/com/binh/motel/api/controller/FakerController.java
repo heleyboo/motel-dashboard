@@ -3,6 +3,7 @@ package com.binh.motel.api.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -22,15 +23,24 @@ import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.Comment;
 import com.binh.motel.entity.District;
+import com.binh.motel.entity.Message;
+import com.binh.motel.entity.MessageLine;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Province;
+import com.binh.motel.entity.Role;
 import com.binh.motel.entity.RoomImage;
+import com.binh.motel.entity.User;
 import com.binh.motel.entity.Ward;
+import com.binh.motel.enums.RoleEnum;
 import com.binh.motel.enums.RoomDirection;
 import com.binh.motel.repository.CategoryRepository;
 import com.binh.motel.repository.CommentRepository;
+import com.binh.motel.repository.MessageLineRepository;
+import com.binh.motel.repository.MessageRepository;
 import com.binh.motel.repository.MotelRoomRepository;
+import com.binh.motel.repository.RoleRepository;
 import com.binh.motel.repository.RoomImageRepository;
+import com.binh.motel.repository.UserRepository;
 import com.binh.motel.repository.WardRepository;
 import com.binh.motel.service.AuthenticationService;
 import com.binh.motel.service.DistrictService;
@@ -192,6 +202,57 @@ public class FakerController {
 			
 		}
 		roomRepo.saveAll(allRooms);
+		return "redirect:/";
+	}
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private RoleRepository roleRepo;
+	
+	@Autowired
+	private MessageRepository messageRepo;
+	
+	@Autowired
+	private MessageLineRepository msgLineRepo;
+	
+	@GetMapping("/messages")
+	public String fakeMessages() {
+		List<MotelRoom> allRooms = roomRepo.findAll();
+		Role userRole = roleRepo.findByRole(RoleEnum.ROLE_USER.toString());
+		List<User> allUsers = userRepo.findByRoles(userRole);
+		Faker faker = new Faker(new Locale("vi-VN"));
+		
+		int idxUser = faker.random().nextInt(1, allUsers.size() - 1);
+		
+		for (int i=0; i<10; i++) {
+			
+			MotelRoom room = allRooms.get(i);
+			User hostuser = allUsers.get(1);
+			User clientUser = allUsers.get(idxUser);
+			String uuidStr = room.getTitle() + hostuser.getUserName() + clientUser.getUserName();
+			String uuid = Base64.getEncoder().encodeToString(uuidStr.getBytes());
+			Message message = messageRepo.findByUuid(uuid).orElse(new Message());
+			message.setMotelRoom(room);
+			message.setHost(hostuser);
+			message.setClient(clientUser);
+			message.setUuid(uuid);
+			
+			messageRepo.save(message);
+			
+			int numOfMessages = faker.random().nextInt(5, 15);
+			for (int j=0; j<numOfMessages; j++) {
+				MessageLine messageLine = new MessageLine();
+				messageLine.setContent(faker.address().firstName());
+				messageLine.setCreatedDate(faker.date().past(3, TimeUnit.HOURS));
+				messageLine.setMessage(message);
+				msgLineRepo.save(messageLine);
+			}
+			
+		}
+		
+		
 		return "redirect:/";
 	}
 

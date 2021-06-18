@@ -1,7 +1,7 @@
 package com.binh.motel.repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -25,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecifi
     Optional<User> findByUserNameOrEmail(String userName, String email) throws UsernameNotFoundException;
     public boolean existsByEmail(String email);
     public boolean existsByUserName(String userName);
+    public List<User> findByRoles(Role role);
 }
