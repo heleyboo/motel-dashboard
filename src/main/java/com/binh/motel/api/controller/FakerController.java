@@ -246,6 +246,11 @@ public class FakerController {
 				MessageLine messageLine = new MessageLine();
 				messageLine.setContent(faker.address().firstName());
 				messageLine.setCreatedDate(faker.date().past(3, TimeUnit.HOURS));
+				if (j%2==0) {
+					messageLine.setUser(clientUser);
+				} else {
+					messageLine.setUser(hostuser);
+				}
 				messageLine.setMessage(message);
 				msgLineRepo.save(messageLine);
 			}

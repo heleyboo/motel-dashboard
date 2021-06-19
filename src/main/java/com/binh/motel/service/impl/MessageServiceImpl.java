@@ -11,6 +11,8 @@ import com.binh.motel.repository.MessageRepository;
 import com.binh.motel.service.AuthenticationService;
 import com.binh.motel.service.MessageService;
 
+import javassist.NotFoundException;
+
 @Service
 public class MessageServiceImpl implements MessageService {
 	
@@ -24,6 +26,11 @@ public class MessageServiceImpl implements MessageService {
 	public List<Message> getMessagesByCurrentUser() {
 		User user = authService.currentUser();
 		return msgRepo.findByHostOrClient(user, user);
+	}
+
+	@Override
+	public Message getMessageByUuid(String uuid) throws NotFoundException {
+		return msgRepo.findByUuid(uuid).orElseThrow(() -> new NotFoundException("Message not found: " + uuid));
 	}
 
 }

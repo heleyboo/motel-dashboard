@@ -2,6 +2,7 @@ package com.binh.motel.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,6 +37,10 @@ public class MessageLine {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "message_id", nullable = false)
 	private Message message;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+	private User user;
 
 	@Column(name = "created_date", nullable = false)
 	private Date createdDate;

@@ -50,5 +50,5 @@ public class Message {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<MessageLine> messages;
+    private Set<MessageLine> messageLines;
 }
