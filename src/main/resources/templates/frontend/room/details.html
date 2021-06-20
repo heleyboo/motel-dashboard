@@ -220,7 +220,7 @@
 					<div class="card-header">
 						<h1 class="card-title">Thông tin người đăng</h1>
 					</div>
-					<div class="card-body" style="background: green; color: white">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-2 user-block">
 								<img class="img-circle img-bordered-sm"
@@ -233,14 +233,13 @@
 							</div>
 							
 							<div class="col-md-12">
-								<br>
-								<div style="background: green; text-align: center;">
-									<span style="color: white; font-size: 20px">Số điện
-										thoại: </span> <img class="image float-left" alt=""
-										src="https://static.chotot.com.vn/storage/chotot-icons/svg/white-phone.svg">
-									<span th:text="${room.createdBy.phoneNumber}"
-										style="color: white; font-size: 20px"></span>
-								</div>
+								<br/>
+								<a class="btn btn-block btn-outline-success btn-lg" th:href="${'tel:' + room.createdBy.phoneNumber}">Gọi điện
+									<span th:text="${room.createdBy.phoneNumber}"></span>
+								</a>
+								<a th:if="${null != messageId}" th:href="@{/messages/{roomId}/{id}(id=${messageId}, roomId=${room.id})}"
+									class="btn btn-block btn-success btn-lg">Chat
+								</a>
 							</div>
 						</div>
 					</div>

@@ -34,11 +34,11 @@ public class MessageLine {
 	@Column(name = "content", nullable = false)
 	private String content;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "message_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "message_id", referencedColumnName = "id", nullable = false)
 	private Message message;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
 	private User user;
 

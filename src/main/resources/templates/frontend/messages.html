@@ -24,12 +24,12 @@
 												th:src="@{/dist/img/user1-128x128.jpg}" alt="User Avatar">
 
 												<div class="">
-													<a th:href="@{/messages/{uuid}(uuid=${message.uuid})}">
+													<a th:href="@{/messages/{roomId}/{uuid}(uuid=${message.uuid}, roomId=${message.motelRoom.id})}">
 
 														<span class="" th:text="${message.motelRoom.title}">
 															<small class="contacts-list-date float-right">2/28/2015</small>
-													</span> <span class="contacts-list-msg">How have you been?
-															I was... </span>
+													</span> 
+													<span class="contacts-list-msg" th:if="${message.messageLines.size() > 0}"></span>
 													</a>
 												</div> <!-- /.contacts-list-info -->
 										</a></li>
