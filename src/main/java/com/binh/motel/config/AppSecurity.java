@@ -40,6 +40,7 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 //		http.authorizeRequests().antMatchers("/**").permitAll();
 		http.authorizeRequests()
 				.antMatchers("/login").permitAll()
+				.antMatchers("/chat").permitAll()
 				.antMatchers("/setup").permitAll()
 				.antMatchers("/lib/bootstrap/**", "/css/**", "/img/**", "/js/**").permitAll()
 				.antMatchers("/registration").permitAll()

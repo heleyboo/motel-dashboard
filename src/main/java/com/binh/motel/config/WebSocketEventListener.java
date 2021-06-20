@@ -1,4 +1,4 @@
-package com.binh.motel.controller.frontend;
+package com.binh.motel.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import com.binh.motel.entity.Message;
+import com.binh.motel.entity.ChatMessage;
 
 @Component
-public class FrontWebSocketEventListenerController {
-	private static final Logger logger = LoggerFactory.getLogger(FrontWebSocketEventListenerController.class);
+public class WebSocketEventListener {
+
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -32,11 +33,11 @@ public class FrontWebSocketEventListenerController {
         if(username != null) {
             logger.info("User Disconnected : " + username);
 
-            Message messages = new Message();
-            messages.setType(Message.MessageType.LEAVE);
-            messages.setSender(username);
+            ChatMessage chatMessage = new ChatMessage();
+            chatMessage.setType(ChatMessage.MessageType.LEAVE);
+            chatMessage.setSender(username);
 
-            messagingTemplate.convertAndSend("/topic/public", messages);
+            messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
 }
