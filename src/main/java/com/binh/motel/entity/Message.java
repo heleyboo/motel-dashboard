@@ -1,6 +1,8 @@
 package com.binh.motel.entity;
 
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,4 +53,8 @@ public class Message {
 	@JsonIgnore
 	@OneToMany(mappedBy = "message", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<MessageLine> messageLines;
+	
+	public TreeSet<MessageLine> sortedMessages() {
+		return new TreeSet<MessageLine>(messageLines);
+	}
 }

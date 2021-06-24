@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "message_lines")
-public class MessageLine {
+public class MessageLine implements Comparable<MessageLine> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -47,5 +47,10 @@ public class MessageLine {
 
 	@Column(name = "last_modified_date")
 	private Date lastModifiedDate;
+
+	@Override
+	public int compareTo(MessageLine o) {
+		return getCreatedDate().compareTo(o.getCreatedDate());
+	}
 
 }

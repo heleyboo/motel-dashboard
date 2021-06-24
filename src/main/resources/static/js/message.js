@@ -105,10 +105,10 @@ function onMessageReceived(payload) {
 			msgElement = `
 	        <div class="direct-chat-msg right">
 	            <div class="direct-chat-infos clearfix">
-	                <span class="direct-chat-name float-right">${message.sender}</span> <span class="direct-chat-timestamp float-left">19-06-2021 09:21</span>
+	                <span class="direct-chat-name float-right">${message.sender}</span> <span class="direct-chat-timestamp float-right">19-06-2021 09:21</span>
 	            </div>
 	            <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
-	            <div class="direct-chat-text">${message.content}</div>
+	            <div class="direct-chat-text chat-text-right">${message.content}</div>
 	        </div>
 	        
 	        `;

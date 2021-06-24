@@ -1,3 +1,16 @@
+
+.direct-chat-messages {
+	min-height: 700px !important;
+}
+
+.direct-chat-text {
+	width: 30%;
+}
+
+.chat-text-right {
+	float:right
+}
+
 .box {
   transition: box-shadow .3s;
   background: #fff;

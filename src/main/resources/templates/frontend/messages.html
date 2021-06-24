@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/frontend}">
 <head>
-<title>Trang cá nhân</title>
+<title>Chat</title>
 <th:block layout:fragment="styles">
 	<link rel="stylesheet" th:href="@{/frontend/css/style.css}">
 </th:block>
@@ -12,9 +12,8 @@
 		<div class="content-header">
 			<div class="container" layout:fragment="content">
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<div class="card card-default">
-							<div class="card-header"></div>
 							<div class="card-body">
 								<!-- Contacts are loaded here -->
 								<div class="">
@@ -41,11 +40,11 @@
 							<div class="card-footer"></div>
 						</div>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-8">
 						<div class="card direct-chat direct-chat-primary"
 							th:if="${message != null}">
 							<div class="card-header ui-sortable-handle" style="cursor: move;">
-								<h3 class="card-title">Direct Chat</h3>
+								<h3 class="card-title">Chat trực tiếp với người đăng tin</h3>
 
 								<div class="card-tools">
 									<span title="3 New Messages" class="badge badge-primary">3</span>
@@ -68,7 +67,7 @@
 								<!-- Conversations are loaded here -->
 								<div class="direct-chat-messages" id="messageArea">
 									<!-- Message. Default to the left -->
-									<th:block th:each="messageLine: ${message.messageLines}">
+									<th:block th:each="messageLine: ${message.sortedMessages()}">
 										<div class="direct-chat-msg"
 											th:if="${currentUser.id != messageLine.user.id}">
 											<div class="direct-chat-infos clearfix">
@@ -94,7 +93,7 @@
 											<div class="direct-chat-infos clearfix">
 												<span class="direct-chat-name float-right"
 													th:text="${messageLine.user.userName}"></span> <span
-													class="direct-chat-timestamp float-left"
+													class="direct-chat-timestamp float-right"
 													th:text="${#dates.format(messageLine.createdDate, 'dd-MM-yyyy HH:mm')}"></span>
 											</div>
 											<!-- /.direct-chat-infos -->
@@ -102,7 +101,7 @@
 												th:src="@{/dist/img/user1-128x128.jpg}"
 												alt="message user image">
 											<!-- /.direct-chat-img -->
-											<div class="direct-chat-text"
+											<div class="direct-chat-text chat-text-right"
 												th:text="${messageLine.content}"></div>
 											<!-- /.direct-chat-text -->
 										</div>
@@ -125,7 +124,7 @@
 										<input  type="text" id="message" name="message"
 											placeholder="Type Message ..." class="form-control">
 										<span class="input-group-append">
-											<button type="submit" class="btn btn-primary">Send</button>
+											<button type="submit" class="btn btn-primary">Gửi</button>
 										</span>
 									</div>
 								</form>
