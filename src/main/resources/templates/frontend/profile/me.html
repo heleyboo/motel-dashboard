@@ -114,7 +114,15 @@
 								</div>
 							</div>
 							<div class="card-footer paging-center clearfix">
-								<a th:href="@{/search}" class="more-rooms">Xem thêm</a>
+								<ul th:if="${paged.pageData.totalPages > 1}"
+									class="pagination m-0 float-right">
+									<li th:each="page : ${paged.getPages()}"
+										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
+										<a
+										th:href="@{/profile/me(pageSize=${filter.pageSize}, pageNum=${page.key}, search=${filter.search})}"
+										th:text=${page.key} th:class="page-link"> </a>
+									</li>
+								</ul>
 							</div>
 						</div>
 						<!-- /.card -->

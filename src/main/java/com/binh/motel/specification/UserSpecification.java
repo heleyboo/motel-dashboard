@@ -24,6 +24,10 @@ public final class UserSpecification {
 		return (root, query, criteriaBuilder) 
 				-> criteriaBuilder.equal(root.get("active"), status);
 	}
+	public static Specification<User> isDeleted(boolean status) {
+		return (root, query, criteriaBuilder) 
+				-> criteriaBuilder.equal(root.get("deleted"), status);
+	}
 	
 	public static Specification<User> propertyLike(String property, String value) {
 		return (root, query, criteriaBuilder) 

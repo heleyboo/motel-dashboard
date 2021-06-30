@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.binh.motel.dto.CategoryDto;
+import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.UserDto;
+import com.binh.motel.dto.UserFilter;
+import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Category;
+import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.User;
 import com.binh.motel.service.UserService;
 import com.binh.motel.entity.Role;
@@ -34,23 +39,23 @@ public class UserController {
 	public UserService userService;
 	
 	@GetMapping(value = "/create")
-	public String showForm(Model model) {
+	public String showForm(Model model , @ModelAttribute("filter") UserFilter filter) {
 		UserDto userDto = new UserDto();
-		List<User> users = userService.getAll();
+		PageResponse<User> paged = userService.searchUsers(filter);
 		List<Role> roles = userService.getRoles();
-		model.addAttribute("users", users);
+		model.addAttribute("paged", paged);
 		model.addAttribute("userDto", userDto);
 		model.addAttribute("roles", roles);
 		return "admin/user/edit";
 	}
 
 	@PostMapping(value = "/create")
-	public String createUser(@Valid UserDto userDto, BindingResult bindingResult, Model model)
+	public String createUser(@Valid UserDto userDto, BindingResult bindingResult, Model model , @ModelAttribute("filter") UserFilter filter)
 			throws NotFoundException {
 		if (bindingResult.hasErrors()) {
-			List<User> users = userService.getAll();
+			PageResponse<User> paged = userService.searchUsers(filter);
 			List<Role> roles = userService.getRoles();
-			model.addAttribute("users", users);
+			model.addAttribute("paged", paged);
 			model.addAttribute("userDto", userDto);
 			model.addAttribute("roles", roles);
 			return "admin/user/edit";
@@ -61,10 +66,10 @@ public class UserController {
 	
 	
 	@GetMapping("/list")
-	public String listUsers(Model model) {
-		List<User> users = userService.getAll();
+	public String listUsers(Model model , @ModelAttribute("filter") UserFilter filter) {
+		PageResponse<User> paged = userService.searchUsers(filter);
 		List<Role> roles = userService.getRoles();
-		model.addAttribute("users", users);
+		model.addAttribute("paged", paged);
 		model.addAttribute("roles", roles);
 		return "admin/user/list";
 	}
@@ -101,8 +106,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/delete/{id}")
-	public String deleteRoom(@PathVariable("id") int id) throws NotFoundException {
-		userService.deleteUser(id);
+	public String deleteUser(@PathVariable("id") int id) throws NotFoundException {
+		userService.toggleDelete(id, false);
+	    return "redirect:/administrator/user/list";       
+	}
+	
+	@RequestMapping("/restore/{id}")
+	public String restoreUser(@PathVariable("id") int id) throws NotFoundException {
+		userService.toggleDelete(id, true);
 	    return "redirect:/administrator/user/list";       
 	}
 	

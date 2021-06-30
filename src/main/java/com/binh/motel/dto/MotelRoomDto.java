@@ -31,6 +31,7 @@ public class MotelRoomDto {
  	@NotEmpty(message = "Tiêu đề bắt buộc nhập")
 	private String title;
  	
+ 	@NotEmpty(message = "Mô tả bắt buộc nhập")
 	private String description;
 
 	@NotNull(message = "Giá bắt buộc nhập")

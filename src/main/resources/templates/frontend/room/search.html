@@ -39,9 +39,9 @@
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
-												<label for="category">Danh mục</label> <select
+												<label for="category">Loại phòng</label> <select
 													class="form-control select2" th:field="*{category}">
-													<option value="">tất cả</option>
+													<option value="">Tất cả</option>
 													<option th:each="category: ${categorys}"
 														th:value="${category.getCode()}"
 														th:text="${category.getName()}"></option>
@@ -91,7 +91,7 @@
 											<div class="form-group">
 												<label for="doorDirection">Hướng cửa chính</label> <select
 													class="form-control select2" th:field="*{doorDirection}">
-													<option value="">CHọn hướng cửa chính</option>
+													<option value="">Chọn hướng cửa chính</option>
 													<option th:each="direction: ${directions}"
 														th:value="${direction.getCode()}"
 														th:text="${direction.getName()}"></option>
@@ -265,7 +265,7 @@
 												th:text="${room.numOfBedrooms + ' Phòng'}"></span>
 										</span> 
 											<span class="room-price" th:text="${#numbers.formatCurrency(room.price)}"></span><br/>
-											<i class="fas fa-location-arrow"></i>
+											<i class="fas fa-map-marker-alt"></i>
 											<span class="room-provine" th:text="${room.province}"></span><br/>
 											<i class="far fa-clock"></i>
 											<span class="room-date" th:text="${#dates.format(room.createdDate, 'dd-MM-yyyy HH:mm')}"></span>

@@ -46,11 +46,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<th>Email</th>
 											<th>Quyền</th>
 											<th style="width: 100px">Trạng thái</th>
-											<th style="width: 300px">Action</th>
+											<th style="width: 350px">Action</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="user: ${users}">
+										<tr th:each="user: ${paged.pageData.content}">
 											<td th:text="${user.id}"></td>
 											<td th:text="${user.userName}"></td>
 											<td th:text="${user.email}"></td>
@@ -68,11 +68,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													<i class="far fa-edit"></i>
 													<span th:text="#{global.edit}"></span>
 												</a>
-												<a class="btn btn-danger" 
-												th:href="@{/administrator/user/delete/{id}(id=${user.id})}">
-												<i class="fas fa-trash"></i>
-													<span th:text="#{global.delete}"></span>
-												</a>
+												<a th:if="${user.deleted == null || !user.deleted}" class="btn btn-danger"
+												th:href="@{/administrator/user/restore/{userId}(userId=${user.id})}">Xóa</a> 
+													<a th:if="${user.deleted != null && user.deleted}" class="btn btn-success"
+												th:href="@{/administrator/user/delete/{userId}(userId=${user.id})}">Khôi phục</a>
+												
 												<a th:if="${!user.active}" class="btn btn-success"
 												th:href="@{/administrator/user/approve/{userId}(userId=${user.id})}">Phê
 													duyệt</a> 

@@ -62,8 +62,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
+							<h3 class="card-title">Danh sách Bình luận</h3>
 								<ul th:if="${paged.pageData.totalPages > 1}"
-									class="pagination m-0">
+									class="pagination m-0 float-right" >
 									<li th:each="page : ${paged.getPages()}"
 										th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
 										<a
@@ -120,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 								<div class="card-footer">
 									<ul th:if="${paged.pageData.totalPages > 1}"
-										class="pagination m-0">
+										class="pagination m-0 float-right">
 										<li th:each="page : ${paged.getPages()}"
 											th:class="${#strings.equals(filter.pageNum, #strings.toString(page.key))}? 'page-item active' : 'page-item'">
 											<a
