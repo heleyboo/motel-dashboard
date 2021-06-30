@@ -54,6 +54,9 @@ public class User {
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	
+	@Column(name ="deleted", columnDefinition = "boolean default false")
+	private Boolean deleted;
+	
 	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

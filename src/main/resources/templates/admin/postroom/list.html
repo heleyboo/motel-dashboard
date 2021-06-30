@@ -118,6 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												th:href="@{/administrator/room/restore/{motelRoomId}(motelRoomId=${motelRoom.id})}">Xóa</a> 
 													<a th:if="${motelRoom.deleted != null && motelRoom.deleted}" class="btn btn-success"
 												th:href="@{/administrator/room/delete/{motelRoomId}(motelRoomId=${motelRoom.id})}">Khôi phục</a>
+												<a th:href="@{/dang-tin}" class="btn btn-info"><i class="fas fa-plus"></i> Add</a>
 													
 											</td>
 										</tr>

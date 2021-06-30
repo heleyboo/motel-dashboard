@@ -23,11 +23,15 @@ import com.binh.motel.dto.UserFilter;
 import com.binh.motel.dto.response.PageResponse;
 import com.binh.motel.entity.Category;
 import com.binh.motel.entity.Comment;
+import com.binh.motel.entity.Message;
+import com.binh.motel.entity.MessageLine;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Role;
 import com.binh.motel.entity.RoomImage;
 import com.binh.motel.entity.User;
 import com.binh.motel.repository.CommentRepository;
+import com.binh.motel.repository.MessageLineRepository;
+import com.binh.motel.repository.MessageRepository;
 import com.binh.motel.repository.MotelRoomRepository;
 import com.binh.motel.repository.RoleRepository;
 import com.binh.motel.repository.RoomImageRepository;
@@ -59,6 +63,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RoomImageRepository roomImageRepo;
+	
+	@Autowired
+	private MessageRepository messageRepo;
+	
+	@Autowired
+	private MessageLineRepository messageLineRepo;
 
 	public User findUserByEmail(String email) throws NotFoundException {
 		return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(""));
@@ -79,10 +89,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> searchUsers(UserFilter userFilter) {
-		Pageable page = FilterPageRequest.of(userFilter);
+	public PageResponse<User> searchUsers(UserFilter userFilter) {
+		Pageable pageAble = FilterPageRequest.of(userFilter);
 		Specification<User> spec = userFilter.buildSpec();
-		return userRepository.findAll(spec, page);
+		Page<User> paged = userRepository.findAll(spec, pageAble);
+		return new PageResponse<User>(paged, userFilter);
 	}
 
 	public void updatePassword(String password, int userId) {
@@ -99,24 +110,41 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(int id) throws NotFoundException {
 		return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User notfound"));
 	}
+	
+	@Override
+	public Message getMessageById(int id) throws NotFoundException {
+		return messageRepo.findById(id).orElseThrow(() -> new NotFoundException("Message notfound"));
+	}
 
 
 	@Override
 	public void deleteUser(int id) throws NotFoundException {
 
 		User user = getUserById(id);
+		Message message = getMessageById(id);
+		Set<MessageLine> messages = message.getMessageLines();
 		List<MotelRoom> motels = user.getMotelRooms();
 		for (MotelRoom room : motels) {
 			List<Comment> comments = room.getComments();
 			commentRepo.deleteAll(comments);
 			List<RoomImage> images = room.getImages();
 			roomImageRepo.deleteAll(images);
-			
+//			deleteMessages(room);
+
 		}
-		
+		messageLineRepo.deleteAll(messages);
+		messageRepo.delete(message);
 		motelRepo.deleteAll(motels);
 		userRepository.delete(user);
+//		messageRepo.deleteAll(motels);
 	}
+	
+//	private void deleteMessages(MotelRoom motel) {
+//		Message message = motel.getMessage();
+//		Set<MessageLine> mesLine = message.getMessageLines();
+//		messageLineRepo.deleteAll(mesLine);
+//	}
+
 
 
 	@Override
@@ -168,6 +196,16 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(newUser);
 		
 	}
+	
+
+	@Override
+	public void toggleDelete(int id, boolean status) throws NotFoundException {
+		User user = findById(id);
+		user.setDeleted(status);
+		userRepository.save(user);
+	}
+
+	
 	
 	
 }

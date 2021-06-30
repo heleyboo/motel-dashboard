@@ -31,9 +31,9 @@
 							<div class="row">
 								<div class="col-md-5">
 									<div class="form-group">
-										<label for="category">Danh mục</label> <select
+										<label for="category">Loại phòng</label> <select
 											class="form-control select2" th:field="*{category}">
-											<option value="">Chọn danh mục</option>
+											<option value="">Chọn loại phòng</option>
 											<option th:each="category: ${categorys}"
 												th:value="${category.getCode()}"
 												th:text="${category.getName()}"></option>
@@ -159,7 +159,7 @@
 											class="form-control" type="text" th:field="*{description}"
 											placeholder="Nhập mô tả" /> <span
 											th:if="${#fields.hasErrors('description')}"
-											th:errors="*{description}" id="title-error"
+											th:errors="*{description}" id="description-error"
 											class="error error-field"></span>
 									</div>
 								</div>

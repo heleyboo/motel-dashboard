@@ -9,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.binh.motel.entity.User;
+import com.binh.motel.dto.RoomFilter;
 import com.binh.motel.dto.UserDto;
 import com.binh.motel.dto.UserFilter;
 import com.binh.motel.dto.response.PageResponse;
+import com.binh.motel.entity.Message;
 import com.binh.motel.entity.MotelRoom;
 import com.binh.motel.entity.Role;
 
@@ -28,7 +30,7 @@ public interface UserService {
 
 	public List<Role> getRoles();
 	
-	public Page<User> searchUsers(UserFilter userFilter);
+	public PageResponse<User> searchUsers(UserFilter filter);
 
 	public void toggleStatus(int id, boolean status) throws NotFoundException;
 	
@@ -49,6 +51,10 @@ public interface UserService {
 	public long countUsers();
 
 	public void editUser(int id, @Valid UserDto userDto);
+
+	Message getMessageById(int id) throws NotFoundException;
+
+	void toggleDelete(int id, boolean status) throws NotFoundException;
 	
 	
 
